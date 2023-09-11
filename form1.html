@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8"/>
+        <title>表单一</title>
+        <mata http-equiv="refresh" content="10"/>
+    </head>
+
+
+    <body>
+        <h2>表单学习一/<h2>
+            <form action="/getInfo" method="post" enctype="multipart/form-data">
+                <div class="username">
+                    <label for="">姓名:</label>
+                    <input type="text" name="username" placeholder="用户名"/>
+                </div>
+                <div class="password">
+                    <label for="">密码:</label>
+                    <input type="password" name="password"/>
+                </div>
+                <div class="sex">
+                    <label for="">性别：</label>
+                    <input type="radio" name="sex" value="1"/>男
+                    <input type="radio" name="sex" />女
+                </div>
+                <div class="select">
+                    <label>城市：</label>
+                    <select name="car">
+                        <option value="beijing" selected>北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="cq">重庆</option>
+                    </select>
+                </div>
+                <div class="hobby">
+                    <label for="">擅长技术：</label>
+                    <input type="checkbox" name="hobby" value="html"/>html
+                    <input type="checkbox" name="hobby" value="css"/>css
+                    <input type="checkbox" name="hobby" value="js"/>js
+                </div>
+                <div class="textarea">
+                    <label for="">自我介绍：</label><br />
+                    <textarea name="article" placeholder="自我介绍" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="password">
+                    <label>上传简历：</label>
+                    <input type="file" name="file" />
+                </div>
+                <div class="submit">
+                    <button>提交</button>
+                    <!-- <button type="submit">ok</button>button里面一般默认为submit
+                    <button type="reset">reset</button>也可以自己设置成其他功能 -->
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="Submit" />
+                    <input type="reset" name="reset"  value="Reset" />
+                    <input type="button" name="ok" value="OK"  />
+                    <input type="image" name="imagebutton" src="test1/images/pic.jpg"  width="100"/>
+                </div>
+            </form>
+
+
+            <form action="checkbox" method="get" enctype="multipart/form-data">
+                <p>
+                  <input type="checkbox" id="taste_1" name="taste_cherry" value="1" />
+                  <label for="taste_1">I like cherry</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="taste_2" name="taste_banana" value="2" />
+                  <label for="taste_2">I like banana</label>
+                </p>
+            </form>
+
+
+            <form >
+                <p>Required fields are followed by <abbr title="required">*</abbr>.</p>
+
+                <!--这样写：-->
+                    <div>
+                        <label for="username">Name:</label>
+                        <input type="text" name="username" />
+                        <label for="username"><abbr title="required">*</abbr></label>
+                    </div>
+
+                <!--但是这样写会更好：-->
+                    <div>
+                        <label for="username">
+                            <span>Name:</span>
+                            <input id="username" type="text" name="username" />
+                            <abbr title="required">*</abbr>
+                        </label>
+                    </div>
+
+                <!--但最好的可能是这样：-->
+                    <div>
+                        <label for="username">Name: <abbr title="required">*</abbr></label>
+                        <input id="username" type="text" name="username" />
+                    </div>
+            </form>
+
+            <h2>代码作业</h2>
+            <form method="post">
+                <div>
+                    username:<input type="text" name="username" placeholder="用户名"/>
+                </div>
+                <div>
+                    password:<input type="password" name="password" placeholder="密码"/>
+                </div>
+                <div>
+                    sex:<input type="radio" name="sex"/>男 <input type="radio" name="sex"/>女
+                </div>
+                <div>
+                    skill:<input type="checkbox" name="skill" value="HTML">HTML
+                    <input type="checkbox" name="skill" value="CSS">CSS
+                    <input type="checkbox" name="skill" value="JavaScript">JavaScript
+                </div>
+                <div>
+                    city:<select name="city">
+                        <option value="beijing" selected>北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="shenzhen">深圳</option>
+                    </select>
+                </div>
+                <div>
+                    <button>submit</button>
+                    <button type="reset">reset</button>
+                </div>
+            </form>
+
+
+            
+    </body>
+</html>
