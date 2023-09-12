@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <mate charset="utf-8"/>
+        <mate keywords="ifame\frame"/>
+        <mate http-equiv="refresh" content="300"/>
+        <title>iframe-fresh</title>
+        <style>
+            body{
+              margin: 0
+            }
+            *{
+              box-sizing: border-box
+            }
+            .left {
+              float: left;
+              width: 100px;
+            }
+            .left a{
+              display: block
+            }
+            .right {
+              float: left;
+              width: calc(100% - 102px);
+              height: 100vh
+            }
+          </style>
+    </head>
+ 
+    <body>
+        <div class="left">
+            <ul>
+                <li><a href="./form1.html" target="iframe1">form1</a></li>
+                <li><a href="http://www.sina.com.cn" target="iframe1">新浪</a></li>
+                <li><a href="./form2.html" target="iframe1">form2</a></li>
+                <li><a href="./iframe.html" target="iframe1">iframe</a></li>
+                <li><a href="./test1/test.html" target="iframe1">test</a></li>
+            </ul>
+        </div>
+        <iframe name="iframe1" src="https://cn.bing.com" class="right"></iframe>
+      </body>
+
+</html>
