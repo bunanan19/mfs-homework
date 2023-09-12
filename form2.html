@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta keyword="form"/>
+        <title>form study</title>
+        <meta http-equiv="refresh" content="30"/>
+    </head>
+    <body>
+        <h2>form 2 study</h2>
+        <h3>代码题1——包含所有type的input表单</h3>
+        <form method="post">
+            <div>
+                emil:<input type="email" required autofocus placeholder="请输入你的邮箱"/>
+            </div>
+            <div>
+                请选择你的学历：<input list="Grade">
+                <datalist id="Grade">
+                    <option value="小学"></option>
+                    <option label="初等" value="初中" ></option>
+                    <option label="高等" value="大学" ></option>
+                </datalist> 
+            </div><br />
+            <div>
+                请选择颜色：<input type="color"/><br /><br />
+                请输入url: <input type="url" placeholder="注意url格式" required/><br /><br />
+                请输入号码：<input type="number" min="0" max="99" step="2" />
+                <button>提交</button><br /><br />
+                音量：<input type="range" max="50" min="0" in-range/><br />
+                <input type="submit"/><br />
+                入党时间：<input type="datetime-local"/><br/>
+                考试时间: <input type="week"/> <input type="time"/><input type="reset"/><br/>
+                搜索：<input type="search" placeholder="请输入"/><input type="submit"/><br/>
+            </div>
+        </form>
+
+        <h3>TEST</h3>
+
+        <form method="get">
+            <div>
+                <label>email</label>
+                <input type="email" required/>
+                <input type="button" value="确认"/>
+            </div>
+            <div>
+                <label>请输入你的数字</label>
+                <input type="number" min="0" max="100" step="2"  />
+                <input type="submit" value="保存"/>
+            </div>
+            <div>
+                <label>选择你的地点</label>
+                <input list="city">
+                <datalist id="city">
+                    <option value="北京"></option>
+                    <option value="上海"></option>
+                    <option value="广州"></option>
+                    <option value="深圳"></option>
+                </datalist>
+                <input type="reset"/>
+            </div>
+        </form>
+    </body>
+
+</html>
