@@ -101,6 +101,8 @@ iframe 可以通过配合 `<a>` 标签的 target 属性实现动态切换 iframe
 </html>
 ```
 
+<a>标签没有name属性，是target属性
+
 ## frameset
 
 frameset 也可以实现嵌入其他网页。但是由于布局不够灵活，**很少**使用
@@ -199,6 +201,7 @@ frame 和 iframe 看似只有一个字母只差，实则差别很大：
 4. 如何使用 `<a>` 标签控制 `iframe` 中显示的内容？
 
    <body>
+
      <div class="left">
        <a href="http://www.baidu.com" target="iframe1">百度</a>
        <a href="http://www.sina.com.cn" target="iframe1">新浪</a>
