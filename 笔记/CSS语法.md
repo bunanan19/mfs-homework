@@ -111,6 +111,8 @@ transform:rotate(-3deg);/*transform：是转换，带有3度负旋转的CSS样�
 
 2. 盒尺寸缩写：Property: Value1 Value2 Value3 Value4；四个值依次表示Top，Right，Bottom，Left
 
+   <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915122723501.png" alt="image-20230915122723501" style="zoom: 200%;" />
+
 3. 边框缩写 边框的属性如下：
 
    ```css
