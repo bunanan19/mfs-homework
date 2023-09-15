@@ -47,6 +47,8 @@ p {
 | E~F    | div~p          | 普通相邻选择器（弟弟选择器），匹配E元素之后的同级元素F（无论直接相邻与否），例子中的含义为匹配紧`<div>` 之后的所有 `<p>` 元素 |
 | EF     | .class1.class2 | EF 连写，匹配同时满足 E 和 F 的元素，例子中的含义为匹配 `class` 中同时有 `class1` 和 `class2` 的元素 |
 
+**?**最后一个例子连写：下面这个为例，只有写p.class1,p2才会变红。写div.class1不会变红。![image-20230915152404665](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915152404665.png)
+
 ## 属性选择器
 
 > 以下 E 为**合法**的选择器，attr 为**合法**属性
@@ -128,7 +130,7 @@ CSS 优先级**从高到低分别是**
 5. 伪类选择器
 6. 属性选择器
 7. 标签选择器
-8. 通配符选择器
+8. 通配符选择器：*
 9. 浏览器自定义
 
 这样就可以看出来上面例子肯定使用id选择器的定义了。
@@ -215,15 +217,41 @@ div {color: #666;}
 
 1. 有哪几种选择器？请举出每种选择器中你认为最典型的使用例子
 
+   + 基础选择器：*、#id(.id1)、.class（.class1）、element（p）
+   + 组合选择器：A,B(p,div)、A B(div p)、A>B(div>b)、A+B(div+p)、A~B(dav~p)、 AB（div.class1）
+   + 属性选择器：[disabled]\[value=aaa]
+   + 伪类选择器：input：disabled、a:link、a：visited、p：hover、input：activ等等
+   + 伪元素选择器：p:before、p:after
+
 2. `.cls1` 可以选择 `<div class="cls1 cls2"></div>`吗？为什么？
+
+   可以，```.cls1```匹配class**包含**(不是等于)`.cls1`元素
 
 3. CSS 优先级从高到底是什么样的？请给出的代码证明
 
+   内联样式优先级最高
+
+   ![image-20230915172440298](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915172440298.png)
+
+   ![image-20230915172421925](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915172421925.png)
+
+   但是若属性后面加了！important，会覆盖任何位置的样式![image-20230915172839502](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915172839502.png)![image-20230915172800005](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915172800005.png)
+
+   id选择器的优先级低于前两个，但是高于类选择器和属性选择器和标签选择器：
+
+   ![image-20230915173203931](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915173203931.png)![image-20230915173238399](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915173238399.png)
+
+   类选择器优先级高于属性选择器：
+
+   ![image-20230915173349403](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915173349403.png)![image-20230915173406193](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915173406193.png)
+
+   
+
 4. CSS 选择器特殊度是如何计算的？以下特殊度各是什么？
 
-   - `#wrapper #content`
-   - `#content .datePosted`
-   - `div#content`
+   - `#wrapper #content`：0200
+   - `#content .datePosted`0110
+   - `div#content`0101
 
 5. 如果计算出的特殊度完全一致，谁的优先级高那？对于以下 HTML 结构
 
@@ -252,3 +280,7 @@ div {color: #666;}
    p {color: yellow}
    p {color: green}
    ```
+
+> 上例中两个选择器的特殊度都为0111，但是最终应用的是下面一个选择器的样式，p最终显示颜色为蓝色，因为第一条规则作用在了父元素上，第二条规则直接作用在了`p`标签本身上，所以我们认为第二条选择器的优先级高。
+>
+> 下面的覆盖前面的。

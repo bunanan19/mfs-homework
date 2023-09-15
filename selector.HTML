@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS-selector</title>
+    <style>
+        /*{
+            margin: 20px;
+        }
+        #id1 {
+            color: red;
+        }
+        .class1 {
+            color: blue;
+        }
+        .class2 {
+            border: 2px solid red;
+        }
+        p {
+            color: gray;
+        }
+        优先级：标签选择器优先级低于id选择器和类选择器 */
+
+        /* div,p {
+            border: 2px solid red;
+        } 用逗号隔开，div和p标签都应用该样式，多元素选择器 */
+
+        /* div p {
+            border: 2px solid red;
+        } 用空格隔开，该样式作用于div中的p标签 */
+
+        /* div>p {
+            color: red;
+        } 用>连接，该样式作用于div的直接子元素，并且是p元素 */
+
+        /*#id1+p {
+            color: aqua;
+            border: 2px solid red;
+        } 用+连接，该样式作用于id=id1元素后紧挨着的p元素,若后面紧挨着的不是p标签，该样式无效 */
+
+        /* #id1~p {
+            color: yellowgreen;
+            font-size: 20px;
+        } 用~连接，该样式作用于id=id1后面的所有同级的p标签，不管是否紧挨着 */
+
+        /* p.class1 {
+            color: red;
+        } 连写，该样式作用于同时满足p标签且标签里面class=class1的元素 */
+
+        /* [disabled] {
+            border: 1px solid red;
+        }   
+         "[]",该标签作用于具有disabled属性的元素  */
+
+        /* input[disabled] {
+            border: 1px solid red;
+        }  连写选择器，选择input标签中具有disabled属性的元素  */
+
+        /* [class~=123] {
+            border: 1px solid red;
+        } */
+        
+        p.class2:hover {
+            color:blue;
+        } /*当鼠标移p2上面时，p2变成蓝色*/
+
+        a:link {
+            color: aquamarine;
+        }
+        a:visited {
+            color:gray;
+        } /*点击过的显示为灰色，未点击过的为青色*/
+
+        a:active {
+            color: blue;
+        }/*点击选中的时候，颜色为蓝色*/
+        input:focus {
+            border: 1px solid red;
+            outline: none;
+        }/*获得当前焦点的元素边框为红色*/
+        input:disabled {
+            background-color: azure;
+        }/*有disabl元素的input元素背景为azure*/
+
+        input:checked {
+            border: 1px solid red;
+        }/*浏览器默认的设置挡住了效果，要使用该功能需要使用div*/
+
+        p:nth-child(4) {
+            color: red;
+        }/*该样式作用于满足p标签是其父标签的第三个直接子元素的元素，此处p-out和p3变红*/
+
+        p:nth-of-type(4) {
+            color: blue;
+        }/*该样式作用于满足p标签是其父元素直接子元素中p标签的第四个的元素，此处p4变为蓝色*/
+
+        div:first-child {
+            color: green;
+        }/*该样式作用于div元素是其父元素的第一个子元素时的div元素，此处不满从*/
+        p:first-child {
+            color: green;
+        }/*此处p1和first-p变成绿色，因为p1元素是其父元素div的第一个子元素，
+        first-child和nth-chile（1）效果一样*/
+        
+        /* p:before {
+            content: 'a';
+        }
+        p:after {
+            content: 'b';
+        }在所有的p标签前面加了文本a，后面加了文本b */
+
+        /* #id1 {
+            color: blueviolet !important;
+        }加了！important优先级更高 */
+
+        .cls1 {
+            color: red;
+        }
+        /* #id1 {
+            color: blue;
+        } */
+        [class=cls1] {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://www.baidu.com">百度</a>
+    <a href="http:2349hi.com">网易</a>
+    <div>
+        <p id="id1" class="cls1">p1</p>
+
+        <p class="class1 class2">p2</p>
+        <article><h3>title</h3>
+            <section>first-section
+                <p>first-p</p>
+            </section>
+        </article>
+        <p>p3</p>
+        <p>p4</p>
+    </div>
+
+    <p>
+        p-out
+    </p>
+    
+    <div>
+        <ul>
+            <li>li1</li>
+            <li>li2</li>
+            <li>li3</li>
+            <li>li4</li>
+            <li>li5</li>
+        </ul>
+    </div>
+    <input type="text" value="123" disabled/>
+    <input type="text" class="123"/>
+    <input type="text" value="567"/><br/>
+    <input type="radio">girl
+    <input type="checkbox">boy
+</body>
+</html>
