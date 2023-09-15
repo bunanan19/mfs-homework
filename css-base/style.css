@@ -1,0 +1,9 @@
+h2 {
+    color: green;
+    /* border-width: 1px;
+    border-style: solid;/*solid：实心线、dotted：点、dashed：线段（虚线）*/
+    /*border-color: #d47c7c; */
+
+    /*缩写为一句话：*/
+    border: 1px solid #000;
+}

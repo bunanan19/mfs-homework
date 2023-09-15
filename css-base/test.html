@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+
+    <link type="text/css" href="../css-base/style.css" rel="stylesheet"/>
+
+    <style type="text/css">
+        body {
+            font-family: Verdana, sans-serif;
+            color: yellow;
+        }
+
+        h2 {color: brown;}
+
+        h2 {color: blue; font: larger;}
+        /* 在<head>中的样式同一个属性，下面的优先级更高，不同的属性可以前后叠加 */
+
+        div {
+            margin: 10px;/*margin不继承*/
+            font-size: 40px;
+            color: bisque;
+        }
+
+        span {
+            font-size: 30px;
+            color:aquamarine;
+        }
+
+        p {
+            font-family: Times, "Times New Roman", serif;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2 style="color: red;">内联样式表优先级高于外部样式表</h2>
+    <h2>内部样式表</h2>
+    <h2>内部样式表优先级高于外部样式表</h2>
+    <h2>样式表</h2>
+    <h2>样式表</h2>
+    <div>
+        <p>p标签未声明颜色和字号样式</p>
+        <span>样式表</span>
+        <!-- 未给span选择器作声明，但是给span标签的父元素div声明了，所以span元素继承了div的声明 -->
+    </div>
+    <span>默认字体</span>
+    <p>
+        段落单独设定字体
+    </p>
+</body>
+</html>

@@ -99,9 +99,7 @@ scheme://host.domain:port/path/filename
 
    + scheme：https
 
-     主机名：www
-
-     域名：mafengshe.com
+     主机名(域名)：www.mafengshe.com
 
      path:/course/fe-senior
 
