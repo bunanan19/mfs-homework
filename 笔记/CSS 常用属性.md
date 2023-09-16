@@ -141,7 +141,7 @@ font:bold 12px/1.8em Arial;
 
 项目中我们经常使用图标(icon)。传统项目中一般使用图片(img)实现图标；但是这种解决方案并不完美，比如
 
-- 不方便条件大小
+- 不方便调节大小
 - 耗费流量
 - 不同分辨率下需要不同图片
 - 视网膜下不清晰
@@ -418,9 +418,16 @@ border: solid 1px #333;
 
 6. 什么是雪碧图？为什么要使用雪碧图？雪碧图的实现原理是什么？
 
-   
+   + 把一堆图标整合在一张背景透明的大图上，通过设置对应的位置来显示不同的图片
+   + 减少了http请求，多张图片放在了一张图片上，多次请求变成一次请求，提高了网页性能
+   + 雪碧图的实现是通过设置每个元素的`background-position`属性来展现不同位置的图标。其中第一个参数代表x轴控制左右，第二个参数代表y轴控制上下。
 
 7. 现代前端中为什么很少使用雪碧图了？有哪些替代方案？相比之下有何好处？
+
+   + 当图标过多时，雪碧图加载也会变慢。不灵活，雪碧图需要计算每个图片的位置，维护困难。
+   + http2协议将不同的请求整理封装在一块
+   + 使用打包工具将图片加进HTML里面
+   + 使用懒加载
 
    
 
@@ -428,14 +435,83 @@ border: solid 1px #333;
 
 1. 请使用雪碧图实现一个**按钮**，当鼠标 hover 时，切换图片。
 
+   
+
 
 
 1. `font` 属性可以缩写哪些子属性？它们的参数各是什么，有何含义？
+
+   ![image-20230916150348245](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916150348245.png)
+
 2. 如何实现单行文本的垂直居中？
+
+   使用line-height，使line-height=height
+
+   <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916151839783.png" alt="image-20230916151839783" style="zoom:80%;" /><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916151925430.png" alt="image-20230916151925430" style="zoom:80%;" /><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916151945147.png" alt="image-20230916151945147" style="zoom:80%;" />
+
 3. 如何实现文本的水平居中？
+
+   <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916162709258.png" alt="image-20230916162709258" style="zoom:80%;" />
+
+   <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916152211676.png" alt="image-20230916152211676" style="zoom:80%;" />
+
 4. 什么是 iconfont？使用它有什么优势？如何使用 iconfont？
+
+   + IconFont 是**字体图标**，严格地说，是一种字体，通过 CSS 设置样式，可以像设置常规文本一样设置图标。
+   + 使用 IconFont 的优势有：
+     1. 可以方便地将任何 CSS 效果应用于它们。
+     2. 它们是矢量图形，所以是可伸缩的。
+     3. 只需要发送一个或少量 HTTP 请求来加载它们，不会像图片一样需要多个 HTTP 请求。
+     4. 它们在所有浏览器中都得到支持（甚至支持到 IE6）。
+   + 使用：引入fontclass代码<link rel="stylesheet" type="text/css" href="./iconfont.css">;挑选相应图标并获取类名，应用于页面：<i class="iconfont icon-xxx"></i>
+
+   <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915213232505.png" alt="image-20230915213232505" style="zoom:80%;" />
+
 5. 文本相关的属性哪些是可以继承的？
+
+   `text-align`、`text-indent`、`text-transform`、`word-spacing`、`color`。
+
+   + text-align：文本对其方式 `left`:左对齐、`center`：居中对齐、`right`右对齐、`justify`两端对齐
+
+   + text-indent：文案第一行缩进距离
+
+     ![image-20230915214414919](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915214414919.png)
+
+   + text-decoration： `none`、`underline`、`line-through`、`overline`
+
+     ![image-20230915214545797](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915214545797.png)
+
+   + color：文字颜色
+
+   + text-transform：改变文字大小写`none`、`uppercase`、`lowercase`、`capitalize`
+
+     ![image-20230915214641528](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915214641528.png)
+
+     
+
+   + direction：文本方向，`ltr`、`rtl`
+
+     ![image-20230915214819395](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915214819395.png)
+
+   + word-spacing：可以改变字（单词）之间的标准间隔
+
+     ![image-20230915214943123](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915214943123.png)
+
+   + letter-spacing：字母间隔修改的是字符或字母之间的间隔
+
+     
+
+   + white-space
+
+     1. normal：多个空白符会变为一个，换行变为空格
+     2. pre：空白符不被忽略
+     3. nowrap：防止元素中的文本换行，除非使用了一个 `br` 元素
+
 6. 什么是 CSS 边框？如何使用边框？
+
+   ![image-20230916165349430](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230916165349430.png)
+
+   
 
 ## 代码题
 

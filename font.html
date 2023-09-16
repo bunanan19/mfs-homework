@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>font</title>
+    <style>
+        body {
+            font: bold 16px/1.5em '宋体';
+            /*一般字号要小于行高，不然就可能上下文有重叠部分，1.5em相当于1.5X16px*/
+            /* height: 50px;单纯将行高变大，文本没有居中，line-height把文本居中变大行高 */
+            line-height: 60px;
+            height: 60px;
+            /*使用行高将文本垂直居中*/
+            text-align: center;
+            /*水平居中，中间对齐，还有左边对齐：letf，右边对其：right，两端对齐：justify*/
+        }
+        div,span {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <span>这是一行文字</span>
+    <div>这是一行文字</div>
+</body>
+</html>
