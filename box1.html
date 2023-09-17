@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>box1</title>
+    <style>
+        .a {
+            margin: 0px;
+            overflow: hidden;/*溢出隐藏*/
+        }
+        .box1 {
+            /* background-color: red; */
+            padding: 20px;
+            border: 2px solid blue;
+            margin: 20px;
+            /* line-height: 60px; */
+            width: 200px;
+            margin: 20px auto;/*上下为0，左右为auto，平分剩下来的区域*/
+            text-align: center;
+        }
+        span {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="a" style="height: 200px; width: 200px; margin: 0px; border: solid 10px #333; padding: 100px; box-sizing: border-box;">
+    abcdefghijklmn
+    </div> -->
+    <div class="a" style="height: 200px; width: 200px;">
+        <div style="border: solid 10px #333; padding: 100px;"></div>
+    </div>
+    <div class="box1">
+        一二三四五六七八九<br/>
+        2345<span>
+            行内元素
+        </span>是的方式发<br/>
+        aozmmcaioc mcqpc<br/>
+        opajc  kpcq,c
+    </div>
+    <div class="box1">
+        一二三四五六七八九<br/>
+        2345<span>
+            行内元素
+        </span>是的方式发<br/>
+        aozmmcaioc mcqpc<br/>
+        opajc  kpcq,c
+    </div>
+</body>
+</html>

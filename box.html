@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>box</title>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            padding: 10px;
+            margin: 10px;
+            background: red;
+            box-sizing: content-box;
+            border: 10px solid black;
+        }
+        .box2 {
+            width: 100px;
+            height: 100px;
+            padding: 10px;
+            margin: 10px;
+            background: blue;
+            box-sizing: border-box;
+            /* box-sizing: border-box就是将border和padding数值包含在width和height之内，这样的好处就是修改border和padding数值盒子的大小不变。
+            box-sizing属性的取值可以为content-box或border-box，对它们的解释如下。
+            ●content-box：浏览器对盒模型的解释遵从W3C标准，当定义width和height时，它的参数值不包括border和padding。
+            ●border-box：当定义width和height时，border和padding的参数值被包含在width和height之内。*/
+            border: 10px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">box1</div>
+    <div class="box2">box2</div>
+</body>
+</html>
