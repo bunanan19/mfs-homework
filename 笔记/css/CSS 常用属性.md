@@ -317,7 +317,7 @@ border: solid 1px #333;
 
 <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230915215226888.png" alt="image-20230915215226888" style="zoom:50%;" />
 
-通过demo可以看到border的相交的地方在45deg平分，当元素的width、和height属性呗设置为0的时候
+通过demo可以看到border的相交的地方在45deg平分，当元素的width、和height属性被设置为0的时候
 
 ```css
 .t1 {
@@ -425,7 +425,7 @@ border: solid 1px #333;
 7. 现代前端中为什么很少使用雪碧图了？有哪些替代方案？相比之下有何好处？
 
    + 当图标过多时，雪碧图加载也会变慢。不灵活，雪碧图需要计算每个图片的位置，维护困难。
-   + http2协议将不同的请求整理封装在一块
+   + http2协议将不同的请求整理在一块
    + 使用打包工具将图片加进HTML里面
    + 使用懒加载
 
