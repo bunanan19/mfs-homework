@@ -72,8 +72,8 @@ color: <color>
 
 - background-position：默认左上角（也就是 `0% 0%` 或者`top left`）
 
-  - x y
-  - x% y%
+  - x y(图片的0，0点在元素的x，y位置)
+  - x% y%（图片x%，Y%的点和元素x%，Y%的点重合）
     - x = (元素的宽度 - 图片的宽度) * x%
     - y = (元素的高度 - 图片的高度) * y%
   - [top | center | bottom] [left | center | right]

@@ -9,33 +9,60 @@
             height: 50px;
             width: 50px;
             background-color: aqua;
-            float: right;
+            float: left;
         }
         .img2 {
             width: 100px;
             height: 100px;
             background-color: blueviolet;
-            float: right;
+            float: left;
         }
         .img3 {
-            width: 100px;
-            height: 100px;
-            background-color: blueviolet;
-            float: right;
+            width: 80px;
+            height: 80px;
+            background-color: goldenrod;
+            float: left;
         }
-        .container {
-            width: 400px;
-            height: 200px;
+        /*.img4 {
+            height: 50px;
+            width: 50px;
+            background-color: aqua;
+            float: left;
+        } */
+        .container1 {
+            width: 200px;
+            /* height: 200px;不指定高度，高度靠文字撑开 */
+            border: 1px solid black;
+            background: #cccccc;
+            overflow: hidden; /*此方法清除浮动为常用*/
+            /* float: left;将父元素设置成浮动，从而清除子元素的浮动。
+            副作用是父元素变成浮动元素了，难道要整个布局都浮动？
+            比如此处将父div设为浮动，但是body元素坍塌了
+            虽然有助于减少或消除不必要的标记，但浮动会变得很复杂，一些老式浏览器在处理有许多浮动元素的布局时有困难。 */
+        }
+        .none-float {
+            height: 80px;
+            background-color: bisque;
+        }
+        .clearfix {
+            clear: both;
+        }
+        .container1::after {
+            content: "";
+            clear: both;
+            display: block;/*after默认是inline，*/
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container1">
         <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img4"></div>
-        单框向左浮动，文本环绕在左右，浮动元素不会超过父元素的左边界，顶端不会超过父元素顶端。单框向左浮动，文本环绕在左右，浮动元素不会超过父元素的左边界，顶端不会超过父元素顶端。按比例不变绍兴，聪明还是在。今河北农村默契，想起v吗青青草呢。
-    </div>
+        <div class="img2" ></div>
+        <!-- 单框向左浮动，文本环绕在左右，浮动元素不会超过父元素的左边界，顶端不会超过父元素顶端。单框向左浮动，文本环绕在左右，浮动元素不会超过父元素的左边界，顶端不会超过父元素顶端。按比例不变绍兴，聪明还是在。今河北农村默契，想起v吗青青草呢。 -->
+        <!-- <div class="img3"></div> -->
+        <div class="img4" style="clear: both;"></div>
+        <!-- <div class="none-float"></div> -->
+        <!-- <div>1233425</div> -->
+        <div class="clearfix"></div>
 </body>
 </html>
