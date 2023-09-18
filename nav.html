@@ -13,7 +13,7 @@
         }
         .container{
             overflow: hidden;
-            max-width: 1040px;
+            max-width: 1040px;/*适应不同屏幕*/
             margin: 0 auto;
         }
         .link{
@@ -21,12 +21,13 @@
             font-weight: bold;
         }
         .link:hover{
-            color:red;
+            color: rgb(102, 78, 48);
         }
         .link:hover div{
             display: block;
-            float: right;
             width: 50px;
+            border: 1px solid paleturquoise;
+            background-color: paleturquoise;
             margin:0;
             padding: 0;
         }
@@ -52,8 +53,8 @@
             <div class="link fl">码蜂社</div>
             <div class="link fl">首页</div>
             <div class="link fl">前端
-                <div class="list">
-                    <li>基础班</li>
+                <div class="list" style="clear: both;">
+                    <li >基础班</li>
                     <li>闯关班</li>
                     <li>Web闯关班</li>
                 </div>
