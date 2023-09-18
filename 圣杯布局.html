@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex-box</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .container1 {
+            width: 1200px;
+            height: 115px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap-reverse;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container2 {
+            width: 1200px;
+            height: 53px;
+            display: flex;
+            align-items: end;
+        }
+        .rl {
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: aqua;
+
+        }
+        .main {
+            height: 50px;
+            width: 580px;
+            line-height: 50px;
+            text-align: center;
+            background-color: blue;
+            /* flex-grow: 1; */
+        }
+        .head,.buttom {
+            width: 849px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: gray;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container1">
+        <div class="rl">侧边固定宽度</div>
+        <div class="main">主内容栏自适应宽度</div>
+        <div class="rl">侧边栏固定宽度</div>
+        <div class="head">头部</div>
+    </div>
+    <div class="container2">
+        <div class="buttom">底部</div>
+    </div>
+</body>
+</html>

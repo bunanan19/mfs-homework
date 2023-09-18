@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex-box</title>
+    <style>
+        .container {
+            border: 1px solid black;
+            width: 550px;
+            height: 350px;
+            display: flex;
+            flex-direction: row;
+            /* flex-wrap: wrap; */
+            /* justify-content:space-evenly;
+            align-items:center;
+            align-items: baseline;
+            align-items: flex-end;
+            align-items: flex-start;
+            align-items: stretch; */
+            align-content: flex-start;
+            align-content: flex-end;
+            align-content: center;
+            align-content: stretch;
+            align-content: space-around;
+            align-content: space-between;
+            align-content: space-evenly;
+        }
+        .item {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            font-weight: bolder;
+        }
+        .item:nth-child(2n) {
+            background-color: aqua;
+            height: 100px;
+        }
+        .item:nth-child(2n+1) {
+            background-color: #f0fe89;
+            height: 130px;
+            line-height: 130px;
+        }
+        .item:nth-child(7) {
+            /* order: -1; */
+            flex-grow: 1;
+            /* 属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。 */
+        }
+        .item:nth-child(8) {
+            flex-grow: 2;
+            align-self: flex-end;
+            /* 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
+            默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。 */
+        }
+        .item:nth-child(3) {
+            flex-shrink: 0;
+            /* flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，项目将缩小。
+            如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。
+            如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。 */
+        }
+        .item:nth-child(2) {
+            flex-shrink: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">
+            1
+        </div>
+        <div class="item">
+            2
+        </div>
+        <div class="item">
+            3
+        </div>
+        <div class="item">
+            4
+        </div>  
+        <div class="item">
+            5
+        </div>
+        <div class="item">
+            6
+        </div>  
+        <div class="item">
+            7
+        </div>
+        <div class="item">
+            8
+        </div>
+    </div>
+</body>
+</html>
