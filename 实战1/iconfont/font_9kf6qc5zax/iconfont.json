@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "547881",
+      "name": "交流",
+      "font_class": "chat",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    }
+  ]
+}
