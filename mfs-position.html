@@ -13,6 +13,8 @@
             height: 55px;
             background-color: #ffe502;
             position: fixed;
+            top: 0;
+            left: 0;
         }
         .container{
             max-width: 1040px;/*适应不同屏幕*/
@@ -50,6 +52,17 @@
             list-style-type: none;
             display:none;
         }
+        .main {
+            width: 100%;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+        }
+        .body {
+            width: 800px;
+            margin: 30px 40px;
+            background-color: gray;
+        }
     </style>
 </head>
 <body>
@@ -77,5 +90,8 @@
             <div class="link fr">注册</div>
         </div>
     </nav>
+    <div class="main">
+        <div class="body"></div>
+    </div>
 </body>
 </html>
