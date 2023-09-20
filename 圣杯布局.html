@@ -23,13 +23,21 @@
             display: flex;
             align-items: end;
         }
-        .rl {
+        .l {
             width: 300px;
             height: 50px;
             line-height: 50px;
             text-align: center;
             background-color: aqua;
-
+            order: 0;
+        }
+        .r {
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: aqua;
+            order: 2;
         }
         .main {
             height: 50px;
@@ -37,6 +45,7 @@
             line-height: 50px;
             text-align: center;
             background-color: blue;
+            order: 1;
             /* flex-grow: 1; */
         }
         .head,.buttom {
@@ -46,14 +55,15 @@
             text-align: center;
             background-color: gray;
             flex-grow: 1;
+            order: 3;
         }
     </style>
 </head>
 <body>
     <div class="container1">
-        <div class="rl">侧边固定宽度</div>
         <div class="main">主内容栏自适应宽度</div>
-        <div class="rl">侧边栏固定宽度</div>
+        <div class="l">侧边固定宽度</div>
+        <div class="r">侧边栏固定宽度</div>
         <div class="head">头部</div>
     </div>
     <div class="container2">

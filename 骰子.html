@@ -7,7 +7,7 @@
     <style>
         body {
             background: black;
-            width: 1000px;
+            width: 100%;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -33,40 +33,105 @@
             padding: 2px;
             background-color: black;
         }
+        /* 一颗 */
         .one {
-            justify-content: center;
-            align-items: center;
+            align-items: flex-end;
+            justify-content: flex-end;
         }
+        /* 两颗 */
         .two {
+            flex-direction: column;
             justify-content: space-between;
         }
         .two .round:nth-child(2) {
-            align-self: end;
-        }
-        .three {
-            justify-content: space-between;
-        }
-        .three .round:nth-child(2) {
             align-self: center;
         }
-        .three .round:nth-child(3) {
-            align-self: flex-end;
+        /* 三颗 */
+        .three .round {
+            /* justify-content: space-between; */
+            align-self: center;
         }
+        .three .round:nth-child(2) {
+            justify-content: center;
+            align-self: flex-end; 
+        }
+        .three .round:nth-child(3) {
+            /* justify-content: flex-start; */
+            align-self: flex-start;
+        }
+        /* 四、五、六颗 */
         .four,.five,.six {
             flex-direction: column;
             align-items: center;
             align-content: center;
             justify-content: space-between;
         }
+        /* 六颗 */
         .first,.second,.third {
             width: 170px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
         }
+        /* 五颗 */
         .five .second {
             justify-content: center;
         }
+        /* .four {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;   
+        }
+        .four .round:nth-child(1) {
+            justify-content: flex-start;
+        }
+        .four .round:nth-child(2) {
+            justify-content: center;
+        }
+        .four .round:nth-child(3) {
+            align-self: start;
+            align-items: center;
+        }
+        .four .round:nth-child(4) {
+            align-self: flex-end;
+            align-items: flex-end;
+        } */
+        /* .five {
+            flex-wrap: wrap;
+
+        }
+        .first {
+            display: flex;
+            justify-content: space-between;
+        }
+        .second {
+            display: flex;
+            width: 120px;
+            justify-content: flex-start;
+            align-items: flex-end;
+        }
+        .third {
+            display: flex;
+            justify-content: flex-end;
+        } */
+        /* .six {
+        display: flex;
+        flex-wrap: wrap;
+        }
+
+        .first,.second,.third{
+        flex-basis: 100%;
+        display:flex;
+        }
+
+        .second {
+        justify-content: center;
+        }
+
+        .third {
+        justify-content: space-between;
+        } */
     </style>
 </head>
 <body>
@@ -83,14 +148,14 @@
         <span class="round"></span>
     </div>
     <div class="four">
-        <span class="first">
+        <!-- <span class="first"> -->
             <span class="round"></span>
             <span class="round"></span>
-        </span>
-        <span class="second">
+        <!-- </span> -->
+        <!-- <span class="second"> -->
             <span class="round"></span>
             <span class="round"></span>
-        </span>
+        <!-- </span> -->
     </div>
     <div class="five">
         <span class="first">
@@ -109,9 +174,10 @@
         <span class="first">
             <span class="round"></span>
             <span class="round"></span>
+            <span class="round"></span>
         </span>
         <span class="second">
-            <span class="round"></span>
+            
             <span class="round"></span>
         </span>
         <span class="third">
