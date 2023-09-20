@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex响应</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            /* 使用flex完成换行响应 */
+            justify-content: space-around;
+            max-width: 1355px;
+            margin: 0 auto;
+        }
+        .item {
+            width: 300px;
+            height: 100px;
+            background-color: aquamarine;
+            border-radius: 5px;
+            margin: 20px;
+        }
+        .placehold {
+            width: 300px;
+            margin: 0px 20px;
+        }
+        /* @media only screen and (max-width=1000px){
+            .container {
+                flex-wrap: wrap;
+            }
+        }使用断点完成响应式布局，当width小于等于1000px时换行，
+        实现项目适当的弹性，当缩小到一定程度实现换行 */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <!-- 空白占位符，当最后一行项目数不能使项目和前面一样整齐排列，
+        还是spac-around的时候，通过空白占位符实现整齐排列 -->
+        <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div>
+    </div>
+</body>
+</html>

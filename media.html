@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- width=device-width页面宽度等于设备宽度 -->
+    <title>media</title>
+    <style>
+        @media screen {
+            .text {background-color: aqua;}
+        }
+        @media print {
+            .text {background-color: azure;}
+        }
+        @media screen,print {
+            .text {font-size: bold;}
+        }
+        @media only screen and (max-width: 700px) {
+            body {
+                background-color: lightblue;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text">阿里巴巴华为巴里巴里</div>
+    响应式布局
+</body>
+</html>
