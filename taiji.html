@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=dic, initial-scale=1.0">
+    <title>taiji</title>
+    <style>
+        .body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .taiji {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            border: 1px solid black;
+        }
+        .left {
+            width: 100px;
+            height: 200px;
+            background-color: black;
+            border-top-left-radius: 100px;
+            border-bottom-left-radius: 100px;
+            position: relative;
+        }        
+        .black {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            margin: 0;
+            border-radius: 50px;
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            z-index: 1;
+        }
+        .lr {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            margin: 0;
+            border-radius: 20px;
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            z-index: 2;
+        }
+
+        .right {
+            width: 100px;
+            height: 200px;
+            background-color: white;    
+            border: 1px solid black;      
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            position: relative;
+        }
+        .red {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            margin: 0;
+            border-radius: 50px;
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+        .lb {
+            width: 40px;
+            height: 40px;
+            background-color: black;
+            margin: 0;
+            border-radius: 20px;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="taiji">
+        <div class="left">
+            <div class="black">
+                <div class="lr"></div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="red">
+                <div class="lb"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

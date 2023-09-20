@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nav</title>
+    <style>
+        .nav {
+            width: 100%;
+            height: 50px;
+            background-color: #ffe502;
+            z-index: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .container {
+            width: 1000px;
+            height: 50px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+        }
+        .link {
+            padding: 0 50px;
+            font-weight: bold;
+        }
+        .fl {
+            line-height: 30px;
+        }
+        .f1 {
+            position: absolute;
+            left: 20px;
+        }
+        .f2 {
+            position: absolute;
+            left: 100px;
+        }
+        .f3 {
+            position: absolute;
+            left: 170px;
+        }
+        
+        .f4 {
+            position: absolute;
+            left: 230px;
+        }
+        .f5 {
+            position: absolute;
+            left: 300px;
+        }
+        .f6 {
+            position: absolute;
+            left: 800px;
+        }
+        .f7 {
+            position: absolute;
+            left: 850px;
+        }
+        
+        .link:hover{
+            color: rgb(102, 78, 48);
+        }
+        .link:hover div{
+            display: block;
+            width: 50px;
+            border: 1px solid paleturquoise;
+            background-color: paleturquoise;
+            margin:0;
+            padding: 0;
+        }
+        .fr {
+            align-items: end !;
+        }
+        .li2 {
+            margin: 5px 10px 8px;
+        }
+        .list{
+            list-style-type: none;
+            display:none;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+        }
+        .body {
+            width: 1000px;
+            height: 10000px;
+            margin-top: 100px;
+            background-color: rgb(181, 178, 178);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="container">
+        <img class="li2 fl" src="./test1/images/circle.png"/>
+            <div class="link f1">码蜂社</div>
+            <div class="link f2">首页</div>
+            <div class="link f3">前端
+                <div class="list" style="clear: both;">
+                    <li >基础班</li>
+                    <li>闯关班</li>
+                    <li>Web闯关班</li>
+                </div>
+            </div>
+            <div class="link f4">社区
+                <div class="list">
+                    <li>论坛</li>
+                    <li>闯关任务</li>
+                </div>
+            </div>
+            <div class="link f5">关于我们</div>
+            <div class="link f6">登录</div>
+            <div class="link f7">注册</div>
+    </div>
+
+    <div class="main">
+        <div class="body"></div>
+    </div>
+</body>
+</html>
