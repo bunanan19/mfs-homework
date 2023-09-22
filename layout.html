@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layout</title>
+    <style>
+        .parent {
+            /* text-align: center; */
+            height: 300px;
+            width: 500PX;
+            background-color: red;
+            /* display: table-cell;
+            vertical-align: middle; */
+            position: relative;
+            
+        }
+        .child {
+            /* display: inline; */
+            /* width: 200px;
+            margin: 0 auto;
+            text-align: center; */
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            /* left: 0;
+            right: 0; */
+            margin: auto;
+        }
+        /* .container {
+            margin: 50px;
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+            position: relative;
+        }
+        .item {
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: blueviolet;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        } */ /*相对定位完全居中*/
+
+        /* .container {
+            margin: 50px;
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            background-color: aqua;
+        }
+        .item {
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            display: inline-block;
+            line-height: 50px;
+            background-color: blueviolet;
+            margin:0 50px;
+        } */ /*使用inline-block*/
+        /* .container {
+            margin: 50px;
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            background-color: aqua;
+        }
+        .item {
+            width: 100px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            background-color: blueviolet;
+            margin:0 auto;
+        } *//* 使用父元素子元素等高*/
+        .container {
+            margin: 50px;
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .item {
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child">哔哩吧啦</div>
+        <span>diyihangcjm</span>
+        <span>dierhang</span>
+    </div>
+
+    <div class="container">
+        <div class="item">
+        this is item
+        </div>
+    </div>
+</body>
+</html>

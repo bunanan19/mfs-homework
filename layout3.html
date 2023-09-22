@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>float-layout</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .sub{
+                width: 100px;
+                float: left;
+                margin-left: -100%;
+                position: relative;
+                left: -100px;
+                background-color: aqua;
+        }
+        .extra{
+                width: 200px;
+                /* float: right; */
+                float: left;
+                margin-left: -200px;
+                position: relative;
+                right: -200px;
+                background-color: aqua;
+        }
+        .main{
+                float: left;
+                width: 100%;
+                /* margin-left: 100px; 
+                margin-right: 200px; */
+                background-color: blue;
+        }
+        .head,.bottom {
+            background-color: gray;
+            float: left;
+        }
+        .head {
+            margin-left: -100%;
+        }
+        #content {
+            padding-left: 100px;
+            padding-right: 200px;
+            overflow: hidden;
+        }
+
+        .second {
+            float: left;
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: brown;
+            border-radius: 4px;
+            margin-left: -100%;
+            position: relative;
+            left: -300px;
+        }
+        .first {
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            width: 100%;
+            border-radius: 4px;
+            text-align: center;
+            background-color: antiquewhite;
+            
+        }
+        .third {
+            float: left;
+            width: 400px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: aquamarine;
+            margin-left: -400px;
+            position: relative;
+            right: -400px;
+        }
+        .container {
+            overflow: hidden;
+            padding-left: 300px;
+            padding-right: 400px;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="main">主内容栏自适应宽度</div>
+        <div class="sub">侧边固定宽度</div>
+        <div class="extra">侧边固定宽度</div>
+    </div>
+    <div class="container">
+        <div class="first">主面板内容优先显示</div>
+        <div class="second">侧边栏固定宽度</div>
+        <div class="third">侧边栏固定宽度</div>
+    </div>
+</body>
+</html>

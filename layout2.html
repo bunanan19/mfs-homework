@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+          .layout{
+            /*   width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/
+                max-width: 960px;/*大于960时水平居中，小于960时width=100%*/
+                /*响应式布局最好的办法就是不写width，
+                最好使用max-width，或者width=50%，百分比，不要用具体的大多少px*/
+                margin: 0 auto;
+            }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div id="header">头部</div>
+        <div id="content">内容</div>
+        <div id="footer">尾部</div>
+      </div>
+</body>
+</html>
