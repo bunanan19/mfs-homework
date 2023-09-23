@@ -7,35 +7,33 @@
     <style>
          body {
             margin: 0px;
+            background-color: rgb(40, 40, 62);
         }
         .nav{
             width: 100%;
             height: 55px;
-            background-color: #ffe502;
+            color: white;
+            background-color: transparent;
             position: fixed;
+            top: 0;
+            left: 0;
+            transition: background 0.5s;
+        }
+        .nav:hover {
+            color: black;
+            background-color: #ffe502;
         }
         .container{
             max-width: 1040px;/*适应不同屏幕*/
             margin: 0 auto;
         }
+        .li2 {
+            margin: 5px 10px 8px;
+        }
         .link{
             margin: 15px 10px 0px;
             font-weight: bold;
             position: relative;
-        }
-        .link:hover{
-            color: rgb(102, 78, 48);
-        }
-        .link:hover .list{
-            display: block;
-            width: 80px;
-            border: 1px solid #ffe502;
-            background-color: #ffe502;
-            position: absolute;
-            top: 30px;
-            left: 1px;
-            margin:0;
-            padding: 0;
         }
         .fl{
             float:left;
@@ -43,12 +41,44 @@
         .fr{
             float: right;
         }
-        .li2 {
-            margin: 5px 10px 8px;
-        }
-        .list{
+        .list {
             list-style-type: none;
             display:none;
+            width: 80px;
+            border: 1px solid #ffe502;
+            background-color: #ffe502;
+            position: absolute;
+            top: 40px;
+            left: 0px;
+            overflow: hidden;
+            margin:0;
+            padding: 0;           
+        }
+        .link:hover{
+            color: rgb(102, 78, 48);
+        }
+        .link:hover .list{
+            display: block;
+            animation: move 0.5s ;
+        }
+        @keyframes move {
+            0% {
+                height: 0px;
+            }
+            100% {
+                height: 55px;
+            }
+        }
+        .main {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .body {
+            width: 800px;
+            height: 800px;
+            margin: 30px 40px;
+            background-color: rgb(196, 195, 195);
         }
     </style>
 </head>
@@ -59,7 +89,7 @@
             <div class="link fl">码蜂社</div>
             <div class="link fl">首页</div>
             <div class="link fl">前端
-                <div class="list" style="clear: both;">
+                <div class="list">
                     <li >基础班</li>
                     <li>闯关班</li>
                     <li>Web闯关班</li>
@@ -77,5 +107,11 @@
             <div class="link fr">注册</div>
         </div>
     </nav>
+    <div class="container">
+        <div class="main">
+            <div class="body"></div>
+        </div>
+    </div>
+    
 </body>
 </html>

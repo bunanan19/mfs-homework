@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loading2</title>
+    <style>
+        body,.container,.red,.orange,.black,.green {
+            display: flex;
+        }
+        body {
+            height: 600px;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            height: 100px;
+            width: 100px;
+            justify-content: center;
+            align-items: center;
+            animation: move 2.5s linear infinite;
+        }
+        .red,.orange,.black,.green {
+            width: 25px;
+            height: 68px;
+            position: relative;
+            /* border: 1px solid black; */
+        }
+        .r1,.o1,.b1,.g1 {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -20px;
+            left: 0px;
+            right: 0px;
+            margin: 0 auto;
+        }
+        .r2,.o2,.b2,.g2{
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            position: absolute;
+            top: 37px;
+            left: 0px;
+            right: 0px;
+            margin: 0 auto;
+        }
+        .r3,.o3,.b3,.g3 {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            margin: 0 auto;
+        }
+        .r1,.r2,.r3 {
+            background-color: rgb(211, 43, 43);
+        }
+        .o1,.o2,.o3 {
+            background-color: rgb(250, 178, 44);
+        }
+        .b1,.b2,.b3 {
+            background-color: rgb(46, 44, 87);
+        }
+        .g1,.g2,.g3 {
+            background-color: rgb(48, 147, 124);
+        }
+        .red {
+            transform: translate(37.5px,0px) rotate(270deg);
+        }
+        .orange {
+            transform: translate(12.5px,0px);
+        }
+        .black {
+            transform:translate(-12.5px,0px) rotate(90deg);
+        }
+        .green {
+            transform: translate(-37.5px,0px) rotate(180deg);
+        }
+        .r1,.o1,.b1,.g1 { 
+            animation: item1 2.5s linear infinite;
+            animation-delay: 0.3s;
+        }
+        .r2,.o2,.b2,.g2 {
+            animation: item2 2.5s linear infinite;
+            animation-delay: 0s;
+        }
+        .r3,.o3,.b3,.g3 {
+            animation: item3 2.5s linear infinite;
+            animation-delay: -0.3s;
+        }
+        @keyframes item1 {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(0, -54px);
+            }
+            50% {
+                transform: translate(0, -100px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+        @keyframes item2 {
+            0% {
+                transform: translate(0, 0);
+            }
+            20% {
+                transform: translate(0,30px);
+            }
+            45% {
+                transform: translate(0, 0);
+            }
+            75% {
+                transform: translate(0, -67px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+        @keyframes item3 {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(0, 70px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+        @keyframes move {
+            0% {transform: rotate(0);}
+
+            100% {transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="red">
+            <div class="r1"></div>
+            <div class="r2"></div>
+            <div class="r3"></div>
+        </div>
+        <div class="orange">
+            <div class="o1"></div>
+            <div class="o2"></div>
+            <div class="o3"></div>
+        </div>
+        <div class="black">
+            <div class="b1"></div>
+            <div class="b2"></div>
+            <div class="b3"></div>
+        </div>
+        <div class="green">
+            <div class="g1"></div>
+            <div class="g2"></div>
+            <div class="g3"></div>
+        </div>
+    </div>
+    
+</body>
+</html>

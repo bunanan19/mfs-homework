@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transition</title>
+    <style>
+        .transform {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            transition: all 1s ease-out;
+        }
+        .transform:hover {
+            transform: translate(50px,100px);/*位移*/
+            transform: rotate(30deg);/*旋转*/
+            transform: scale(0.5,2);/*放大缩小*/
+            transform: translate(50px,100px) rotate(30deg) scale(0.5,2);
+        }
+        .exam {
+            height: 100px;
+            width: 40px;
+            background-color: bisque;
+        }
+    </style>
+</head>
+<body>
+    <div class="transform"></div>
+    <div class="exam">doicm,caajk.ax</div>
+</body>
+</html>
