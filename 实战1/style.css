@@ -1,9 +1,9 @@
 body {
     margin: 0;
     background-color: rgb(235, 235, 235);
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    align-content: center; */
+    align-content: center;
 }
 .container {
     max-width: 950px;
@@ -13,7 +13,6 @@ body {
 .header {
     display: flex;
     flex-direction: column;
-    align-content: center;
 }
 .main-header {
     color: white;
@@ -47,12 +46,15 @@ body {
 }
 .nav {
     height: 50px;
+    /* width: 1000px; */
     line-height: 48px;
     background-color: rgb(255, 255, 255);
     border-bottom: 2px solid rgb(214, 213, 213);
     display: flex;
     justify-content: center;
-    /* align-self: center; */
+    /* align-self: center;*//*若未设置宽度，则继承父元素宽度。
+    设置align-self后，因为前面规定flex-direction为column，所以交叉轴变为水平轴
+    align-self变成水平方向居中，没有宽度的div变成自适应宽度*/
 }
 .link {
     color: rgb(48, 47, 47);

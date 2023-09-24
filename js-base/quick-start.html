@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-base</title>
+    <style>
+        button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>这是写在html中的</div>
+    <div id="demo">demo 里面原先的内容</div>
+    <button type="button" onclick="alert('hello')">点我</button>
+    <div id="myList"></div>
+    <script>
+        alert("(欢迎进入js)")
+        document.write("<h1>zheshiyigebiaoti</h1>")
+        document.write("<P>zheshiyigeduanluo</p>")
+        x = document.getElementById("demo")  //查找元素
+        x.innerHTML = "Hello JavaScript";    //改变内容
+        //这两部分内容需要放在id=demo部分后面，从上往下解释执行，
+        // window.onload = function() {
+        //     alert("网页加载完毕！");
+        // };
+        // window.onload = function() {
+        //     var list = document.createElement('ul');
+        //     var li1 = document.createElement('li');
+        //     li1.textContent = '码蜂社';
+        //     var li2 = document.createElement('li');
+        //     li2.textContent = '前端';
+        //     var li3 = document.createElement('li');
+        //     li3.textContent = '教程';
+            
+        //     list.appendChild(li1);
+        //     list.appendChild(li2);
+        //     list.appendChild(li3);
+            
+        //     document.getElementById('myList').appendChild(list);
+        // };
+        document.write("<li>码蜂社</li>");
+        document.write("<li>前端</li>");
+        document.write("<li>教程</li>");
+    </script>
+</body>
+</html>

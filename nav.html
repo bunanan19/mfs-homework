@@ -52,14 +52,21 @@
             left: 0px;
             overflow: hidden;
             margin:0;
-            padding: 0;           
+            padding: 0;  
+            /* opacity: 0; 
+            transition: opacity o.6s linear;        */
         }
+        /* .list:hover {
+            opacity: 1;
+            transition: opacity o.6s linear;
+        } */
         .link:hover{
             color: rgb(102, 78, 48);
         }
         .link:hover .list{
             display: block;
-            animation: move 0.5s ;
+            animation: move 0.5s ;           
+            /* transition: all 1s linear;  */
         }
         @keyframes move {
             0% {
