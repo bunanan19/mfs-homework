@@ -10,7 +10,8 @@
 
 ## JavaScript 是脚本语言
 
-- JavaScript 是解释执行的，不需要预先编译。
+- JavaScript 是解释执行的，不需要预先编译（要用编译器编译成机器语言，计算机才能执行）。
+- <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20230923165347556.png" alt="image-20230923165347556" style="zoom:80%;" />
 - JavaScript 是一种轻量级的编程语言。
 - JavaScript 是可插入 HTML 页面的编程代码。
 - JavaScript 插入 HTML 页面后，可由所有的现代浏览器执行。
@@ -53,7 +54,7 @@ document.write("<p>这是一个段落。</p>");
 我们可以在 JS 中获取页面元素，然后改变元素。
 
 ```javascript
-x = document.getElementById("demo")  //查找元素
+x = document.getElementById("demo")  //通过id查找元素，id=demo
 x.innerHTML = "Hello JavaScript";    //改变内容
 ```
 
@@ -64,3 +65,31 @@ x.innerHTML = "Hello JavaScript";    //改变内容
 ### 用户交互
 
 通过使用 JS，我们可以自定义用户交互的逻辑（流程），实现弹窗/跳转等功能
+
+
+
+## 问答题
+
+1. 如何在 HTML 文档中嵌入 JavaScript 脚本？
+
+   在 HTML 页面中插入 JavaScript，需要使用 `<script>` 标签。 `<script>` 和 `</script>` 会告诉 JavaScript 在何处开始和结束。 `<script>` 和 `</script>` 之间的代码行包含 JavaScript代码
+
+2. JavaScript 需要预先编译吗？它是如何执行的？
+
+   JavaScript 是解释执行的，不需要预先编译。
+
+3. 如何使用 JavaScript 在网页加载完毕时弹窗？
+
+   
+
+## 代码题
+
+1. 请实现在文档流中**动态输出**如下 HTML
+
+```html
+<ul>
+  <li>码蜂社</li>
+  <li>前端</li>
+  <li>教程</li>
+</ul>
+```
