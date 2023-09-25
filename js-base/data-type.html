@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data-type-conversion</title>
+</head>
+<body>
+    <script>
+        var iNum1 = parseInt("1.0")
+        var iNum2 = parseInt("2")
+        var iNum3 = parseInt("str")
+        var iNum4 = parseInt(true)
+        var iNum5 = parseInt([])
+        var iNum6 = parseInt([1,2,3])
+        var iNum7 = parseInt({})
+        var iNum8 = parseInt({a:1})
+        var iNum9 = parseInt(function(){})
+        var a = "1"
+        var A = !!a
+
+        var b = "str"
+        var B = !!b
+
+        var c = 1
+        var C = !!c
+
+        var d = 0
+        var D = !!d
+
+        var e = []
+        var E = !!e
+
+        var f = [1,2,3]
+        var F = !!f
+
+        var g = {}
+        var G = !!g
+
+        var h = {a:1}
+        var H = !!h
+        
+        var i = function(){}
+        var I = !!i
+
+        var obj = {a:1, b:"2", c:true};
+    </script>
+</body>
+</html>
