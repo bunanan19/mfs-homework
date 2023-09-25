@@ -10,38 +10,32 @@
         var iNum1 = parseInt("1.0")
         var iNum2 = parseInt("2")
         var iNum3 = parseInt("str")
-        var iNum4 = parseInt(true)
+        var iNum4 = +true
         var iNum5 = parseInt([])
-        var iNum6 = parseInt([1,2,3])
+        var iNum6 = +[1,2,3]
         var iNum7 = parseInt({})
         var iNum8 = parseInt({a:1})
-        var iNum9 = parseInt(function(){})
+        var iNum9 = +function(){}
         var a = "1"
         var A = !!a
 
-        var b = "str"
-        var B = !!b
+        var B = !!"str"
 
-        var c = 1
-        var C = !!c
+        var C = !!1
 
-        var d = 0
-        var D = !!d
+        var D = !!0
 
         var e = []
         var E = !!e
 
-        var f = [1,2,3]
-        var F = !!f
+        var F = Boolean([1,2,3])
 
-        var g = {}
-        var G = !!g
+        var G = Boolean([])
 
         var h = {a:1}
         var H = !!h
         
-        var i = function(){}
-        var I = !!i
+        var I = Boolean(function(){})
 
         var obj = {a:1, b:"2", c:true};
     </script>
