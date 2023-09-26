@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>string</title>
+</head>
+<body>
+    <script>
+        var num=19;
+        var str = ""+num;
+        var str = num.toString();
+        var str = String(num);
+        console.log(str)
+        var str1 = 1+num+"";
+        console.log(str1);//输出为“20”
+        var str2 = "" + 1 + num;
+        console.log(str2);//输出为“119”
+
+    
+        function getSuffix(file){
+        return file.slice(file.lastIndexOf(".") + 1,file.length); 
+        }
+
+        var str = "text.123.txt";
+        var res = str.slice(str.lastIndexOf(".")+1,str.length)
+        // var res = str.split(".")[str.split(".").length-1]
+        console.log(res)
+
+        var lower = "do you eat apple";
+        var subArray = lower.split(" ");
+        for(i = 0; i < subArray.length; i++){
+            // subArray[i][0]=subArray[i].charAt(0).toUpperCase();
+            subArray[i] = subArray[i][0].toUpperCase()+subArray[i].slice(1)
+            
+        }
+        var upper = subArray.join(" ")
+        console.log(upper)
+    </script>
+</body>
+</html>

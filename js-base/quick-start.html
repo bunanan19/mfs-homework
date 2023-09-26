@@ -16,13 +16,13 @@
     <button type="button" onclick="alert('hello')">点我</button>
     <div id="myList"></div>
     <script>
-        alert("(欢迎进入js)")
-        document.write("<h1>zheshiyigebiaoti</h1>")
+        alert("(欢迎"+"\n"+"进入js\n"+"的世界)")//\n换行符的用法（\r同理）
+        document.write("<h1>zheshi<br>yige\nbiaoti</h1>")//\nz只起到了空格的效果 <br>起到了换行效果
         document.write("<P>zheshiyigeduanluo</p>")
         x = document.getElementById("demo")  //查找元素
         x.innerHTML = "Hello JavaScript";    //改变内容
         //这两部分内容需要放在id=demo部分后面，从上往下解释执行，
-        
+
         document.write("<ul><li>码蜂社</li><li>前端</li><li>教程</li></ul>");
 
         // window.onload = function() {
