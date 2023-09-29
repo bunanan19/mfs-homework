@@ -111,3 +111,47 @@ document.close();
 需要注意的是，虽然调用close方法之后，无法再用write方法写入内容，但这时当前页面的其他DOM节点还是会继续加载。
 
 除了某些特殊情况，应该尽量避免使用document.write这个方法。
+
+
+
+## 问答题
+
+1. 什么是 Dom？为什么要用 Dom？
+
+   是当网页被加载时，浏览器创建的页面的文档对象模型。DOM可以使JavaScript创建动态的 HTML，对HTML页面中的所有元素进行访问、修改。
+
+2. Dom 有哪些常见属性？
+
+   
+
+3. 如何设置 Cookie？
+
+   
+
+4. `innerText` 和 `innerHTML` 有什么异同？
+
+   
+
+5. `innerHTML` 和 `outerHTML` 有什么不同？
+
+   
+
+6. 我们可以使用 `document.write()` 动态生成文档流吗？如何可以，如何操作？
+
+   
+
+7. 在什么时候，`document.write()` 会重写文档流？
+
+   
+
+## 代码题
+
+1. 请使用 JavaScript 动态生成以下文档
+
+   ```html
+   <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+   </ul>
+   ```
