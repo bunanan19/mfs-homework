@@ -26,6 +26,20 @@
             y.innerHTML=err;
         }
     }
+
+    function test1(){
+        test2()
+        console.log(1)
+    }
+    function test2(){
+        test3()
+        console.log(2)
+    }
+    function test3(){
+        throw new Error("sdafdsa")
+    }
+
+    test1()
    </script>
 </body>
 </html>
