@@ -355,3 +355,21 @@ arguments是函数的参数对象，严格模式对它的使用做了限制。
 \- MDN, [Strict mode](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode)
 \- Dr. Axel Rauschmayer，[JavaScript's strict mode: a summary](http://www.2ality.com/2011/01/javascripts-strict-mode-summary.html)
 \- Douglas Crockford, [Strict Mode Is Coming To Town](http://java-script.limewebs.com/strictMode/test_hosted.html)
+
+
+
+
+
+## 问答题
+
+1. 什么是严格模式？它和普通模式有什么区别？
+
+   > 
+
+2. 我们为什么需要严格模式？它能让我们代码出错几率更小吗？
+
+   > 
+
+3. 严格模式可以在哪里声明？
+
+   > 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS错误处理</title>
+</head>
+<body>
+    <p>请输入0-5之间数字</p>
+    <input type="text" id="input1">
+    <button value="test" onclick="test1()">test</button>
+    <p id="mess"></p>
+   <script>
+        function test1(){
+            try{
+            var x="";
+            x=document.getElementById("input1").value;
+            if(x=="") throw "空";
+            if(x>5) throw "太大了";
+            if(x<0) throw "太小了";
+            if(isNaN(x)) throw "不是数字"
+        }catch(err){
+            var y="";
+            y=document.getElementById("mess");
+            y.innerHTML=err;
+        }
+    }
+   </script>
+</body>
+</html>

@@ -31,11 +31,15 @@
         var subArray = lower.split(" ");
         for(i = 0; i < subArray.length; i++){
             // subArray[i][0]=subArray[i].charAt(0).toUpperCase();
-            subArray[i] = subArray[i][0].toUpperCase()+subArray[i].slice(1)
-            
+            subArray[i] = subArray[i][0].toUpperCase()+subArray[i].slice(1)           
         }
         var upper = subArray.join(" ")
         console.log(upper)
+
+        var person={fname:"Bill",lname:"Gates",age:56};
+        for (var x in person){
+            console.log(x+":"+person[x])
+        }
     </script>
 </body>
 </html>
