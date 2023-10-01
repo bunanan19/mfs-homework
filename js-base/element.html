@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+</head>
+<body>
+    <a href="#" id="link" class="cla1 cla2">bunana</a>
+    <h1 id="title" class="cla1">标题</h1>
+    <p class="cla2" name="p">cakc</p>
+    <br/>
+    <ul id="list"></ul>
+    <script>
+        var oP=document.getElementsByName("p")[0];
+        var oA=document.createElement("a");
+        oA.innerText="banana";
+        oP.appendChild(oA)
+        // oP.removeChild(oA)删除元素
+        
+        var ul = document.getElementById("list");
+        var li1 = document.createElement("li");
+        var li2 = li1.cloneNode(true);
+        li1.innerText="1";
+        li2.innerText="2";
+        ul.append(li1);
+        ul.appendChild(li2);
+
+
+        var docFragment = document.createDocumentFragment();
+        //创建一个新的节点，可以在里面插入
+        var newDiv = document.createElement("div");
+        var newContent = document.createTextNode("Hello");
+        newDiv.append(newContent);
+        docFragment.append(newDiv);
+        console.log(docFragment);
+    </script>
+</body>
+</html>
