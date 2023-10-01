@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input1">
+    <input type="text" id="input2">
+    <script>
+        document.open()
+        //此时没有调用，在页面渲染过程中调用write方法，并不会调用open方法。故此代码无意义
+        document.write("<div>in script</div>")
+        document.close()
+        //此代码无意义，因为close是关闭open新建的，在此前的open没有被调用，故此close无意义
+        setTimeout(function(){
+            document.open()
+            //渲染完，下面调用了write，此刻的open被调用，并且擦除当前文档所有内容，然后再写入
+
+            document.write("<div>in script</div>")
+            document.close()//关闭open方法所新建的文档。一旦关闭，上面的write方法就无法写入内容了。
+
+            document.write("<div>in script212344</div>")//又重新调用open写入
+        },1000)
+        //如果页面已经渲染完成再调用write方法，它会先调用open方法，擦除当前文档所有内容，然后再写入。
+        
+        document.write("<ul><li>1</li><li>2</li><li>3</li></ul>")
+    </script>
+    <div>in html</div>
+</body>
+</html>
