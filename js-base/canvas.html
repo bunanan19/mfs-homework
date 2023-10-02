@@ -13,7 +13,6 @@
 
     <script>
 
-        function clock(){
             var c = document.getElementById("myCanvas");
             var cxt = c.getContext("2d");
             //画矩形
@@ -49,16 +48,18 @@
             //将一幅图片放在画布上
             // var img = document.getElementById("scream");
             // ctx.drawImage(img, 10, 10);
+
             
-            //钟表
+        //钟表
 
             cxt.translate(100,100);//移动画布坐标轴，原点为画布中心
             //cxt.scale(1,-1)//缩放使x轴不变，y轴朝上。方便绘制钟表刻点
             cxt.rotate(-Math.PI / 2);//使x轴朝上
+
+        function clock(){           
             cxt.lineCap = "round";
             cxt.lineWidth = 4.5;      
             cxt.strokeStyle = "black";
-
 
             //时刻点
             cxt.save();
@@ -94,6 +95,7 @@
             var h = now.getHours();
             var m = now.getMinutes();
             var s = now.getSeconds();
+            h = h>= 12? h-12 : h;
 
             if (h < 10) {
                 h = "0" + h;
@@ -108,7 +110,6 @@
             //时针          
             cxt.save()
             cxt.lineCap = "round"
-            h = h>= 12? h-12 : h;
             var c = Math.PI / 6 * (h)+ (Math.PI / 360) * (m) + (Math.PI / 21600) * (s);//
             cxt.beginPath();
             cxt.moveTo(-8*Math.cos(c),-8*Math.sin(c));
@@ -174,6 +175,7 @@
             
         }
         clock()
+        setInterval(clock,1000)
     </script>
 </body>
 </html>
