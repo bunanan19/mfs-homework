@@ -203,3 +203,52 @@ Event 对象代表事件的状态，比如事件在其中发生的元素、键�
 ## 实战 Tabs
 
 我们可以使用 DOM 相关操作实现一个[标签页切换效果](http://www.material-ui.com/#/components/tabs)
+
+
+
+## 问答题
+
+1. 什么是事件绑定？我们为什么需要它？
+
+   > 在事件发生时执行 JavaScript，在事件发生之前，我们需要指定事件的响应函数（也就是告诉计算机，当某件事发生时，需要执行哪些代码）；这个指定过程就是事件绑定。
+
+2. 有哪三种方法绑定事件？
+
+   > 使用DOM指定事件响应函数
+   >
+   > 使用addEventListener()指定事件响应函数
+
+3. `document.getElementById("eleID").onclick = onclickHandle` 和 `addEventListener()` 绑定事件处理函数有何异同？不同之处请至少说出3点。
+
+   > 
+
+4. 什么是事件对象？我们如何获取事件对象？
+
+   > Event 对象代表事件的状态，比如事件在其中发生的元素、键盘按键的状态、鼠标的位置、鼠标按钮的状态。
+   >
+   > 
+
+## 代码题
+
+1. 请实现标签页[效果](http://www.material-ui.com/#/components/tabs)，样式部分可以自行发挥
+
+   > 
+
+2. 请实现抽奖效果，实现开始抽奖后，`.award`不断变化，点击停止后提示用户中奖等级
+   备选奖项和概率如下
+
+   - 特等奖，1%
+   - 一等奖，10%
+   - 二等奖，30%
+   - 三等奖，40%
+   - 鼓励奖：19%
+
+   可以参考如下 DOM 结构
+
+   ```html
+   <div id="award">点击“开始“按钮，开始抽奖！</div>
+   <div class="action">
+      <button id="start">开 始</button>
+      <button id="stop">停 止</button>
+   </div>
+   ```

@@ -57,7 +57,7 @@ ctx.fillRect(10, 10, 150, 100);
 
 ## [教程与指导](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API#教程与指导)
 
-- [Canvas 教程](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)
+- **[Canvas 教程]**(https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)
 
   一个综合性教程，包括了<canvas>的基本用法与高级功能。
 
@@ -116,3 +116,48 @@ Mozilla 程序从 Gecko 1.8 ([Firefox 1.5 (en-US)](https://developer.mozilla.org
 Want to get more involved? [Learn how to contribute](https://github.com/mdn/content/blob/main/CONTRIBUTING.md).
 
 This page was last modified on 2023年7月29日 by [MDN contributors](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/contributors.txt).
+
+
+
+## 问答题
+
+1. 什么是 Canvas？Canvas 能干那些事？
+
+   > Canvas允许脚本语言动态渲染位图像。
+   >
+   > **Canvas API** 提供了一个通过[JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript) 和 [HTML](https://developer.mozilla.org/zh-CN/docs/Web/HTML)的[``](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/canvas)元素来绘制图形的方式。它可以用于动画、游戏画面、数据可视化、图片编辑以及实时视频处理等方面。
+
+2. 画笔颜色，填充颜色各如何设置？
+
+   > 1. **画笔颜色的设置**：可以通过ctx.strokeStyle属性设置，使用方法ctx.strokeStyle = "颜色"。
+   > 2. **填充颜色的设置**：可以通过ctx.fillStyle属性设置，使用方法ctx.fillStyle = "颜色"。
+
+3. Canvas 中如何画圆？如何填充圆？
+
+   > 1. 使用arc(x，y，r，开始弧度1，结束弧度2)方法，其中前三个好理解就是圆心坐标，半径。后面两个分别是开始的弧度和结束的弧度。
+   > 3. 填充或者画线：cv.fill()填充或者cv.stroke()画线。
+   
+4. Canvas 如何改变坐标系的位置和单位长度？
+
+   > 1. **改变坐标系的位置**：可以通过translate()方法来实现。例如，translate(x, y)，其中x，y是坐标轴的偏移量。
+   > 2. **改变单位长度**：可以通过scale()方法来实现。例如，scale(x, y)，其中x，y是缩放比例。
+   >
+   > 以下是一个示例代码：
+   >
+   > ```html
+   > <canvas id="myCanvas" width="500" height="500"></canvas>
+   > <script>  
+   >     var canvas = document.getElementById("myCanvas");
+   >     var ctx = canvas.getContext("2d"); 
+   >     ctx.translate(100, 100);  // 改变坐标系的位置 
+   >     ctx.scale(2, 2);  // 改变单位长度
+   >     ctx.fillRect(0, 0, 100, 100);// 在新的坐标系中画一个矩形，左下角坐标(0,0)，宽度100，高度100 
+   > </script>
+   > ```
+   >
+   > 
+
+## 代码题
+
+1. 请使用 Canvas 绘制钟表，并可以**动态**显示当前时间
+   ![img](https://static.mafengshe.com/fe-base/homework/canvas-clock.png)

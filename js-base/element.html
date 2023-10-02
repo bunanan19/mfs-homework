@@ -11,12 +11,21 @@
     <ul id="list"></ul>
     <script>
         var oP=document.getElementsByName("p")[0];
+        //name可能不是唯一的，getelements是复数
+        //如果你使用了 document.getElementsByClassName("myClass")，
+        //这将返回一个包含所有具有 "myClass" 类的元素的 NodeList。
+        //要获取第一个这样的元素，你需要使用 [0]
+
         var oA=document.createElement("a");
         oA.innerText="banana";
         oP.appendChild(oA)
         // oP.removeChild(oA)删除元素
         
         var ul = document.getElementById("list");
+        //id是唯一的，这里只返回一个元素，getelement是单数
+        //getElementById返回的是一个对象；getElementsByName返回的是一个对象数组。
+        //getElementById常用于访问单个元素；getElementsByName常用于处理一组元素
+
         var li1 = document.createElement("li");
         var li2 = li1.cloneNode(true);
         li1.innerText="1";

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200px" height="200px" style="border:1px solid #c3c3c3;">
+        Your browser does not support the canvas element.
+    </canvas>
+
+    <script>
+
+        function clock(){
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            //画矩形
+            //cxt.strokeStyle = 'blue';   // 设置轮廓颜色为蓝色
+            //cxt.fillStyle="#FF0000";//填充颜色设置
+            //cxt.fillRect(0,0,75,75)//左上角0,0和右下角150，75的坐标，长宽75
+
+            //画线
+            //cxt.moveTo(10,10);//将画笔移到10，10位置
+            //cxt.lineTo(150,50);//从10，10画线到150，50
+            //cxt.lineTo(10,50);//从150，50画线到10，50
+            //cxt.stroke();// 画出图画轮廓。stroke：冲程。计算机缓存机制，画先在内存中画好在，不会直接展示在页面。
+            
+            //画圆
+            //cxt.beginPath();
+            //cxt.arc(70,18,15,0,Math.PI*2,true);
+            //arc方法画弧线，前三个参数（70,18,15）定义了圆形的位置（x，y，半径）。
+            //接下来的两个参数（0和Math.PI*2）定义了圆形的起始角度（0度）和结束角度（360度，或者说2π弧度）。
+            //最后一个参数（true）表示绘制顺时针的圆形
+            //cxt.closePath();//begin和close成对出现，目的是使图形封闭，才能填充图形
+            //cxt.fill();
+            //填充当前路径。例子中，这个路径是一个圆形。当你调用cxt.fill();时，圆形会被填充，从而在画布上显示出圆形。
+            //如果你没有提供任何参数给cxt.fill();，它会使用默认的颜色、模式和样式进行填充。
+            //使用cxt.fillStyle来设置填充的颜色，使用cxt.fillRect来设置填充的矩形，或者使用cxt.fillText来设置文本的填充。
+
+            //渐变
+            //var grd=cxt.createLinearGradient(0,0,175,50);//创建一个从点(0,0)到点(175,50)的线性渐变
+            //grd.addColorStop(0,"#FF0000");//在渐变的开始位置（即0%）添加颜色停点，该停点的颜色是红色
+            //grd.addColorStop(1,"#00FF00");//渐变的结束位置（即100%）添加颜色停点。颜色停点的位置是相对于0和1的，0表示渐变的开始，1表示渐变的结束
+            //cxt.fillStyle=grd;//设置填充颜色为之前创建的渐变对象grd
+            //cxt.fillRect(0,0,175,50);
+
+            //将一幅图片放在画布上
+            // var img = document.getElementById("scream");
+            // ctx.drawImage(img, 10, 10);
+            
+            //钟表
+
+            cxt.translate(100,100);//移动画布坐标轴，原点为画布中心
+            //cxt.scale(1,-1)//缩放使x轴不变，y轴朝上。方便绘制钟表刻点
+            cxt.rotate(-Math.PI / 2);//使x轴朝上
+            cxt.lineCap = "round";
+            cxt.lineWidth = 4.5;      
+            cxt.strokeStyle = "black";
+
+
+            //时刻点
+            cxt.save();
+            cxt.lineWidth = 4;
+            for(var i = 0; i < 12; i++){
+                var t = Math.PI / 6 * i
+                var x = 65 * Math.cos(t)
+                var y = 65 * Math.sin(t)
+                //var X = 55 * Math.cos(t)
+                //var Y = 55 * Math.sin(t)
+                cxt.moveTo(x,y)
+                cxt.lineTo(0.85*x,0.85*y)
+                //cxt.lineTo(X,Y)
+                cxt.lineCap = "round"
+                // cxt.stroke()
+            }
+            cxt.restore()
+
+            //分刻点
+            cxt.save()
+            cxt.lineWidth = 2;
+            for(var i = 0; i < 60; i++){
+                var t = Math.PI / 30 * i
+                var x = 65 * Math.cos(t)
+                var y = 65 * Math.sin(t)
+                cxt.moveTo(x,y)
+                cxt.lineTo(0.99*x,0.99*y)
+                cxt.stroke()
+            }
+            cxt.restore()
+
+            var now = new Date();
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+
+            if (h < 10) {
+                h = "0" + h;
+            }
+            if (m < 10) {
+                m = "0" + m;
+            }
+            if (s < 10) {
+                s = "0" + s;
+            }
+
+            //时针          
+            cxt.save()
+            cxt.lineCap = "round"
+            h = h>= 12? h-12 : h;
+            var c = Math.PI / 6 * (h)+ (Math.PI / 360) * (m) + (Math.PI / 21600) * (s);//
+            cxt.beginPath();
+            cxt.moveTo(-8*Math.cos(c),-8*Math.sin(c));
+            cxt.lineTo(40*Math.cos(c),40*Math.sin(c));
+            cxt.closePath(); 
+            cxt.strokeStyle = "black"      
+            cxt.stroke()
+            cxt.restore()
+
+            //分针
+            cxt.save()
+            var a = Math.PI / 30 * (m)+ (Math.PI / 3600) * (s);//
+            cxt.lineWidth = 3;
+            cxt.moveTo(-10*Math.cos(a),-10*Math.sin(a));
+            cxt.lineTo(62*Math.cos(a),62*Math.sin(a));
+            cxt.lineCap = "round"
+            cxt.stroke()
+            cxt.restore()
+
+            //秒针
+            cxt.save()
+            cxt.lineWidth = 1.5;
+            var b = Math.PI / 30 * (s);//
+            cxt.beginPath();
+            cxt.moveTo(-15*Math.cos(b),-15*Math.sin(b));
+            cxt.lineTo(-4*Math.cos(b),-4*Math.sin(b));
+            cxt.moveTo(2*Math.cos(b),2*Math.sin(b));
+            cxt.lineTo(55*Math.cos(b),55*Math.sin(b));
+            cxt.closePath();
+            cxt.lineCap = "round"
+            cxt.strokeStyle = "red"
+            cxt.stroke()
+            cxt.restore()
+
+            //圆心
+            cxt.save()
+            cxt.lineWidth = 1.5;
+            cxt.moveTo(0,0)
+            cxt.beginPath();
+            cxt.arc(0,0,2.5,0,Math.PI*2,true)
+            cxt.closePath();
+            cxt.strokeStyle = "red"
+            cxt.stroke()
+            cxt.restore()
+
+            //秒针上的圆圈
+            cxt.beginPath();
+            cxt.lineWidth = 1.5;
+            cxt.arc(58*Math.cos(b),58*Math.sin(b),4,0,Math.PI*2,true)
+            cxt.closePath();
+            cxt.strokeStyle = "red"
+            cxt.stroke()
+
+            //绘制时钟外圈
+            cxt.save();//保存画布 (canvas) 的所有状态。每当save()方法被调用后，当前的状态就被推送到栈中保存。
+            cxt.strokeStyle = "#0055AB";//描边颜色设置
+            cxt.lineWidth = 8;//线段样式设置
+            cxt.beginPath();
+            cxt.arc(0,0,80,0,Math.PI*2,true);
+            cxt.closePath();
+            cxt.stroke()
+            cxt.restore()//每一次调用 restore 方法，上一个保存的状态就从栈中弹出，所有设定都恢复。
+            
+        }
+        clock()
+    </script>
+</body>
+</html>
