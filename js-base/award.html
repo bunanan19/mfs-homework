@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>award</title>
+</head>
+<body>
+    <div id="award">点击“开始“按钮，开始抽奖！</div>
+    <div class="action">
+        <button id="start">开 始</button>
+        <button id="stop">停 止</button>
+    </div>
+
+    <script>
+        var award = document.getElementById("award");
+        var arr = ["特等奖","一等奖","二等奖","三等奖","鼓励奖"]
+        var startBtn = document.getElementById('start')
+        var stopBtn = document.getElementById('stop')
+        var timerId = null
+        function start() {
+            var random = Math.floor(Math.random() * 100)
+            //生成一个0到99之间的随机整数，并将其存储在变量 random 中
+            //Math.random()生成一个介于 0（包括）和 1（不包括）之间的伪随机数。
+            //Math.random() * 100 这步将生成的随机数乘以100，结果在 0 到 99.999... 之间。
+            //Math.floor() 函数将结果向下取整，因此最后的结果将是一个 0 到 99 之间的整数。
+            var index
+            if (random === 0) {
+                index = 0
+            } else if (0 < random && random < 11) {
+                index = 1
+            } else if (random >= 11 && random < 41) {
+                index = 2
+            } else if (random >= 41 && random < 81) {
+                index = 3
+            } else {
+                index = 4
+            }
+            award.innerText = arr[index]
+        }
+        startBtn.onclick = function () {
+            timerId = setInterval(start, 100)
+            //每隔100毫秒被调用一次start函数，想要重复执行的代码
+        }
+        stopBtn.onclick = function () {
+            clearInterval(timerId)
+            //停止通过 setInterval 创建的定时器的方法 
+            //timerId 是 setInterval 返回的唯一ID，我们可以用这个ID来引用和停止这个定时器
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+    <style>
+        .tabs {
+            display:flex ;
+            width: auto;
+        }
+        .tabs div{
+            width: 7625px;
+            height: 50px;
+            background-color: aqua;
+            text-align: center;
+            line-height: 50px;
+            margin: 20px;
+        }
+        .content div {
+            width: 80%;
+            margin: 0 40px;
+            border-bottom: 20px;
+            height: 50px;
+            line-height: 50px;
+            text-align: left;
+            background-color: bisque;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabs">
+        <div class="tab">table1</div>
+        <div class="tab">table2</div>
+    </div>
+    <div class="content">
+        <div>table1's content</div>
+        <div class="hidden">table2's content</div>
+    </div>
+    <script>
+        var tabs = document.getElementsByClassName("tab");
+
+        for(var i = 0; i<tabs.length; i++){
+            (function(i) {
+                tabs[i].onclick = function(){
+                    var divs = document.querySelectorAll(".content div")
+                    for(var j = 0; j < divs.length; j++){
+                        divs[j].className = "hidden"
+                    }
+                    divs[i].className=""
+                }
+            })(i)
+        }
+    </script>
+</body>
+</html>

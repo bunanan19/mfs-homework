@@ -161,3 +161,39 @@ This page was last modified on 2023年7月29日 by [MDN contributors](https://de
 
 1. 请使用 Canvas 绘制钟表，并可以**动态**显示当前时间
    ![img](https://static.mafengshe.com/fe-base/homework/canvas-clock.png)
+
+
+
+ beginPath() 和 closePath() 并不是couple，不是一对非要成对使用的 API，只是在对应需要的场景调用对应的方法，下面通过几个案例说明对这两个 API 的具体理解，首先创建一个 canvas 标签
+注意：canvas默认宽高是300 x 150，如果在标签中直接指定宽高其实就是重置宽高，如果通过 CSS 样式设置宽高其实就是将其默认的300*150的宽高进行了拉伸或缩放，这样内容会变形
+
+
+
+beginPath
+beginPath() 方法开始一条路径，或重置当前的路径
+
+```javascript
+context.moveTo(100, 100)
+context.lineTo(200, 100)
+context.strokeStyle ='red'
+context.stroke() 
+
+context.strokeStyle ='red'
+context.moveTo(100, 200)
+context.lineTo(200, 200)
+context.stroke()
+```
+
++ 第一个 stroke() 调用的时候路径列表只有一条线【从(100, 100)到(200,100)】
++ 第二个 stroke() 调用的时候此时路径列表里有两条线了【从(100, 100)到(200,100)，从(100, 200)到(200,200)】
+
++ 在我们绘制路径的时候，实际上会有一个路径列表帮我们纪录当前所画的的子路径，而这整一个列表就是我们当前绘制的路径。
+
+- 每次调用 `stroke()` 都会将此时的路径绘制一次，这也就是这两条线中第一条比第二条颜色更深，因为第一条被绘制了两遍
+- 如果是想要绘制两条单独的直线，需要用到 beginPath ，它是开始一条新的路径，当第一条路径画完，调用 beginPath 重新开始一条新的路径，那之前的路径就不会在后面的 stroke() 被重复绘制。stroke，fill，都会从上一次 beginPath 开始绘制，不管 moveTo 把画笔移到什么位置，都是在绘制一个路径。
+  
+
+```
+closePath()` 方法不是结束路径，而是关闭路径，它会试图从当前路径的终点连一条路径到起点，让整个路径闭合起来
+注意：**这并不意味着它之后的路径就是新路径了**，如果需要绘制不同路径内容，还是需要结合 `beginPath
+```
