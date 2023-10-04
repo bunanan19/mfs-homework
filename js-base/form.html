@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<body>
+    <form id="signin" action="#" target="_blank" onsubmit="return onSignupFormSubmit()">
+        <!-- <p id="sigin-error" style="color:red" ></p> -->
+        <p>
+            用户名: <input type="text" id="username" name="username" placeholder="6-16个字母开头英文字符，数字或下划线">
+            <span id="sigin-error1" style="color:red"></span>
+        </p>
+        <p>
+            口令: <input type="password" id="password" name="password" placeholder="8-20个英文字符，数字，下划线或特殊符号">
+            <span id="sigin-error2" style="color:red"></span>
+        </p>
+        <p>
+            重复口令: <input type="password" id="password-2" placeholder="确认你的口令">
+            <span id="sigin-error3" style="color:red"></span>
+        </p>
+        <p>
+            <button type="submit">提交</button> <button type="reset">重置</button>
+        </p>
+    </form>
+    
+    <script>
+        function onSignupFormSubmit(){
+
+            var userName = document.getElementById("username").value;
+            var passWord = document.getElementById("password").value;
+            var passWord2 = document.getElementById("password-2").value;
+            var error1 = document.getElementById("sigin-error1");
+            var error2 = document.getElementById("sigin-error2");
+            var error3 = document.getElementById("sigin-error3")
+
+            var usernameRegex = /^[A-Za-z][A-Za-z0-9_]{5,15}$/;//正则表达式
+            var passwordRegex = /^[_A-Za-z0-9_!@#$%^&*()_+]{8,20}$/;
+
+            if(!usernameRegex.test(userName)){
+                error1.innerText = "以字母开头，6-16个英文字符，数字或下划线"
+                return false;
+            } else{
+                error1.innerText = " "
+            }
+            
+            if(passwordRegex.test(passWord)){
+                error2.innerText = "8-20个字符，英文字符，数字，下划线或特殊符号"
+                return false;
+            } else{
+                error2.innerText = " "
+            }
+
+            if(passWord2 != passWord){
+                error3.innerText = "两次输入口令必须一致"
+                return false;
+            } else{
+                error3.innerText = " "
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

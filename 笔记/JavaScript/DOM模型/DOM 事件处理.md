@@ -34,6 +34,8 @@ HTML DOM 使 JavaScript 有能力对 HTML 事件做出反应。
 
 注意：`changetext` 的参数 `this` 是浏览器在事件发生时传入的函数的参数，其指向当前元素。
 
+注意：使用事件绑定的js放在head部分，回调函数（js一般放在body的最下面）
+
 ### 使用 DOM 指定事件响应函数
 
 除了配置元素属性外，我们还可以使用 DOM 来动态的指定事件响应函数
@@ -211,22 +213,40 @@ Event 对象代表事件的状态，比如事件在其中发生的元素、键�
 1. 什么是事件绑定？我们为什么需要它？
 
    > 在事件发生时执行 JavaScript，在事件发生之前，我们需要指定事件的响应函数（也就是告诉计算机，当某件事发生时，需要执行哪些代码）；这个指定过程就是事件绑定。
+   >
+   > 通过事件绑定可以在事件触发时规定相关的执行操作。
 
 2. 有哪三种方法绑定事件？
 
-   > 使用DOM指定事件响应函数
+   > 在DOM元素中直接绑定```<div onclick="this.innerHTML='谢谢!'">请点击该文本</div>```
    >
-   > 使用addEventListener()指定事件响应函数
+   > 在javaScript代码中绑定```document.getElementById("eleID").onclick = onclickHandle``
+   >
+   > 绑定事件监听函数addEventListener("event","function")指定事件响应函数
 
 3. `document.getElementById("eleID").onclick = onclickHandle` 和 `addEventListener()` 绑定事件处理函数有何异同？不同之处请至少说出3点。
 
+   > 两者都能实现事件绑定
+   >
+   > 1.使用 `addEventListener` 方法时，可以选择事件冒泡或捕获的处理方式。这意味着可以选择事件从目标元素向上传播（冒泡）或者从父元素向下传播（捕获）到目标元素。然而，在使用 `onclick` 属性时，默认情况下，事件处理是冒泡的，但不能选择捕获。
+   >
+   > 2.事件监听事件名一律不带on
+   >
+   > 3.使用 `onclick` 属性，只能绑定一个事件处理函数。使用 `addEventListener` 方法，可以为同一个事件绑定多个处理函数。
+   >
+   > 4.addEventListener()添加的事件，我们可以使用 `removeEventListener` 删除事件绑定
+   >
    > 
 
 4. 什么是事件对象？我们如何获取事件对象？
 
    > Event 对象代表事件的状态，比如事件在其中发生的元素、键盘按键的状态、鼠标的位置、鼠标按钮的状态。
    >
-   > 
+   > 在事件处理函数中通过event或e参数来引用事件对象
+   >
+   > ```console.log(event.type);``` *// 打印事件类型* 
+   >
+   > ```console.log(event.target); ```*// 打印触发事件的元素*
 
 ## 代码题
 

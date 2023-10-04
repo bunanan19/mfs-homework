@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+</head>
+<body>
+    <div class="banner">
+        <div class="container">
+            <h1>一分耕耘一分收获</h1>
+            <h2>NO PAINS NO GAINS</h2>
+        </div>
+    </div>
+    <div class="list" id="list">
+        <!-- <div class="item">
+            <div class="num">1</div>
+            <div class="title">事件绑定</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">45</span>
+                <span class="iconfont icon-huifu">123</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div> -->
+
+        <!-- <div class="item">
+            <div class="num">2</div>
+            <div class="title">实战</div>
+            <div class="info">               
+                <span class="iconfont icon-zhiboguankanshu">53</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">3</div>
+            <div class="title">基础</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">456</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">4</div>
+            <div class="title">浏览器存储</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">34</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">5</div>
+            <div class="title">跨域</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">345</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">6</div>
+            <div class="title">标准对象</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">234</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">7</div>
+            <div class="title">原型链</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">24</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">8</div>
+            <div class="title">正则表达式</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">522</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">9</div>
+            <div class="title">表单</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">564</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">10</div>
+            <div class="title">媒体查询</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">253</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">11</div>
+            <div class="title">flex布局</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">325</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="num">12</div>
+            <div class="title">frame</div>
+            <div class="info">
+                <span class="iconfont icon-zhiboguankanshu">252</span>
+                <span class="iconfont icon-huifu">234</span>
+            </div>
+            <div class="simile">
+                <span class="iconfont icon-smiling"></span>
+            </div>
+        </div> -->
+        <!-- 空白占位符，当最后一行项目数不能使项目和前面一样整齐排列，
+        还是spac-around的时候，通过空白占位符实现整齐排列 -->
+        <!-- <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div> -->
+    </div>
+    <div class="pager" id="pager">
+        <!-- <span>1</span>
+        <span>2</span> -->
+    </div>
+    <script >
+        //创建item
+        function createItem(num,title,clickTimes,replyTimes){
+            //创建div元素
+            var dom = document.createElement("div");
+            dom.setAttribute("class","item");//设置div元素属性，有了item属性，css创建基础样式
+            //写入内部html结构
+            var html = '<div class="num">'+(num+1)+'</div>'+
+            '<div class="title">'+title+'</div>'+
+            '<div class="info">'+
+                '<span class="iconfont icon-zhiboguankanshu">'+clickTimes+'</span>'+
+                '<span class="iconfont icon-huifu">'+replyTimes+'</span>'+
+            '</div>'+
+            '<div class="simile">'+
+                '<span class="iconfont icon-smiling"></span>'+
+            '</div>'
+
+            dom.innerHTML = html;
+            return dom;
+        }
+        //将数据传入data
+        var data = [];
+
+        for(var i = 0; i < 100; i++ ){
+            data.push({num:i, title:"标题"+i, clickTimes:5*i, replyTimes:2*i})
+        }
+        //将data分页12为一页
+        function getData(page){
+            return data.slice(page*12, page*12+12)
+            //slice(start,end)返回数组中一个片段或子数组,page=0,返回0-11；page=1，返回12到23
+        }
+
+        var oList = document.getElementById("list");
+
+        function fillDom(page){
+            //清除list所有子结点
+            while(oList.hasChildNodes()){
+                oList.removeChild(oList.lastChild);
+            }
+            //对data每一个数据创建dom结点
+            var data = getData(page)
+            var doms = data.map(function (i){
+                return createItem(i.num, i.title, i.clickTimes, i.replyTimes)
+            })
+            //将创建好的doms结点添加到list元素
+            doms.forEach(function (i){
+                oList.appendChild(i)
+            })
+        }
+
+        fillDom(0)
+
+        //创建page
+        function createPages(page){
+            var dom= document.createElement("span");
+            dom.innerText = (page+1);
+            return dom;
+        }
+        //获取pager元素，以往里面添加span page
+        var oPager = document.getElementById("pager")
+        //根据data数量计算page数
+        var allPages = (data.length/12)
+
+        //填充pager元素
+        for(i= 0 ;i < allPages; i++){
+            oPager.appendChild(createPages(i))
+        }
+
+        //事件绑定
+        var pages = document.querySelectorAll(".pager span")
+
+        for (let i = 0; i < pages.length; i++){
+            pages[i].addEventListener("click",function(){
+            fillDom(i)
+        })
+        }
+           
+        </script>
+</body>
+</html>
