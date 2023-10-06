@@ -4,16 +4,17 @@
 - BOM提供了独立于内容而与浏览器窗口进行交互的对象
 - 由于BOM主要用于管理窗口与窗口之间的通讯，因此其核心对象是window
 - BOM由一系列相关的对象构成，并且每个对象都提供了很多方法与属性
+- (DOM是BOM的子结点)
 
 ## BOM 能做什么
 
-BOM提供了一些访问窗口对象的一些方法，我们可以用它来移动窗口位置，改变窗口大小，打开新窗口和关闭窗口，弹出对话框，进行导航以及获取客户的一些信息如：浏览器品牌版本，屏幕分辨率。但BOM最强大的功能是它提供了一个访问HTML页面的一入口——document对象，以使得我们可以通过这个入口来使用DOM的强大功能！！！
+BOM提供了一些访问窗口对象的一些方法，我们可以用它来移动窗口位置，改变窗口大小，打开新窗口和关闭窗口，弹出对话框，进行导航以及获取客户的一些信息如：浏览器品牌版本，屏幕分辨率。但BOM最强大的功能是它提供了一个访问HTML页面的一入口——document对象，以使得我们可以通过这个入口来使用DOM的强大功能！！！下图中window对应BOM，document对应DOM
 
-![0_1515065024900_upload-1f4f64ca-7054-4a4d-b4c5-d86a6aeed4ee](http://bbs.static.mafengshe.com/FpsoK2Xo_gnAuLO248esVGJ8G9_N?imageMogr2/quality/40)
+![image-20231004155015732](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004155015732.png)
 
 ## window 对象
 
-BOM 的核心是window对象，它表示浏览器的一个实例。在浏览器中，即是javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象，这就意味着在网页中定义的任意变量、函数、对象都是以window作为Global对象。
+BOM 的核心是window对象，它表示浏览器的一个实例。在浏览器中，即是javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象，这就意味着在网页中定义的任意变量、函数、对象都是以window作为Global对象（全局对象)。
 
 window对象是BOM的顶层(核心)对象，所有对象都是通过它延伸出来的，也可以称为window的子对象。由于window是顶层对象，因此调用它的子对象时可以不显示的指明window对象，例如下面两行代码是一样的：
 
@@ -50,10 +51,19 @@ console.log(window.name);
 
 我们可以通过 window 对象获取浏览器窗口的尺寸：
 
-- window.innerHeight - 浏览器窗口的内部高度
+- window.innerHeight - 浏览器窗口的内部高度（可视高度）
+
 - window.innerWidth - 浏览器窗口的内部宽度
 
-这两个属性返回网页的CSS布局占据的浏览器窗口的高度和宽度，单位为像素。很显然，当用户放大网页的时候（比如将网页从100%的大小放大为200%），这两个属性会变小。
+  <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004165146238.png" alt="image-20231004165146238" style="zoom: 67%;" /><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004165301583.png" alt="image-20231004165301583" style="zoom:67%;" />
+
+  <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004165432703.png" alt="image-20231004165432703" style="zoom:67%;" /><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004165522076.png" alt="image-20231004165522076" style="zoom:67%;" />
+
+这两个属性返回网页的CSS布局占据的浏览器窗口的高度和宽度，单位为像素。
+
+作用：比如canvas，canvas提前设置了宽度和高度，且值不会随浏览器窗口的大小的大小改变，不能实现响应式布局，此时window.innerHeight和 window.innerWidth的作用就发挥了。
+
+很显然，当用户放大网页的时候（比如将网页从100%的大小放大为200%），这两个属性会变小。
 
 ### 滚动条
 
@@ -68,7 +78,7 @@ console.log(window.name);
 
 #### 滚动页面
 
-我们也可以通过方法scrollTo或者scroll方法改变滚动条位置到指定坐标
+我们也可以通过方法scrollTo或者scroll [skroʊl]方法改变滚动条位置到指定坐标
 
 ```javascript
 window.scrollTo(0, 300); // 滚动条移动到300px处
@@ -82,9 +92,17 @@ scrollBy可以相对当前位置移动滚动条，而不是移动到绝对位置
 scrollBy(0, 100); // 滚动条下移100px
 ```
 
+window.onscroll 是一个事件处理器，它会在窗口（window）滚动时被触发
+
+```javascript
+window.onsroll = function(){console.log(1)}
+```
+
+
+
 ### 框架
 
-window.frames 返回一个类似数组的对象，成员为页面内的所有框架，包括frame元素和iframe元素。需要注意的是，window.frames的每个成员对应的是框架内的窗口（即框架的window对象），获取每个框架的DOM树，需要使用window.frames[0].document。
+window.frames 返回一个类似数组的对象，成员为页面内的所有框架，包括frame元素和iframe元素。窗口内的iframe也是一个新的窗口，也是一个BOM。需要注意的是，window.frames的每个成员对应的是框架内的窗口（即框架的window对象），获取每个框架的DOM树，需要使用window.frames[0].document。
 
 ```javascript
 var iframe = window.getElementsByTagName("iframe")[0];
@@ -93,11 +111,25 @@ var iframe_title = iframe.contentWindow.title;
 
 上面代码用于获取框架页面的标题。
 
-iframe元素遵守同源政策，只有当父页面与框架页面来自同一个域名，两者之间才可以用脚本通信，否则只有使用window.postMessage方法。
+**iframe元素遵守同源政策，只有当父页面与框架页面来自 *同一个域名*，两者之间才可以用脚本通信，否则只有使用window.postMessage方法。**
 
 在iframe框架内部，使用window.parent指向父页面。
 
-### navigator
+下图出错的原因是，这个错误提示是浏览器为了保护用户隐私和数据安全而实施的安全策略。它阻止了一个具有源 "null" 的帧访问跨源帧。跨源资源共享 (CORS) 是一种安全机制，它允许一个网站的某些资源（例如字体、JavaScript等）可以被其他来自不同源的网站访问。
+
+在你这个具体的情况中，看起来你可能在尝试从一个空源（null）的iframe中访问另一个iframe，这是不被允许的，因为这可能会引发安全问题。浏览器将空源（null）视为非安全来源，因此会阻止这种类型的访问。
+
+要解决这个问题，你需要确保你的页面具有有效的、非空的源（例如一个URL）。如果你在本地文件系统上运行页面（例如通过file:// URL），你可能会看到这个错误，因为这被视为从空源（null）加载页面。
+
+如果你只是在测试或开发阶段，并且你确信你的代码不会引发安全问题，你可能想要考虑配置浏览器以允许从空源（null）进行这种类型的访问。然而，这并不推荐，因为这可能会引发严重的安全问题。
+
+如果你有不同域的iframe，你需要服务器端配置CORS来允许跨域访问。或者你可以考虑使用代理来绕过这个问题，但这并不是一个长期的解决方案，因为这可能会引发其他的安全问题。
+
+总的来说，你的问题是因为浏览器为了保护用户的安全和隐私而做出的限制。解决这个问题需要理解并遵守浏览器的安全策略。
+
+![image-20231004173135818](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004173135818.png)
+
+### navigator  【nævɪɡeɪtə(r）】
 
 Window对象的navigator属性，指向一个包含浏览器相关信息的对象。
 
@@ -107,13 +139,15 @@ navigator.userAgent属性返回浏览器的`User-Agent`字符串，用来标示�
 navigator.userAgent // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
 ```
 
-通过userAgent属性识别浏览器，不是一个好办法。因为必须考虑所有的情况（不同的浏览器，不同的版本），非常麻烦，而且无法保证未来的适用性，更何况各种上网设备层出不穷，难以穷尽。所以，现在一般不再识别浏览器了，而是使用“功能识别”方法，即逐一测试当前浏览器是否支持要用到的JavaScript功能。
+通过userAgent属性识别浏览器，不是一个好办法，有时候不太准。因为必须考虑所有的情况（不同的浏览器，不同的版本），非常麻烦，而且无法保证未来的适用性，更何况各种上网设备层出不穷，难以穷尽。所以，现在一般不再识别浏览器了，而是使用“功能识别”方法，即逐一测试当前浏览器是否支持要用到的JavaScript功能。
 
 navigator对象中还包括一些其它属性，我们可以在 `console` 下使用如下指令查看
 
 ```javascript
 navigator
 ```
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004174330971.png" alt="image-20231004174330971" style="zoom:80%;" />
 
 ### 屏幕
 
@@ -131,11 +165,13 @@ screen.width
 
 一般使用以上两个属性，了解设备的分辨率。上面代码显示，某设备的分辨率是1920x1080。除非调整显示器的分辨率，否则这两个值可以看作常量，不会发生变化。显示器的分辨率与浏览器设置无关，缩放网页并不会改变分辨率。
 
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004194921190.png" alt="image-20231004194921190" style="zoom:80%;" />
+
 ### 窗口管理
 
 我们可以通过 window 对象 打开，关闭，移动，调整 窗口
 
-- window.open() - 打开新窗口
+- window.open() - 打开新窗口<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004195235131.png" alt="image-20231004195235131" style="zoom:80%;" />
 - window.close() - 关闭当前窗口
 - window.moveTo() - 移动当前窗口
 - window.resizeTo() - 调整当前窗口的尺寸
@@ -153,7 +189,7 @@ window.open(URL,name,features,replace)
 | features | 一个可选的字符串，声明了新窗口要显示的标准浏览器的特征。如果省略该参数，新窗口将具有所有标准特征。在窗口特征这个表格中，我们对该字符串的格式进行了详细的说明。 |
 | replace  | 一个可选的布尔值。规定了装载到窗口的 URL 是在窗口的浏览历史中创建一个新条目，还是替换浏览历史中的当前条目。支持下面的值：true: URL 替换浏览历史中的当前条目。false: URL 在浏览历史中创建新的条目。 |
 
-### 弹窗
+### 弹窗，现在推荐使用model对话框
 
 #### 警告框
 
@@ -185,7 +221,7 @@ var result = confirm(message);
 var result = confirm("你最近好吗？");
 ```
 
-#### 提示框
+#### 提示框 prompt [prɑːmpt]
 
 提示框经常用于提示用户在进入页面前输入某个值。
 
@@ -250,14 +286,23 @@ var div = document.getElementById('test');
 console.log(window.window.getComputedStyle(div,null));
 ```
 
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004202820815.png" alt="image-20231004202820815" style="zoom:80%;" />
+
 ### Location
 
 window.location 对象用于获得当前页面的地址 (URL)，并把浏览器重定向到新的页面。
 
 - location.hostname 返回 web 主机的域名
+
 - location.pathname 返回当前页面的路径和文件名
+
 - location.port 返回 web 主机的端口 （80 或 443）
+
 - location.protocol 返回所使用的 web 协议（http:// 或 https://）
+
+  ![image-20231004203040683](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004203040683.png)
+
+  <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004203233845.png" alt="image-20231004203233845" style="zoom:80%;" />
 
 我们也可以通过 location 设置当前页面的 URL
 
@@ -271,17 +316,49 @@ window.history 对象包含浏览器的历史。
 
 为了保护用户隐私，对 JavaScript 访问该对象的方法做出了限制。
 
-- history.back() - 与在浏览器点击后退按钮相同
-- history.forward() - 与在浏览器中点击按钮向前相同
+- history.back() - 与在浏览器点击后退按钮相同，回到上一页
+- history.forward() - 与在浏览器中点击按钮向前相同，翻到下一页
 
-
+![image-20231004203459693](C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231004203459693.png)
 
 ## 问答题
 
 1. BOM 是什么？提供的 API 让我们能操作什么？
+
+   > - BOM是Browser Object Model的缩写，简称浏览器对象模型。BOM提供了独立于内容而与浏览器窗口进行交互的对象。用于管理窗口与窗口之间的通讯，因此其核心对象是window
+   > - BOM提供对象我们可以用来移动窗口位置，改变窗口大小，打开新窗口和关闭窗口，弹出对话框，进行导航以及获取客户的一些信息如：浏览器品牌版本，屏幕分辨率。但BOM最强大的功能是它提供了一个访问HTML页面的一入口——document对象，以使得我们可以通过这个入口来使用DOM的强大功能。
+
 2. `window.name` 有怎样的特性
+
+   > window.name属性用于设置当前浏览器窗口的名字。它有一个特点，就是浏览器刷新后，该属性保持不变。
+
 3. 如何获取窗口的尺寸？
+
+   > - window.innerHeight - 浏览器窗口的内部高度
+   > - window.innerWidth - 浏览器窗口的内部宽度
+
 4. 如何调整滚动条位置
+
+   > ```javascript
+   > window.scrollTo(0, 300); // 滚动条移动到300px处
+   > ```
+   >
+   > ```javascript
+   > scrollBy(0, 100); // 滚动条下移100px
+   > ```
+
 5. 如何获取浏览器相关信息
+
+   > Window对象的navigator属性
+
 6. 如何得到一个元素`计算后`的属性值
+
+   > getComputedStyle
+   >
+   > ```javascript
+   > var style = window.getComputedStyle("元素", "伪类");
+   > ```
+
 7. 如何模拟点击前进后退按钮的点击？
+
+   > history.back() 

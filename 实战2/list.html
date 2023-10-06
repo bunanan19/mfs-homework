@@ -199,11 +199,12 @@
                 oList.removeChild(oList.lastChild);
             }
             //对data每一个数据创建dom结点
+            //数组的map()方法
             var data = getData(page)
             var doms = data.map(function (i){
                 return createItem(i.num, i.title, i.clickTimes, i.replyTimes)
-            })
-            //将创建好的doms结点添加到list元素
+            })//对data里面每一个数据元素data[i]执行function，再赋值给doms
+            //将创建好的doms结点添加到list元素,将doms数组中的每个元素doms[i]添加到oList元素中
             doms.forEach(function (i){
                 oList.appendChild(i)
             })

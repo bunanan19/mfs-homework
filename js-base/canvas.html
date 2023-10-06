@@ -173,12 +173,12 @@
             cxt.closePath();
             cxt.stroke()
             cxt.restore()//每一次调用 restore 方法，上一个保存的状态就从栈中弹出，所有设定都恢复。
-            requestAnimationFrame(clock);
+            // requestAnimationFrame(clock);
             //允许你请求浏览器在下一次重绘之前调用指定的函数来更新动画。
             //这通常被用于创建动画，因为它可以让你在每一帧画面前后执行一些代码，以此来实现平滑动画的效果。
         }
-        requestAnimationFrame(clock);
-        // setInterval(clock,1000)
+        // requestAnimationFrame(clock);
+        setInterval(clock,1000)
         //与 setTimeout 和 setInterval 不同，requestAnimationFrame 不需要设置时间间隔。requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率
         //setTimeout 和 setInterval 的问题是，它们都不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器 UI 线程队列中以等待执行的时间。如果队列前面已经加入了其他任务，那动画代码就要等前面的任务完成后再执行
     </script>

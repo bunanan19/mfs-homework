@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    再页面中插入一个iframe
+    <iframe src="./canvas.html" frameborder="0"></iframe>
+    iframe已经插入好了
+
+    <br><br>
+    <input type="button" value="打开窗口" onclick="openWin()" />
+    <br><br>
+    <input type="button" value="移动窗口" onclick="moveWin()" />
+    <br><br>
+    <input type="button" value="改变窗口大小" onclick="changeWin()" />
+
+
+    <script>
+        function openWin(){
+            myWindow=window.open('','','width=200,height=100');
+            myWindow.document.write("<p>这是我的窗口</p>");
+        }
+        function moveWin(){
+            myWindow.moveTo(500,500);
+            myWindow.focus();
+        }
+        function changeWin(){
+            myWindow.resizeTo(300,300);
+            myWindow.focus();
+        }
+        </script>
+</body>
+</html>
