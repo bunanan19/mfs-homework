@@ -162,6 +162,8 @@
         <div class="placehold"></div>
         <div class="placehold"></div>
         <div class="placehold"></div>
+        <div class="placehold"></div>
+        <div class="placehold"></div>
     </div>
 
     <div class="line"><p><span class="iconfont icon-a-jiagou2x"></span> 购物车：</p></div>
@@ -231,10 +233,12 @@
                     item.querySelector(".nu").innerHTML = 'x'+items[index].quantity
                 }
                 localStorage.setItem('buy', JSON.stringify(items));
+                cik();
             })
         }
         // 为删除按钮添加事件处理
-        var del = document.querySelectorAll(".delete");
+        function cik(){
+            var del = document.querySelectorAll(".delete");
             for (var i = 0; i < del.length; i++) {
             del[i].addEventListener("click", function () {
                 var dom = this.parentNode;
@@ -249,6 +253,8 @@
                 localStorage.setItem('buy', JSON.stringify(items)); // 更新localStorage
                 });
             }
+        }
+        cik()
     </script>
 </body>
 </html>
