@@ -182,7 +182,7 @@
         var oGouwuche = document.getElementById("gouwuche");
         var items = []; // 存储购物车中的物品
 
-        // 从 localStorage 中恢复购物车内容
+        // 从 localStorage 中恢复购物车内容，刷新后购物车数据根据localStorage恢复原数据
         var buyStorage = localStorage.getItem('buy');
         if (buyStorage) {
             items = JSON.parse(buyStorage);//将字符串转为数组对象
@@ -204,14 +204,14 @@
             }
         }
         
-        //加购物品函数
+        //对每一个物品添加点击，定义事件处理函数
         for (let i = 0; i < btns.length; i++){
             btns[i].addEventListener("click",function(){
                 var addItem = document.querySelectorAll("#gouwuche>.additem>.addcnt");
                 let addArry = Array.from(addItem);
                 var addName = addArry.map(node => node.innerHTML)
                 var index = addName.indexOf(goodsName[i].innerHTML);
-                if(index === -1){
+                if(index === -1){//判断当前购物车中是否已加购相同物品
                     var dom = document.createElement("div");
                     dom.setAttribute("class","additem");
                     dom.setAttribute("id",i) 
@@ -219,24 +219,24 @@
                         name: goodsName[i].innerHTML,
                         quantity: 1
                     };
-                    items.push(newItem);
-                    //写入内部html结构
+                    items.push(newItem);//将新加入的物品写入购物车items
+                    
                     var html = '<span class="addcnt">'+goodsName[i].innerHTML+'</span>'+
                     '<span class="nu">x1</span>'+
                     '<button class="delete">删除</button>'
                     dom.innerHTML = html;
-                    oGouwuche.appendChild(dom);
+                    oGouwuche.appendChild(dom);//为购物车写入内部html结构
                     
                 } else {
-                    var item = document.getElementById(i);
+                    var item = document.getElementById(i);//根据商品id锁定购物车中的dom元素
                     items[index].quantity +=1 ;//更新数据
-                    item.querySelector(".nu").innerHTML = 'x'+items[index].quantity
+                    item.querySelector(".nu").innerHTML = 'x'+items[index].quantity//局部刷新数量，数量+1
                 }
-                localStorage.setItem('buy', JSON.stringify(items));
-                cik();
+                localStorage.setItem('buy', JSON.stringify(items));//购物数据写入缓存
+                cik();//为动态生成的元素绑定事件删除
             })
         }
-        // 为删除按钮添加事件处理
+        // 删除按钮事件处理函数
         function cik(){
             var del = document.querySelectorAll(".delete");
             for (var i = 0; i < del.length; i++) {
@@ -254,7 +254,7 @@
                 });
             }
         }
-        cik()
+        cik()//为购物车中的物品添加事件绑定
     </script>
 </body>
 </html>
