@@ -208,9 +208,10 @@
         for (let i = 0; i < btns.length; i++){
             btns[i].addEventListener("click",function(){
                 var addItem = document.querySelectorAll("#gouwuche>.additem>.addcnt");
-                let addArry = Array.from(addItem);
-                var addName = addArry.map(node => node.innerHTML)
-                var index = addName.indexOf(goodsName[i].innerHTML);
+                // let addArry = Array.from(addItem);
+                // var addName = addArry.map(node => node.innerHTML)
+                // var index = addName.indexOf(goodsName[i].innerHTML);
+                var index = items.findIndex(n => n.name === goodsName[i].innerHTML)
                 if(index === -1){//判断当前购物车中是否已加购相同物品
                     var dom = document.createElement("div");
                     dom.setAttribute("class","additem");
