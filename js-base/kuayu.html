@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kuayu</title>
+</head>
+<body>
+    再页面中插入一个iframe
+    <!-- <iframe src="http://www.b.com:80/canvas.html" frameborder="0"></iframe> -->
+    <iframe src="http://www.a.com:3000/canvas.html" frameborder="0"></iframe>
+    iframe已经插入好了
+
+    <script>
+        window.frames[0].document//获得当前网页中iframe窗口里面的canvas文件的dom
+
+
+        // 降域：
+        document.domain = "a.com"//使用domain降域，若要访问frame里的元素，canvas也要domain降域，降域需要注意端口号
+
+        // console.log(window.frames[0].document.getElementById("myCanvas"))
+        //获取canvas里面的元素，网页返回null，因为当前网页加载时，iframe还没加载完，console.log便开始执行，所以返回为空
+
+        setTimeout(function(){
+            console.log(window.frames[0].document.getElementById("myCanvas"))
+        },1000)//延时加载，返回报错，访问不了，浏览器同源策略会限制来自不同域名、协议、端口（不同的域）资源之间的访问，需要跨域访问
+        //当前网页网站：www.a.com,若想console执行正确，能访问到canvas元素，需将网址换成www.b.com，
+
+
+        // cors:
+        var xhr = new XMLHttpRequest()
+        xhr.open("GET","http://www.b.com:3000/data.json")
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4){
+                console.log(xhr.responseText)
+            }
+        }
+        xhr.send()
+    </script>
+
+
+    <!-- JSONP: -->
+    <script>
+        function callback(data){
+            console.log(data)
+        }
+
+        //动态得生成script并插入body：
+        var script = document.createElement('script');
+        script.src = 'http://www.baidu.com/json/?callback=fetchData';
+        document.body.insertBefore(script, document.body.firstChild);
+    </script>
+    <script src="http://www.b.com:3000/data.js"></script> 
+    <!-- 通过script标签请求js，src属性不受浏览器限制 -->
+</body>
+</html>

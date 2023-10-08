@@ -101,6 +101,8 @@ scheme://host.domain:port/path/filename
 
      主机名(域名)：www.mafengshe.com
 
+     port：80（默认，没写明的情况下默认是80）
+
      path:/course/fe-senior
 
      filename:ad
@@ -112,6 +114,6 @@ scheme://host.domain:port/path/filename
      port:3000
 
      path:/course/fe-senior
-
+   
      filename:ad
 
