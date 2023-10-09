@@ -84,66 +84,21 @@
             for(i= 0 ;i < allPages; i++){
                 oPager.appendChild(createPages(i))
             }
-
-        }
-
-        function pagesDom(response){
-              var data = response
-              //事件代理
+            createPages();
+            
+            //事件代理
             var oPager = document.getElementById("pager")
                 oPager.onclick=function(e){
                 var e = e || window.event;
                 var target = e.target || e.srcElement;
                 if(target.nodeName.toLowerCase() === "span"){
                     var i = (target.innerText-1)
-                    //创建item
-                    function createItem(num,title,clickTimes,replyTimes){
-                        //创建div元素
-                        var dom = document.createElement("div");
-                        dom.setAttribute("class","item");//设置div元素属性，有了item属性，css创建基础样式
-                        //写入内部html结构
-                        var html = '<div class="num">'+num+'</div>'+
-                        '<div class="title">'+title+'</div>'+
-                        '<div class="info">'+
-                            '<span class="iconfont icon-zhiboguankanshu">'+clickTimes+'</span>'+
-                            '<span class="iconfont icon-huifu">'+replyTimes+'</span>'+
-                        '</div>'+
-                        '<div class="simile">'+
-                            '<span class="iconfont icon-smiling"></span>'+
-                        '</div>'
-
-                        dom.innerHTML = html;
-                        return dom;
-                    }
-
-                    //将data分页12为一页
-                    function getData(page){
-                        return data.slice(page*12, page*12+12)
-                        //slice(start,end)返回数组中一个片段或子数组,page=0,返回0-11；page=1，返回12到23
-                    }
-
-                    var oList = document.getElementById("list");
-
-                    function fillDom(page){
-                        //清除list所有子结点
-                        while(oList.hasChildNodes()){
-                            oList.removeChild(oList.lastChild);
-                        }
-                        //对data每一个数据创建dom结点
-                        //数组的map()方法
-                        var data = getData(page)
-                        var doms = data.map(function (i){
-                            return createItem(i.num, i.title, i.clickTimes, i.replyTimes)
-                        })//对data里面每一个数据元素data[i]执行function，再赋值给doms
-                        //将创建好的doms结点添加到list元素,将doms数组中的每个元素doms[i]添加到oList元素中
-                        doms.forEach(function (i){
-                            oList.appendChild(i)
-                        })
-                    }
                     fillDom(i);
                 }
             }
-            }
+
+        }
+            
 
         function getItems(callback){
             var xhr = new XMLHttpRequest();
@@ -158,7 +113,6 @@
         }
 
         getItems(renderDom)
-        getItems(pagesDom)
 
               
             
