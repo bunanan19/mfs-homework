@@ -1,6 +1,6 @@
 # Ajax
 
-Ajax是Asynchronous JavaScript and XML的缩写，这一技术能够向服务器请求额外的数据而无需卸载整个页面，会带来良好的用户体验。传统的HTTP请求流程大概是这样的，
+Ajax是Asynchronous(异步) JavaScript and XML的缩写，这一技术能够向服务器请求额外的数据而无需卸载整个页面，会带来良好的用户体验。传统的HTTP请求流程大概是这样的，
 
 1. 浏览器向服务器发送请求
 2. 服务器根据浏览器传来数据生成response
@@ -12,6 +12,12 @@ Ajax是Asynchronous JavaScript and XML的缩写，这一技术能够向服务器
 AJAX 在浏览器与 Web 服务器之间使用异步数据传输（HTTP 请求）从服务器获取数据
 
 这里的异步是指脱离当前浏览器页面的请求、加载等单独执行，这意味着可以在不重新加载整个网页的情况下，通过JavaScript发送请求、接受服务器传来的数据，然后操作DOM将新数据对网页的某部分进行更新，使用Ajax最直观的感受是向服务器获取新数据不需要刷新页面等待了
+
+> 1. 传统的web开发大多采用页面渲染的方式进行展示，即每次用户请求页面时，服务器都要返回一个新的html页面，这种方式需要重新加载整个页面，会带来很大的性能负担。而Ajax技术使用了JavaScript和XMLHttpRequest对象，可以在不刷新整个页面的情况下，局部刷新页面，从而提高了响应速度。
+>
+> 2. Ajax请求是异步的，不需要刷新整个页面，只需要请求和响应那部分数据。而传统web开发的数据交互通常是同步的，整个页面需要重新加载，从而带来了很大的延迟。
+>
+> 3. Ajax请求可以通过JSON格式或XML格式进行数据交互，使得数据可以以更加符合web标准的形式进行传输。而传统web开发的数据交互往往采用url参数传递或者表单提交的方式，这种方式局限于仅适用于简单的数据格式，难以实现更加复杂的数据传输
 
 ## 调试
 
@@ -124,6 +130,36 @@ xhr.send();
 xhr.abort();
 ```
 
+ **方法：**
+
+ open() 初始化http请求参数，包括URL和http方法，但是不发送请求；
+
+ abort() 取消当前响应，关闭连接并断开所有网络未结束的活动；
+
+ getAllResponseHeaders() 把http响应头部作为未解析字符串返回；
+
+ getResponseHeaders) 返回指定的http响应头的值；
+
+ send() 发送http请求使用传递给open()方法的参数，以及传个该方法的可选请求体；
+
+ setResponseHeader() 向一个打开但没有发送的请求设置或添加一个Http请求。
+
+**属性：**
+
+ readyState 说明http请求的状态;(有5个状态分别是
+
+ 0 表示没有初始化；
+
+ 1 表示读取中
+
+ 2 表示已读取
+
+ 3 交互中(接受中)
+
+ 4 完成
+
+)
+
 ## HTTP Header
 
 每个HTTP请求都会带有Header信息，XHR对象也提供了操作这请求Header和响应Header信息的方法，在默认情况下，发送HTTP请求还会发送下列头部信息
@@ -176,11 +212,17 @@ POST请求用于把数据作为主体向服务器提交，POST请求主体可以
 
 1. AJAX 是什么的简称？它和普通的 HTTP 请求有什么不同？
 
-   > 
+   > Ajax是Asynchronous JavaScript and XML的缩写
+   >
+   > 普通HTTP请求是同步的，顺序执行。AJAX是使用异步数据传输从服务器获取数据。使用Ajax不用像普通HTTP一样需要刷新获取新数据。
 
 2. 传统网页的渲染模式和基于 AJAX 的网页渲染模式有何不同
 
-   > 
+   > 传统的web开发大多采用页面渲染的方式进行展示，即每次用户请求页面时，服务器都要返回一个新的html页面，这种方式需要重新加载整个页面，会带来很大的性能负担。而Ajax技术使用了JavaScript和XMLHttpRequest对象，可以在不刷新整个页面的情况下，局部刷新页面，从而提高了响应速度。
+   >
+   > Ajax请求是异步的，不需要刷新整个页面，只需要请求和响应那部分数据。而传统web开发的数据交互通常是同步的，整个页面需要重新加载，从而带来了很大的延迟。
+   >
+   > Ajax请求可以通过JSON格式或XML格式进行数据交互，使得数据可以以更加符合web标准的形式进行传输。而传统web开发的数据交互往往采用url参数传递或者表单提交的方式，这种方式局限于仅适用于简单的数据格式，难以实现更加复杂的数据传输
 
 3. 如何模拟调试 AJAX 的数据
 
@@ -188,19 +230,66 @@ POST请求用于把数据作为主体向服务器提交，POST请求主体可以
 
 4. 如何兼容老浏览器创建 `XMLHttpRequest` 对象？
 
-   > 
+   > ```javascript
+   > function createXHR(){
+   >     var xhr = null;//创建一个新变量并赋值null，使用null作为判断条件说明还没有创建XMLHTTPRequest对象
+   >     try {
+   >         // Firefox, Opera 8.0+, Safari，IE7+
+   >         xhr = new XMLHttpRequest();//尝试创建 XMLHttpRequest 对象，除 IE 外的浏览器都支持这个方法。
+   >     }
+   >     catch (e) {
+   >         // Internet Explorer
+   >         try {
+   >             xhr = new ActiveXObject("Msxml2.XMLHTTP");
+   >         }
+   >         catch (e) {
+   >             try {
+   >                 xhr = new ActiveXObject("Microsoft.XMLHTTP");
+   >                 ;//使用较老版本的 IE 创建 IE 兼容的对象（Microsoft.XMLHTTP）
+   >             }
+   >             catch (e) {
+   >                 xhr = null;//如果失败了还保持null
+   >             }
+   >         }
+   >     }
+   >     return xhr;
+   > }
+   > ```
 
 5. `XMLHttpRequest` 对象有哪几个常用方法？分别对应的含义如何？
 
-   > 
+   > XHR对象有两个重要方法 open与send
+   >
+   > 在使用XHR对象时要调用的第一个方法是open方法
+   >
+   > ```javascript
+   > xhr.open('get', 'default.html', true)
+   > ```
+   >
+   > 这段代码会针对default.html页面发送get请求，
+   >
+   > 要想把请求发往服务器需要调用send方法，send方法接受一个参数，参数是请求主体要发送的数据，如果不需要发送数据则传入null，在调用send方法之后请求被发往服务器，
 
 6. 常见的 HTTP 请求头有哪些？如何使用 AJAX 设置 HTTP 请求头？
 
-   > 
+   > 1. Accept：浏览器能够处理的内容类型
+   > 2. Accept-Charset：浏览器能够处理的字符集
+   > 3. Accept-Encoding：浏览器能够处理的压缩编码
+   > 4. Accept-Language：浏览器当前设置的语言
+   > 5. Connection：浏览器与服务器的连接类型
+   > 6. Cookie：当前页面的cookie
+   > 7. Referer:发送请求的页面的URI
+   >
+   > 可以使用`setRequestHeader`方法设置自定义的请求Header信息，这个方法接受两个参数：
+   >
+   > 1. 头部字段的名称
+   > 2. 头部字段的值
+   >
+   > 要想成功发送头部信息，必须在**调用open方法之后**，**调用send方法之前**调用setRequestHeader方法。
 
 7. 如何使用 AJAX 发起 POST 请求？
 
-   > 
+   > 在open方法第一个参数传入”POST”就可以初始化一个POST请求。发送POST请求第二步就是向send方法传输数据参数，参数可以是xml或者字符串，json等。
 
 ## 代码题
 

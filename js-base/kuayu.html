@@ -29,7 +29,7 @@
 
         // cors:
         var xhr = new XMLHttpRequest()
-        xhr.open("GET","http://www.b.com:3000/data.json")
+        xhr.open("GET","http://www.b.com:3000/data.json",true)
         xhr.onreadystatechange = function(){
             if(xhr.readyState==4){
                 console.log(xhr.responseText)
@@ -47,7 +47,7 @@
 
         //动态得生成script并插入body：
         var script = document.createElement('script');
-        script.src = 'http://www.baidu.com/json/?callback=fetchData';
+        // script.src = 'http://www.baidu.com/json/?callback=fetchData';
         document.body.insertBefore(script, document.body.firstChild);
     </script>
     <script src="http://www.b.com:3000/data.js"></script> 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsonp</title>
+</head>
+<body>
+    <script>
+
+        function jsonp(url, callbackName, callback) {
+          return new Promise((resolve, reject) => {
+            try {
+              let str = `${url}?callback=${callbackName}`
+              let scriptEle = document.createElement('script')
+              scriptEle.type = 'text/javascript'
+              scriptEle.src = str
+              scriptEle.addEventListener('load', callback)
+              window[callbackName] = function (data) {
+                resolve(data)
+                document.body.removeChild(scriptEle)
+              }
+              document.body.appendChild(scriptEle)
+            } catch (err) {
+              reject(err)
+            }
+          })
+        }
+    
+    
+        jsonp('http://127.0.0.1:3000/data1.js', 'fun1', () => {console.log('加载成功')}).then(res => {
+          console.log(res)
+        })
+    
+      </script>
+</body>
+</html>

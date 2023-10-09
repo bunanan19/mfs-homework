@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function fetchNewsData() {
+        var xhr = new XMLHttpRequest();
+        var url = "./购物车/cookie.html"; 
+
+        xhr.open("GET", url, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText;
+                console.log(response); 
+            }
+        };
+
+        xhr.send();
+        }
+
+        fetchNewsData();
+    </script>
+</body>
+</html>

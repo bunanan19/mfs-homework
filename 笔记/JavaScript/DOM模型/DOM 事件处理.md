@@ -141,6 +141,18 @@ document.getElementById("myBtn").addEventListener("click", function(){
 | function   | 必须。指定要事件触发时执行的函数。 当事件对象会作为第一个参数传入函数。 事件对象的类型取决于特定的事件。例如， "click" 事件属于 MouseEvent(鼠标事件) 对象。 |
 | useCapture | 可选。布尔值，指定事件是否在捕获或冒泡阶段执行。 可能值: true - 事件句柄在捕获阶段执行 false- false- 默认。事件句柄在冒泡阶段执行 |
 
+在JavaScript中，我们可以使用addEventListener方法来绑定捕获和冒泡事件。
+
+```js
+element.addEventListener(event, handler, useCapture);
+```
+
+其中，event表示要绑定的事件类型，function表示事件触发时要执行的函数，useCapture是一个可选的参数，用于指定事件是使用捕获还是冒泡阶段进行处理。
+
+当useCapture为false或未提供时，事件将在冒泡阶段进行处理；当useCapture为true时，事件将在捕获阶段进行处理。
+
+
+
 对于 `addEventListener` 添加的事件，我们可以使用 `removeEventListener` 删除事件绑定
 
 ```javascript
@@ -272,3 +284,356 @@ Event 对象代表事件的状态，比如事件在其中发生的元素、键�
       <button id="stop">停 止</button>
    </div>
    ```
+
+
+
+
+
+# 阻止事件传播
+
+```html
+<div id="blueBox">
+   <div id="yellowBox">
+     <div id="greenBox"></div>
+   </div>
+</div>
+
+<script> 
+ let blueBox = document.getElementById('blueBox');
+ let yellowBox = document.getElementById('yellowBox');
+ let greenBox = document.getElementById('greenBox');
+ blueBox.addEventListener('click', () => {
+     console.log('blueBox')
+ })
+ yellowBox.addEventListener('click', () => {
+     console.log('yellowBox')
+ })
+ greenBox.addEventListener('click', () => {
+     console.log('greenBox');
+ })
+</script>
+```
+
+当点击绿色方块时，输出greenBox、yellowBox、blueBox，因为绿色包含在黄色里，黄色和绿色被包含蓝色中。addEventListener不写第三个参数时，事件将在冒泡阶段进行处理，从目标元素开始，逐级向外层元素传播，直到达到最外层的元素，也就是绿色、黄色、蓝色。
+
+同理，点击黄色时，输出yellowBox、blueBox。点击蓝色时，输出blueBox。
+
+```js
+ blueBox.addEventListener('click', () => {
+     console.log('blueBox')
+ }, true);
+ yellowBox.addEventListener('click', () => {
+     console.log('yellowBox')
+ })
+ greenBox.addEventListener('click', () => {
+     console.log('greenBox');
+ }, true);
+```
+
+如上代码所示，将blueBox和greenBox的第三个参数设成true，点击绿色(greenBox)，将输出blueBox、greenBox、yellowBox，因为blueBox和greenBox的事件将在捕获阶段进行处理，yellowBox的事件将在冒泡阶段进行处理。捕获的顺序是从最外层的元素开始，逐级向内部元素传播，直到达到目标元素，也就是蓝色、绿色，之后才是冒泡事件yellowBox。
+
+如果将第三个参数全部设成true，点击绿色(greenBox)，将输出blueBox、yellowBox、greenBox，因为事件将在捕获阶段进行处理，事件捕获的顺序是从最外层的元素开始，逐级向内部元素传播，直到达到目标元素，也就是蓝色、黄色、绿色。
+
+## 1.event.stopPropagation()
+
+`调用该方法会阻止事件继续传播，但不会阻止其他事件处理程序被触发`。也就是说，如果一个元素上绑定了多个事件处理程序，调用该方法只会阻止事件传播到更高层级的元素，而不会阻止同一元素上的其他事件处理程序被触发。
+
+```js
+ blueBox.addEventListener('click', () => {
+     console.log('blueBox')
+ }, true);
+ yellowBox.addEventListener('click', () => {
+     console.log('yellowBox')
+ })
+ greenBox.addEventListener('click', (event) => {
+     console.log('greenBox');
+     event.stopPropagation();
+ }, true);
+```
+
+在上面的示例中，当点击绿色方块时，调用event.stopPropagation()会阻止事件继续传播到外层元素，所以`只会输出"greenBox"`，而不会输出”yellowBox”和”blueBox”。
+
+```js
+blueBox.addEventListener('click',() => {
+  console.log('blueBox')
+});
+yellowBox.addEventListener('click',(event) => {
+  console.log('yellowBox');
+});
+yellowBox.addEventListener('click',(event) => {
+  console.log('yellowBox222');
+});
+greenBox.addEventListener('click',(event) => {
+  console.log('greenBox');
+  event.stopPropagation();
+});
+greenBox.addEventListener('click',(event) => {
+  console.log('greenBox222');
+  console.log('greenBox333');
+});
+```
+
+该方法不会阻止同一元素上的其他事件处理程序被触发，在上述代码中，输出结果是greenBox、greenBox222、greenBox333。
+
+## 2.event.stopImmediatePropagation()
+
+`调用该方法会阻止事件继续传播，并且会阻止同一元素上的其他事件处理程序被触发`。也就是说，如果一个元素上绑定了多个事件处理程序，调用该方法会立即停止事件传播，并且不会触发同一元素上的其他事件处理程序。
+
+```js
+blueBox.addEventListener('click',() => {
+  console.log('blueBox')
+});
+yellowBox.addEventListener('click',(event) => {
+  console.log('yellowBox');
+});
+yellowBox.addEventListener('click',(event) => {
+  console.log('yellowBox222');
+});
+greenBox.addEventListener('click',(event) => {
+  console.log('greenBox');
+  event.stopImmediatePropagation();
+});
+greenBox.addEventListener('click',(event) => {
+  console.log('greenBox222');
+  console.log('greenBox333');
+});
+```
+
+在上面的示例中，当点击绿色方块(greenBox)时，调用event.stopImmediatePropagation()会阻止事件继续传播到外层元素，并且还会阻止自身的其他事件的触发，`只会输出"greenBox"`，而不会输出其他内容。
+
+### 事件委托，事件代理
+
+#### JS的事件处理机制
+
+> 1、事件流：指从页面中接收事件的顺序，有冒泡流和捕获流。事件流描述的是从页面接受事件的顺序。
+> 为什么会产生事件流？
+> 我们可以想到一个问题：当我们在浏览器上对着一个元素点击时，你点击的不仅仅是这个 元素本身；这是因为我们的HTML元素是存在父子元素叠加层级的；比如一个span元素是放在div元素上的，div元素是放在body元素上的，body元素是放在html元素上的；
+>
+> <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231008191817198.png" alt="image-20231008191817198" style="zoom: 50%;" />
+>
+> - **事件冒泡**：默认情况下事件是从最内层的span向外依次传递的顺序（span -> body），这个顺序我们称之为事件冒泡（Event Bubble）
+> - **事件捕获**：另外一种监听事件流的方式就是从外层到内层（body -> span），这种称之为事件捕获（Event Capture）
+>
+> 2、DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。首先发生的是事件捕获，然后是实际的目标接收道事件，最后是冒泡阶段，可以在这个阶段对事件做出响应。<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231008170748607.png" alt="image-20231008170748607" style="zoom:80%;" />
+>
+> 3. 事件委托，通俗说就是将元素的事件委托给它的父级或更外级的元素处理，它的实现机制就是事件冒泡。
+>    - 因为当子元素被点击时，父元素可以通过冒泡可以监听到子元素的点击；
+>    - 并且可以通过event.target获取到当前监听的元素；
+
+因为冒泡机制，比如既然点击子元素，也会触发父元素的点击事件，那我们完全可以将子元素的事件要做的事写到父元素的事件里，也就是将子元素的事件处理程序写到父元素的事件处理程序中，这就是事件委托；利用事件委托，只指定一个事件处理程序，就可以管理某一个类型的所有事件；
+
+通俗来说：事件委托是利用事件的冒泡原理来实现的，何为事件冒泡呢？就是事件从最深的节点开始，然后逐步向上传播事件，举个例子：页面上有这么一个节点树，div>ul>li>a;比如给最里面的a加一个click点击事件，那么这个事件就会一层一层的往外执行，执行顺序a>li>ul>div，有这样一个机制，那么我们给最外面的div加点击事件，那么里面的ul，li，a做点击事件的时候，都会冒泡到最外层的div上，所以都会触发，这就是事件委托，委托它们父级代为执行事件。
+
+示例1：
+
+```html
+<ul>
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+</ul>
+```
+
+实现点击li出现123.
+
+传统方法：
+
+```html
+window.onload = function(){
+    var oUl = document.getElementById("ul1");
+    var aLi = oUl.getElementsByTagName('li');
+    for(var i=0;i<aLi.length;i++){
+        aLi[i].onclick = function(){
+            alert(123);
+        }
+    }
+}
+```
+
+使用事件委托：
+
+```javascript
+window.onload = function(){
+    var oUl = document.getElementById("ul1");
+   oUl.onclick = function(){
+        alert(123);
+    }
+}
+```
+
+这里用父级ul做事件处理，当li被点击时，由于冒泡原理，事件就会冒泡到ul上，因为ul上有点击事件，所以事件就会触发，当然，这里当点击ul的时候，也是会触发的，那么问题就来了，如果我想让事件代理的效果跟直接给节点的事件效果一样怎么办，比如说只有点击li才会触发？？？
+
+示例2：
+
+Event对象提供了一个属性叫target，可以返回事件的目标节点，我们称为事件源，也就是说，target就可以表示为当前的事件操作的dom，但是不是真正操作dom，当然，这个是有兼容性的，标准浏览器用ev.target，IE浏览器用event.srcElement。
+
+```javascript
+window.onload = function(){
+　　var oUl = document.getElementById("ul1");
+　　oUl.onclick = function(ev){
+　　　　var ev = ev || window.event;
+　　　　var target = ev.target || ev.srcElement;
+　　　　if(target.nodeName.toLowerCase() == 'li'){
+　 　　　　　　 alert(123);
+　　　　　　　  alert(target.innerHTML);
+　　　　}
+　　}
+}
+```
+
+这样，只有点击li才会触发事件。
+
+示例3
+
+对比下列两段代码实现：
+
+```javascript
+window.onload = function(){
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.getElementsByTagName('li');
+            var num = 4;
+            //鼠标移入变红，移出变白
+            for(var i=0; i<aLi.length;i++){
+                aLi[i].onmouseover = function(){
+                    this.style.background = 'red';
+                };
+                aLi[i].onmouseout = function(){
+                    this.style.background = '#fff';
+                }
+            }
+            //添加新节点
+            oBtn.onclick = function(){
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111*num;
+                oUl.appendChild(oLi);
+            };
+        }
+```
+
+注意：这里添加的新节点并不会有事件处理程序。
+
+```javascript
+window.onload = function(){
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.getElementsByTagName('li');
+            var num = 4;
+            //事件委托，添加的子元素也有事件
+            oUl.onmouseover = function(ev){
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if(target.nodeName.toLowerCase() == 'li'){
+                    target.style.background = "red";
+                }
+            };
+            oUl.onmouseout = function(ev){
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if(target.nodeName.toLowerCase() == 'li'){
+                    target.style.background = "#fff";
+                }
+            };
+            //添加新节点
+            oBtn.onclick = function(){
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111*num;
+                oUl.appendChild(oLi);
+            };
+        }
+```
+
+用事件委托的方式，新添加的子元素是带有事件效果的，我们可以发现，当用事件委托的时候，根本就不需要去遍历元素的子节点，只需要给父级元素添加事件就好了，其他的都是在js里面的执行，这样可以大大的减少dom操作，这才是事件委托的精髓所在。
+
+示例4: 点击某一个 Li 标签时，将 Li 的背景色显示在 P 标签内，并将 P 标签中的文字颜色设置成 Li 的背景色
+
+传统实现：
+
+```javascript
+var list = document.querySelectorAll("li");
+   for (var i = 0, len = list.length; i < len; i++) {
+       list[i].onclick = function(e) {
+           var t = e.target;
+           var c = t.style.backgroundColor;
+           var p = document.getElementsByClassName("color-picker")[0];
+           p.innerHTML = c;
+           p.style.color = c;
+       }
+   }
+```
+
+运用事件委托：
+
+```javascript
+var ulist=document.getElementsByClassName("palette")[0];
+ ulist.οnclick=function(ev){
+     var ev = ev || window.event;
+     var target = ev.target || ev.srcElement;
+     if (target.nodeName.toLowerCase() === 'li') {
+             var c = target.style.backgroundColor;
+             var p = document.getElementsByClassName("color-picker")[0];
+             p.innerHTML = c;
+              p.style.color = c;
+     }
+ }
+```
+
+注意：ul只有一个，要用索引，[0]，如果不写，无法实现。
+总结一下js委托相关的：
+
+- 因为把事件绑定到了父节点上，因此省了绑定事件。就算后面新增的子节点也有了相关事件，删除部分子节点不用去销毁对应节点上绑定的事件
+- 父节点是通过event.target来找对应的子节点的。（事件处理程序中的this值始终等于currentTarget的值，指向的是绑定到的那个元素）
+
+##### event对象中 会有两个对象。一个是target，一个currentTarget。 
+
+ currentTarget是 box.onlick= function(e){}。绑定的事件。也就是 事件监听器的对象。
+
+ target。实际上点击的对象。
+
+ 1 绑定在水果上， 绑定的对象是水果。
+
+如果点击水果。那么点击的对象是水果 == 绑定的水果。
+
+如果点击的是 苹果，那么对点击的对象是苹果 ！== 绑定的水果。
+
+2 如果绑定的是苹果，那么绑定的就是苹果。 currentTarget==苹果。
+
+无论怎么点击都是苹果。
+
+```html
+<body>
+    <ul id="box">
+        水果
+        <Li id="apple">苹果</Li>
+        <li>香蕉</li>
+        <li>桃子</li>
+    </ul>
+ </body>
+ <script type="text/javascript">
+    var box = document.getElementById('box');
+    var apple = document.getElementById('apple');
+  
+   //绑定在父元素box上（如果点击apple这个li时）
+    box.onclick = function (e){
+        console.log(e.target);           // <li id="apple">苹果</li>
+        console.log(e.currentTarget);       //<ul id="box">...</ul>
+        console.log(this);                  //<ul id="box">...</ul>
+        console.log(e.currentTarget===this);      //true
+        console.log(e.target === e.currentTarget);        //false
+        console.log(e.target === this);           //false
+    }
+ 
+	//直接绑定在目标元素apple上
+    apple.onclick = function (e){  
+        console.log(e.target);          //<li id="apple">苹果</li>
+        console.log(e.currentTarget);    //<li id="apple">苹果</li>
+        console.log(this);               //<li id="apple">苹果</li>
+        console.log(e.target === e.currentTarget);      //true
+        console.log(e.target === this);           //true
+    } 
+ </script>
+```
+
