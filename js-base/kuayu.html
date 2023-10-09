@@ -25,18 +25,19 @@
             console.log(window.frames[0].document.getElementById("myCanvas"))
         },1000)//延时加载，返回报错，访问不了，浏览器同源策略会限制来自不同域名、协议、端口（不同的域）资源之间的访问，需要跨域访问
         //当前网页网站：www.a.com,若想console执行正确，能访问到canvas元素，需将网址换成www.b.com，
+    </script>
 
-
+    <script>
         // cors:
         var xhr = new XMLHttpRequest()
-        xhr.open("GET","http://www.b.com:3000/data.json",true)
         xhr.onreadystatechange = function(){
-            if(xhr.readyState==4){
+            if(xhr.readyState == 4 && xhr.status == 200){
                 console.log(xhr.responseText)
             }
         }
+        xhr.open("GET","http://www.b.com:3000/data.json",true)
         xhr.send()
-    </script>
+    </script>   
 
 
     <!-- JSONP: -->
