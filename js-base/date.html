@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+</head>
+<body>
+    <script>
+
+        function twoDigtal(num){
+            var str = num.toString();
+            while(str.length < 2){
+                str = "0" + str;
+            }
+            return str;
+        }
+
+        function format(date){
+            var year = date.getFullYear();
+            var month = date.getMonth()+1;
+            var day = date.getDate();
+
+            var hour = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+
+            return year+"-"+twoDigtal(month)+"-"+twoDigtal(day)+" "+twoDigtal(hour)+":"+twoDigtal(min)+":"+twoDigtal(sec)
+        }
+
+        console.log(format(new Date()))
+
+        function setDate(date){
+            var date = new Date();
+            var year = date.setFullYear(2017);
+            var month = date.setMonth(2);
+            var day = date.setDate(5);
+
+            var hour = date.setHours(10);
+            var min = date.setMinutes(3);
+            var sec = date.setSeconds(8);
+
+            return format(date);
+        }
+
+        var time = new Date("2017-03-05T10:03:08");//"T" 在 "2017-03-05T10:03:08" 中代表 "时间"。这是 ISO 8601 格式中表示日期和时间的标准格式。"T" 将日期和时间组件分隔开来。
+        console.log(format(time));
+
+        function isInCircle(x, y) {
+            var distance = Math.sqrt(x*x + y*y);
+            return distance <= 1;
+        }
+
+    </script>
+</body>
+</html>
