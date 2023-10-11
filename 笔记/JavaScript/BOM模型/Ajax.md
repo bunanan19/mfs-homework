@@ -25,7 +25,7 @@ AJAX 在浏览器与 Web 服务器之间使用异步数据传输（HTTP 请求�
 
 一般前端使用 Node.js 搭建简易后端来实现 Mock 数据，在我们的课程中也采用这个方法。
 
-## XMLHttpRequest 对象
+## XMLHttpRequest 对象   
 
 Ajax的核心是JavaScript对象`XmlHttpRequest`，这个对象为向服务器发送请求和解析服务器响应提供了流畅的接口。XmlHttpRequest可以使用JavaScript向服务器提出请求并处理响应，而不阻塞用户。
 

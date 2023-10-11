@@ -3,179 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cookie</title>
-    <link rel="stylesheet" href="./iconfont/iconfont.css">
-    <style>
-        body {
-            margin: 0;
-        }
-        .goods {
-            width: 80%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            position: relative;
-            margin: 0 auto;
-        }
-        .item {
-            width: 150px;
-            height: 120px;
-            background-color: rgb(226, 174, 16);
-            border-radius: 5px;
-            margin: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: end;
-        }
-        .placehold {
-            width: 150px;
-            margin: 10px;
-        }
-        span {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .cnt {
-            color: rgb(121, 121, 121);
-            align-self: center;
-        }
-        .add {
-            
-        }
-        .line {
-            width: 100%;
-            height: 10px;
-            background-color: gray;
-            position: relative;
-            margin: 0;
-        }
-        .line p {
-            height: 40px;
-            font-size: 18px;
-            line-height: 40px;
-            padding-left: 10px;
-            border-radius: 20px;
-            color: brown;
-            margin: 20px;
-            position: absolute;
-            top: 10px;
-            background-color: antiquewhite;
-        }
-        .line p span {
-            font-size: 22px;
-        }
-        #gouwuche {
-            margin-top: 20px;
-            margin-left: 180px;
-            border: 3px dashed olivedrab;
-            width: 500px;
-            height: 300px;
-        }
-        .additem {
-            display: flex;
-            justify-content: space-between;
-        }
-        .additem .addcnt {
-            font-size: 16px;
-            color: rgb(3, 106, 72);
-            width: 220px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            background-color: salmon;
-            border-radius: 5px;
-            margin: 10px;
-        }
-        .additem .nu {
-            font-size: 14px;
-            color: rgb(3, 50, 34);
-            width: 120px;
-            height: 28px;
-            text-align: center;
-            line-height: 28px;
-            border: 2px solid black;
-            border-radius: 5px;
-            margin: 10px;
-        }
-        .additem .delete {
-            font-size: 14px;
-            color: rgb(255, 255, 255);
-            width: 60px;
-            height: 30px;
-            text-align: center;
-            background-color: rgb(255, 25, 0);
-            border-radius: 5px;
-            margin: 10px;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-    <div class="goods">
-        <div class="item" >
-            <span class="cnt">Aas</span>
-            <button class="add"><span>+</span></button>
-        </div>
-    </div>
-    <div id="gouwuche"></div>
-
     <script>
-        var btns = document.querySelectorAll(".goods>.item>.add");
-        var goodsName = document.querySelectorAll(".goods>.item>.cnt");
-        var oGouwuche = document.getElementById("gouwuche");
-        var items = []; // 存储购物车中的物品
-        var num = [];
-        for(let i = 0; i < btns.length; i++){num[i]=0}//初始化每个商品的加购数量
-        
-        for (let i = 0; i < btns.length; i++){
+        var t = true;
 
-            btns[i].addEventListener("click",function(){
-                var addItem = document.querySelectorAll("#gouwuche>.additem>.addcnt");
-                let addArry = Array.from(addItem);
-                var addName = addArry.map(node => node.innerHTML)
+        setTimeout(function (){
+            t = false;
+        },1000);
 
-                if(addName.indexOf(goodsName[i].innerHTML) == -1){
-                    var dom = document.createElement("div");
-                    dom.setAttribute("class","additem");
-                    dom.setAttribute("id",i) 
-                    num[i]=1
-                    var newItem = {
-                        name: goodsName[i].innerHTML,
-                        quantity: 1
-                    };
-                    items.push(newItem);
-                    //写入内部html结构
-                    var html = '<span class="addcnt">'+goodsName[i].innerHTML+'</span>'+
-                    '<span class="nu">x1</span>'+
-                    '<button class="delete">删除</button>'
-                    dom.innerHTML = html;
+        while (t){}
 
-                    oGouwuche.appendChild(dom);
-                } else {
-                    num[i]+=1;
-                    var item = document.getElementById(i);
-                    item.querySelector(".nu").innerHTML = 'x'+num[i]
-                    items.quantity = num[i]
-                    
-                }
-                localStorage.setItem('buy', JSON.stringify(items));
-            })
-        }
-        // 从 localStorage 中恢复购物车内容
-        var buyStorage = localStorage.getItem('buy');
-        if (buyStorage) {
-            items = JSON.parse(buyStorage);
-            for (let i = 0; i < items.length; i++) {
-                var dom = document.createElement("div");
-                dom.setAttribute("class", "additem");
-                dom.setAttribute("id", i);
-                var html = '<span class="addcnt">' + items[i].name + '</span>' +
-                    '<span class="nu">x' + items[i].quantity + '</span>' +
-                    '<button class="delete">删除</button>';
-                dom.innerHTML = html;
-                oGouwuche.appendChild(dom);
-            }
-        }
+        alert('end');
     </script>
 </body>
 </html>

@@ -45,7 +45,7 @@
                 error1.innerText = " "
             }
             
-            if(passwordRegex.test(passWord)){
+            if(!passwordRegex.test(passWord)){
                 error2.innerText = "8-20个字符，英文字符，数字，下划线或特殊符号"
                 return false;
             } else{

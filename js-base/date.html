@@ -46,9 +46,9 @@
         var time = new Date("2017-03-05T10:03:08");//"T" 在 "2017-03-05T10:03:08" 中代表 "时间"。这是 ISO 8601 格式中表示日期和时间的标准格式。"T" 将日期和时间组件分隔开来。
         console.log(format(time));
         
-        //圆形在原地，半径为1的圆，判断(x,y)是否在圆内
+        //圆心在原点，半径为1的圆，判断(x,y)是否在圆内
         function isInCircle(x, y) {
-            var distance = Math.sqrt(x*x + y*y);
+            var distance = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
             return distance <= 1;
         }
 
