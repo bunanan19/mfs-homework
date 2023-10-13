@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>return top</title>
+    <style>
+        .container {
+            background-color: rgb(193, 190, 190);
+            width: 1200px;
+            margin: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2000px;
+        }
+        .back-top {
+            visibility: hidden;
+            position: fixed;
+            background: #dcdcdc;
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            right: 60px;
+            bottom: 60px;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        .back-top.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        .back-top:before{
+            content: "^";
+            font-size: 50px;
+            color: rgb(149, 149, 149);
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <div class="back-top"></div>
+    <script>
+        function BackTop(node){
+            var timeId;
+            node.addEventListener('click',function(){
+                window.scrollTo(0,0);
+            })
+            window.onscroll = function(){
+                clearTimeout(timeId)
+                timeId = setTimeout(function(){
+                    var T = window.scrollY;
+                    var H = window.innerHeight;
+                    if(T > H*0.5){
+                        node.classList.add("show")
+                    } else{
+                        node.className = "back-top"
+                    }
+                },100)
+            }
+        }
+        var ele = document.querySelector(".back-top")
+        new BackTop(ele);
+    </script>
+</body>
+</html>
