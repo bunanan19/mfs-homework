@@ -220,7 +220,6 @@ POST请求用于把数据作为主体向服务器提交，POST请求主体可以
 
    > 传统的web开发大多采用页面渲染的方式进行展示，即每次用户请求页面时，服务器都要返回一个新的html页面，这种方式需要重新加载整个页面，会带来很大的性能负担。而Ajax技术使用了JavaScript和XMLHttpRequest对象，可以在不刷新整个页面的情况下，局部刷新页面，从而提高了响应速度。
    >
-   > 
    
 3. 如何模拟调试 AJAX 的数据
 
@@ -304,3 +303,11 @@ POST请求用于把数据作为主体向服务器提交，POST请求主体可以
 |   `page`   | 默认 1，请求的页数                       |
 
 https://github.com/bunanan19/mfs-homework/blob/main/js-base/ajax.html
+
+
+
+使用express可以快速创建一个web服务器。npm express是一个流行的Node.js框架，用于构建Web应用程序和API。它提供了简单而强大的功能，包括路由、中间件、模板引擎等，使开发人员能够快速构建高效的服务器端应用程序。通过使用npm express，开发人员可以轻松处理HTTP请求和响应，构建灵活的路由和处理逻辑，并且可以方便地与其他npm模块集成。总的来说，npm express是一个优秀的工具，可用于快速构建可靠的Node.js服务器端应用程序。
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231020174303149.png" alt="image-20231020174303149" style="zoom:80%;" /><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231020174431701.png" alt="image-20231020174431701" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231021150108149.png" alt="image-20231021150108149" style="zoom:80%;" />

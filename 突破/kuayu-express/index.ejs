@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+  body {
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form {
+    width: 400px;
+    height: 200px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .input {
+    margin: 10px;
+    font-size: 20px;
+  }
+  .username {
+    height: 20px;
+    width: 170px;
+    border: 2px solid green;
+  }
+  .password {   
+    height: 20px;
+    width: 170px;
+    border: 2px solid green;
+  }
+  .username:hover{
+    border: 3px solid blue;
+  }
+  .password:hover{
+    border: 3px solid blue;
+  }
+</style>
+<body>
+  <div class="form" mathod="post" action="/json">
+    <div class="input">账户名：<input type="text" class="username" id="username"></div>
+    <div class="input">密&nbsp;&nbsp;&nbsp;码：<input type="text" class="password" id="password"></div>
+    <div>
+      <button >submit</button>
+    </div>
+  </div>
+  <script>
+    var btn = document.getElementsByTagName('button')[0]
+    btn.addEventListener('click', function () {
+      var username = document.getElementById('username').value
+      $.ajax({
+        type: 'POST',
+        url: 'http://www.b.com:3000/signup',
+        data: {username},
+        success: function (res) {
+          if (res.errno == 1) {
+            alert(res.errmsg)
+            console.log(res)
+          } else {
+            alert('注册成功')
+            console.log(res)
+          }
+        }
+      })
+    })
+  </script>
+</body>
+</html>

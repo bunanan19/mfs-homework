@@ -1,100 +1,119 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-	<style>
-		.container {
-			position: relative;
-		}
-        .item {
-            position: absolute;
-            width: 250px;
-            margin: 5px;
-            transition: all 1s;
-        }
-        .type1 {
-            background-color: Cyan;
-            height: 250px;
-        }
-
-        .type2 {
-            background-color: Coral;
-            height: 450px;
-        }
-
-        .type3 {
-            background-color: Indigo;
-            height: 350px;
-        }
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+    <script src="https://cdnjs.com/libraries/jquery/"></script>
 </head>
 <body>
-<div class="container">
-</div>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-	function getNum() {
-        const containerWidth = $(".container").width();
-        const itemWidth = 260;
-        return  num =Math.floor(containerWidth / itemWidth);
-    }
-	function insertDataALine() {
-	    const num =getNum()
-		const container = $(".container")
-	    for(let i = 0;i<num;i++){
-            const className =`type${Math.floor(Math.random()*3)+1}`
-		    container.append($(`<div class ='item ${className}'></div>`))
-	    }
-    }
+    <div class="banner">
+        <div class="container">
+            <h1>一分耕耘一分收获</h1>
+            <h2>NO PAINS NO GAINS</h2>
+        </div>
+    </div>
+    <div class="list" id="list">
+    </div>
+    <div class="pager" id="pager">
+        <!-- <span>1</span>
+        <span>2</span> -->
+    </div>
+    <script >
+        
+        function renderDom(data){
+            //创建item
+            function createItem(num,title,clickTimes,replyTimes){
+                //创建div元素
+                var dom = document.createElement("div");
+                dom.setAttribute("class","item");//设置div元素属性，有了item属性，css创建基础样式
+                //写入内部html结构
+                var html = '<div class="num">'+num+'</div>'+
+                '<div class="title">'+title+'</div>'+
+                '<div class="info">'+
+                    '<span class="iconfont icon-zhiboguankanshu">'+clickTimes+'</span>'+
+                    '<span class="iconfont icon-huifu">'+replyTimes+'</span>'+
+                '</div>'+
+                '<div class="simile">'+
+                    '<span class="iconfont icon-smiling"></span>'+
+                '</div>'
 
-    function waterFall() {
+                dom.innerHTML = html;
+                return dom;
+            }
 
-        var itemWidth = 260
-        var colNum = getNum()
-        var heights = [];
+            //将data分页12为一页
+            function getData(page){
+                return data.slice(page*12, page*12+12)
+                //slice(start,end)返回数组中一个片段或子数组,page=0,返回0-11；page=1，返回12到23
+            }
 
-        for (var i = 0; i < colNum; i++) {
-            heights.push(0)
+            var oList = document.getElementById("list");
+
+            function fillDom(page){
+                //清除list所有子结点
+                while(oList.hasChildNodes()){
+                    oList.removeChild(oList.lastChild);
+                }
+                //对data每一个数据创建dom结点
+                //数组的map()方法
+                var data = getData(page)
+                var doms = data.map(function (i){
+                    return createItem(i.num, i.title, i.clickTimes, i.replyTimes)
+                })//对data里面每一个数据元素data[i]执行function，再赋值给doms
+                //将创建好的doms结点添加到list元素,将doms数组中的每个元素doms[i]添加到oList元素中
+                doms.forEach(function (i){
+                    oList.appendChild(i)
+                })
+            }
+
+            fillDom(0)
+            //创建page
+            function createPages(page){
+                var dom= document.createElement("span");
+                dom.innerText = (page+1);
+                return dom;
+            }
+            //获取pager元素，以往里面添加span page
+            var oPager = document.getElementById("pager")
+            //根据data数量计算page数
+            var allPages = (data.length/12)
+
+            //填充pager元素
+            for(i= 0 ;i < allPages; i++){
+                oPager.appendChild(createPages(i))
+            }
+            createPages();
+            
+            //事件代理
+            var oPager = document.getElementById("pager")
+                oPager.onclick=function(e){
+                var e = e || window.event;
+                var target = e.target || e.srcElement;
+                if(target.nodeName.toLowerCase() === "span"){
+                    var i = (target.innerText-1)
+                    fillDom(i);
+                }
+            }
+
+        }
+            
+        function getItems(callback){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET","/json",true);
+            xhr.send();
+            xhr.onreadystatechange = function(){
+              if(xhr.readyState ==4 && xhr.status == 200){
+                // console.log(xhr.responseText)//可得知返回值是一个string而非数组对象
+                callback(JSON.parse(xhr.responseText))// 将xhr.responseText作为参数传递给callback函数
+              }
+            }
         }
 
-        $(".item").each(function () {
-            var col = findMinIndex(heights);
-            var ele = $(this)
-
-            ele.css({
-                top: heights[col] + "px",
-                left: col * itemWidth + "px"
-            });
-
-            heights[col] += ele.outerHeight(true);
-        })
-
-    }
-    function findMinIndex(arr) {
-        let minIndex = 0;
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] < arr[minIndex])
-                minIndex = i;
-        }
-        return minIndex;
-    }
-
-    function update(){
-	    insertDataALine()
-	    waterFall()
-    }
-    insertDataALine()
-    insertDataALine()
-    insertDataALine()
-    waterFall()
-	window.onscroll=function(){
-	    if($(document).height() - $(window).height() == $(window).scrollTop())
-	        update()
-	}
-    $(window).on("resize", function () {
-        waterFall()
-    })
-</script>
+        getItems(renderDom)             
+            
+        </script>
 </body>
 </html>
