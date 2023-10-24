@@ -246,14 +246,15 @@
         //     window.scrollTo(0,0);
         // })
 
-        function isShow($img) {
-            // var windowH = $(window).height();
-            var windowH = window.innerHeight;
-            var scrollTop = $(window).scrollTop();
-            var imgOT = $img.offset().top;
-            var imgH = $img.height();
-            return imgOT <= scrollTop + windowH +100 && imgOT + imgH >= scrollTop
-        }
+        //图片懒加载————获取图片是否在屏幕可视框内：
+        // function isShow($img) {
+        //     // var windowH = $(window).height();
+        //     var windowH = window.innerHeight;
+        //     var scrollTop = $(window).scrollTop();
+        //     var imgOT = $img.offset().top;
+        //     var imgH = $img.height();
+        //     return imgOT <= scrollTop + windowH +100 && imgOT + imgH >= scrollTop
+        // }
 
         window.onscroll =  function(){
                 var timeId = null
@@ -274,11 +275,11 @@
                         $node.removeClass("show")//回到顶部
                     }
                     //图片懒加载：
-                    if(isShow($('.img'))){
-                        // $('.img').attr("src", "./test1/images/cat.jpg")
-                        $('.img').attr("src", $('.img').data("src"))
-                    } 
-                    console.log(isShow($('.img')))
+                    // if(isShow($('.img'))){
+                    //     // $('.img').attr("src", "./test1/images/cat.jpg")
+                    //     $('.img').attr("src", $('.img').data("src"))
+                    // } 
+                    // console.log(isShow($('.img')))
                 },100)
             }
 
@@ -321,6 +322,30 @@
         $(window).on("resize",function () {
             waterFall()
         })//事件绑定
+
+        //图片懒加载：
+        function LazyImg($node){
+            function isShow($node){
+                var windowH = window.innerHeight;//屏幕可视窗口高度
+                var scrollTop = $(window).scrollTop();//浏览器窗口顶部与文档顶部之间的距离，也就是滚动条滚动的距离
+                var imgH = $node.height();//获取元素的尺寸
+                var imgOT = $node.offset().top;// 元素距离文档顶的距离
+                return imgOT <= windowH+scrollTop && imgH + imgOT >= scrollTop
+            }
+            
+            window.onscroll = function(){
+                var timeId = null;
+                clearTimeout(timeId);
+                timeId = setTimeout(function(){
+                    if(isShow($node)){
+                    $node.attr("src",$node.data("src"))
+                    }
+                },100)
+            }
+        }
+
+        new LazyImg($('.img'))
+        
     </script>
 </body>
 </html>

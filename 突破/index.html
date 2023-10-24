@@ -1,0 +1,13 @@
+<script>
+    function a(){
+        b();
+    }
+    function b(){
+        c();
+    }
+    function c(){
+        //抛出异常
+        throw new Error("throw this")
+    }
+    a();
+</script>

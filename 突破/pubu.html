@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>waterFall</title>
+    <style>
+        .waterfall {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .waterfall .news img {
+            width: 100%;
+        }
+
+        .waterfall .news {
+            width: 300px;
+            margin: 10px 20px;
+            padding: 10px;
+            position: absolute;
+            border: 1px solid #CAC6C6;
+            border-radius: 4px;
+            box-shadow: 0px 0px 7px #B9B6B6;
+            opacity: 0;
+            background: white;
+            transition: all 1s;
+        }
+
+        .waterfall .news a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .waterfall .news h2 {
+            font-size: 18px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .waterfall .news p {
+            font-size: 14px;
+            color: gray
+        }
+
+        .load-more {
+            line-height: 40px;
+            border: 1px solid #CAC6C6;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <ul class="waterfall">
+    </ul>
+    <div class="load-more">加载更多</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+    var waterfall = [];
+    var nodes = [];
+    var pageNum = 1;
+    var pageSize = 10;
+    var newsWidth;
+    var timer;
+
+    function loadData() {
+        $.ajax({
+            url: "http://learning-api.mafengshe.com/news",
+            data: {
+                page: pageNum++,
+                pageSize: pageSize
+            },
+            success: function (data) {
+                var newNodes = data.result.data.list.map(i => data2node(i));
+                add2waterfall(newNodes);
+            }
+        })
+    }
+
+    window.onscroll = function () {
+        console.log("onscroll")
+
+        clearTimeout(timer)
+        timer = setTimeout(function () {
+            if (isShow($(".load-more"))) {
+                console.log('load data')
+                loadData();
+            }
+        }, 100)
+
+    }
+
+    window.onresize = function () {
+        console.log("onresize")
+        clearTimeout(timer)
+        timer = setTimeout(function () {
+            waterfall.length = 0
+            initWaterfall(nodes);
+            placeNodes(nodes);
+        }, 100);
+
+    }
+
+
+    function isShow($node) {
+        var windowH = $(window).height();
+        var scrollTop = $(window).scrollTop();
+        var nodeH = $node.offset().top;
+
+        return nodeH <= scrollTop + windowH
+    }
+
+
+    function findMinIndex(arr) {
+        var minIndex = 0;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] < arr[minIndex])
+                minIndex = i;
+        }
+        return minIndex;
+    }
+
+    function placeNodes(nodes) {
+        nodes.forEach(ele => {
+            var col = findMinIndex(waterfall);
+            ele.css({
+                opacity: 1,
+                top: waterfall[col] + "px",
+                left: col * newsWidth + "px"
+            })
+            waterfall[col] += ele.outerHeight(true);
+
+        })
+        $(".waterfall").height(waterfall.reduce((i, j) => i < j ? j : i))
+        if (isShow($(".load-more"))) {
+            console.log('load data')
+            loadData();
+        }
+    }
+
+    function initWaterfall(nodes) {
+        newsWidth = nodes[0].outerWidth(true)
+        var containerWidth = $(".waterfall").width()
+        var colNum = Math.floor(containerWidth / newsWidth);
+        if (waterfall.length == 0) {
+            for(let i = 0; i < colNum; i++) {
+                waterfall.push(0)
+            }
+        }
+    }
+
+    function newsloaded(newNodes) {
+        initWaterfall(newNodes);
+        console.log("loaded")
+        placeNodes(newNodes);
+
+    }
+
+    function add2waterfall(newNodes) {
+        nodes = nodes.concat(newNodes);
+
+        var lens = newNodes.map(i => i.find("img").length).reduce((i, j) => i + j);
+        newNodes.forEach(ele => {
+            ele.find("img").on("load", () => {
+                if (!--lens) {
+                    newsloaded(newNodes)
+                }
+            })
+        })
+        newNodes.forEach(ele => {
+            $(".waterfall").append(ele);
+        })
+    }
+
+    function data2node(data) {
+        var html = "<li class='news'>" +
+            "<a href='" + data.pc_url + "'>" +
+            (data.allPics.total ? "<img src='" + data.allPics.pics[0].imgurl + "'>" : "") +
+            "<h2>" + data.title + "</h2>" +
+            "<p>" + data.summary + "</p>" +
+            +"</a>"
+        "</li>"
+        return $(html)
+    }
+
+    loadData()
+</script>
+</body>
+
+</html>
