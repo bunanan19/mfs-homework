@@ -3,183 +3,189 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <title>News WaterFall</title>
+    <script src="jquery-1.11.0.min.js"></script>
     <style>
-        .waterfall {
-            list-style: none;
+        * {
             margin: 0;
             padding: 0;
+        }
+
+        .container {
             position: relative;
-            overflow: hidden;
         }
 
-        .waterfall .news {
-            width: 300px;
-            margin: 10px 20px;
-            padding: 10px;
+        .box {
+            width: 500px;
+            padding: 10px 20px;
+            border: 1px solid gray;
+            background: rgb(250, 236, 219);
             position: absolute;
-            border: 1px solid lightgray;
-            border-radius: 4px;
-            background-color: white;
+            margin: 20px 30px;
+            box-sizing: border-box;
         }
 
-        .waterfall .news a {
-            text-decoration: none;
-            color: black;
-        }
-
-        .waterfall .news img {
+        .box img {
             width: 100%;
         }
 
-        .waterfall .news h2 {
-            font-size: 18px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
+        .box a {
+            display: block;
         }
 
-        .waterfall .news p {
-            font-size: 14px;
-            color: gray;
+        .box a,
+        .box h2,
+        .box p {
+            color: black;
+            text-decoration: none;
         }
 
-        .load-more {
-            line-height: 40px;
-            border: 1px solid lightgray;
+        .loadmore {
+            width: 500px;
+            height: 100px;
+            line-height: 100px;
             text-align: center;
+            background: black;
+            color: white;
+            position: absolute;
+            font-size: 40px;
+
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <ul class="waterfall">
-            <!-- <li class="news">
-                <a href="">
-                    <h2>标题</h2>
-                    <p>描述</p>
-                </a>
-            </li> -->
-        </ul>
-        <div class="load-more">加载更多</div>
     </div>
-    <script>
-        var data = null
-        var ul = document.querySelector('ul')
-        var lis = []
-        var heights = []
-        var newsWidth
-        var timer
-        var page = 1
-        function createEle(item) {
-            var html = `<li class="news">
-                <a href="${item.URL}"></a>
-            </li>`
-            var html = '<li class="news"><a href="' + item.URL + '">' + (item.allPics.total ? '<img src="' + item.allPics.pics[0].imgurl + '">' : "") + '<h2>' + item.title + '</h2><p>' + item.summary + '</p></a> </li>'
-            return $(html)
-        }
-        function findMinIndex(arr) {
-            var minIndex = 0
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i] < arr[minIndex]) {
-                    minIndex = i
-                }
-            }
-            return minIndex
-        }
+    <div class="loadmore">加载更多</div>
 
-        function loadNews(pagesize, page) {
-            $.ajax({
-                method: 'get',
-                url: 'https://learning-api.mafengshe.com/news?Pagesize=' + pagesize + '&page=' + page,
-                success: function (res) {
-                    data = res.result.data.list
-                    lis = data.map((item) => createEle(item))
-                    waterfall(lis)
-                }
-            })
-        }
-        function loadPic(node) {
-            return new Promise((resolve, reject) => {
-                node.on("load", () => {
-                    // console.log(node);
-                    resolve("图片已加载")
-                })
-                node.on("error", () => {
-                    reject("图片加载失败")
-                })
-            })
-
-        }
-        function init(nodes) {
-            newsWidth = nodes[0].outerWidth(true)
-            // console.log(newsWidth);
-            var containerWidth = $(".waterfall").width()
-            var colNum = Math.floor(containerWidth / newsWidth);
-            if (heights.length == 0) {
-                while (colNum--)
-                    heights.push(0)
-            }
-        }
-        function waterfallNode(nodes) {
-            nodes.forEach(ele => {
-                var col = findMinIndex(heights)
-                ele.css({
-                    top: heights[col] + "px",
-                    left: col * newsWidth + "px"
-                })
-                heights[col] += ele.outerHeight(true);
-            })
-            $(".waterfall").height(heights.reduce((i, j) => i < j ? j : i))
-        }
-        function waterfall(nodes) {
-            var lens = nodes.map(i => i.find("img").length).reduce((i, j) => i + j);
-            var promises = []
-            nodes.forEach(ele => {
-                if (ele.find("img").length) {
-                    // console.log(ele.find("img"));
-                    promises.push(loadPic(ele.find("img")))
-                }
-            })
-            Promise.all(promises).then(value => {
-                // console.log(value);
-                init(nodes)
-                waterfallNode(nodes)
-            })
-            nodes.forEach(ele => {
-                $(".waterfall").append(ele[0]);
-            })
-        }
-        loadNews(30, page)
-
-        window.onscroll = function () {
-            clearTimeout(timer)
-            timer = setTimeout(function () {
-                if (isShow($(".load-more"))) {
-                    page++
-                    loadNews(30, page);
-                }
-            }, 100)
-        }
-        window.onresize = function () {
-            clearTimeout(timer)
-            timer = setTimeout(function () {
-                heights.length = 0
-                init(lis)
-                waterfallNode(lis)
-            }, 100);
-        }
-        function isShow($node) {
-            var windowH = $(window).height();
-            var scrollTop = $(window).scrollTop();
-            var nodeH = $node.offset().top;
-            return nodeH <= scrollTop + windowH
-        }
-    </script>
 </body>
+<script>
+    var pagecnt = 1;
+    var timer;
+    var heights = [];
+    var cols;
+    window.onload = function () {
+        $(".container").width($(window).width());
+        var contWidth = $(".container").width();
+        cols = Math.floor(contWidth / 600);
+        heights = new Array(cols);
+        initCols(cols);
+        //生成新闻瀑布流
+        getNews(pagecnt++);
+    }
+    window.onscroll = function () {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            if (isShow()) {
+                getNews(pagecnt++);
+            }
+        }, 100);
+
+    }
+    window.onresize = function () {
+        window.location.reload();
+        generateItem(5);
+    }
+    function getNews(pagenum) {
+        var newslist = [];
+        var datalist = [];
+        $.ajax({
+            url: "https://learning-api.mafengshe.com/news?page=" + pagenum + "&pagesize=10",
+            type: "GET",
+            async: false,
+            success: function (data) {
+                newslist = data.result.data.list;
+                for (var i = 0; i < newslist.length; ++i) {
+                    var news = { url: "", pic: "", title: "", summary: "" };
+                    news.url = newslist[i].URL;
+                    try {
+                        news.pic = newslist[i].allPics.pics[0].imgurl;
+                    } catch (e) {
+                    }
+                    news.title = newslist[i].title;
+                    news.summary = newslist[i].summary;
+                    datalist.push(news);
+                }
+                //加载页面
+                loadPage(datalist);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+        return datalist;
+    }
+
+    //加载页面
+    function loadPage(datalist) {
+        for (var i = 0; i < datalist.length; ++i) {
+            //需要等待图片加载完毕再设置css
+            new Promise(function (resolve, reject) {
+                var $item = createItem(datalist[i]);
+                $item.children().first().find('img').load(function () {
+                    resolve($item);
+                });
+            }).then(function ($item) {
+                createWaterFall(cols, $item);
+            })
+        }
+    }
+
+    //动态生成元素
+    function createItem(data) {
+        var $box = $("<div class='box'></div>");
+        var $a = $("<a href=" + data.url + "></a>");
+        var $img = $("<img src=" + data.pic + ">");
+        $a.append($img);
+        var $title = $("<h2>" + data.title + "</h2>");
+        $a.append($title);
+        var $summary = $("<p>" + data.summary + "</p>");
+        $a.append($summary);
+        $box.append($a);
+        return $box;
+    }
+
+
+
+    //图片加载完成后形成瀑布流
+    function createWaterFall(cols, $item) {
+        minCol = getMinCol(cols);
+        $(".container").append($item);
+        var width = $item.outerWidth(true);
+        $item.css({ "top": heights[minCol] + "px", "left": minCol * width + "px" });
+        heights[minCol] = heights[minCol] + $item.outerHeight(true);
+        var $maxh = heights[Math.floor(cols / 2) - 1] > heights[Math.floor(cols / 2)] ? heights[Math.floor(cols / 2) - 1] : heights[Math.floor(cols / 2)];
+        $(".loadmore").css({ "top": $maxh + 50 + "px", "left": (Math.floor(cols / 2) - 0.5) * width + "px" });
+    }
+
+
+    //判断“加载更多”按钮是否在视口中
+    function isShow() {
+        if ($(".loadmore").offset().top + $(".loadmore").height() >= $(document).scrollTop()
+            && $(".loadmore").offset().top <= $(document).scrollTop() + $(window).height()) {
+            return true;
+        }
+        return false;
+    }
+    //初始化高度为0
+    function initCols(cols) {
+        for (var i = 0; i < cols; ++i) {
+            heights[i] = 0;
+        }
+    }
+    //返回最小高度的一列
+    function getMinCol(cols) {
+        minCol = 0;
+        for (var i = 0; i < cols; ++i) {
+            if (heights[i] < heights[minCol]) {
+                minCol = i;
+            }
+        }
+        return minCol;
+    }
+
+</script>
 
 </html>
