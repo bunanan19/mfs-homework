@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        <div>
+            emil:<input type="email" required autofocus placeholder="请输入你的邮箱"/>
+        </div>
+        <div>
+            请选择你的学历：<input list="Grade">
+            <datalist id="Grade">
+                <option value="小学"></option>
+                <option label="初等" value="初中" ></option>
+                <option label="高等" value="大学" ></option>
+            </datalist> 
+        </div><br />
+        <div>
+            请选择颜色：<input type="color"/><br /><br />
+
+            请输入url: <input type="url" placeholder="注意url格式" required/><br /><br />
+
+            请输入账号：<input type="text" id="username" pattern="^[a-zA-Z][a-zA-Z0-9_]{5,17}$" title="以字母开头，6-18个字符" required="required">
+
+            请输入密码：<input type="text" pattern="[a-zA-Z0-9_]{5,17}" title="6-18个字符" required="required" >
+
+            请确认密码：<input type="text" title="和password字段一致" required="required">
+
+            请输入号码：<input type="number" min="0" max="99" step="2" />
+
+            <button>提交</button><br /><br />
+
+            音量：<input type="range" max="50" min="0" in-range/>
+
+            <input type="submit"/><br />
+
+            入党时间：<input type="datetime-local"/><br/>
+
+            考试时间: <input type="week"/> <input type="time"/><input type="reset"/><br/>
+            
+            搜索：<input type="search" placeholder="请输入"/><input type="submit"/><br/>
+        </div>
+    </form>
+</body>
+</html>

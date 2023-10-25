@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-</head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
   body {
@@ -43,14 +42,15 @@
     border: 3px solid blue;
   }
 </style>
+</head>
 <body>
-  <div class="form" mathod="post" action="/json">
+  <form action="">
     <div class="input">账户名：<input type="text" class="username" id="username"></div>
     <div class="input">密&nbsp;&nbsp;&nbsp;码：<input type="text" class="password" id="password"></div>
     <div>
       <button >submit</button>
     </div>
-  </div>
+  </form>
   <script>
     var btn = document.getElementsByTagName('button')[0]
     btn.addEventListener('click', function () {

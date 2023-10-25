@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+  <style>
+    .location {
+      font-size: 17px;
+    }
+    .btn {
+      width: 80px;
+      height: 30px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      outline: none;
+      background-color: #aaa;
+      margin: 0 20px;
+    }
+    .btn:disabled{
+      background-color:#ccc;
+    }
+    select {
+      width: 120px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <form action="">
+    <div class="location">地址：
+     <!--省份选择-->
+     <select id="prov" onclick="showProv()">
+      <option value="">请选择省份</option>
+    </select>
+    <!--城市选择-->
+    <select id="city" onclick="showCity()" >
+        <option value="">请选择城市</option>
+    </select>
+    <!--县区选择-->
+    <select id="coun" onclick="selecCounty()" >
+        <option value="">请选择县区</option>
+    </select>
+    <button type="button" class="btn met1" onClick="showAddr()">确定</button>
+    </div>
+  </form>
+
+  <script>
+    var prov = document.getElementById("prov");
+    var city = document.getElementById("city");
+    var coun = document.getElementById("coun");
+
+    function createNode(id,name,num){
+      var option = document.createElement("option");
+      option.setAttribute('value',num);
+      option.innerText = name;
+      if(id == 'prov'){
+        // for(i=0;i<prov.options.length;i++){
+        //   if(!prov.options[i].value == num){
+        //     prov.append(option)
+        //   }
+        // }
+        prov.append(option)
+      }
+      if(id == 'city'){
+        city.append(option)
+      }
+      if(id == 'coun'){
+        coun.append(option)
+      }
+    }
+    // function change(){
+    //   while(city.hasChildNodes()){
+    //     city.removeChild(city.lastChild);
+    //   }
+    //   while(coun.hasChildNodes()){
+    //     coun.removeChild(coun.lastChild);
+    //   }
+    // }
+    function showProv(){
+      var id = 'prov';
+        $.ajax({
+          url:"/city",
+          method:"get",
+          success:function(data){
+            for(i=0;i<data.length;i++){
+              // console.log(data[i].region.name)
+              // console.log(data[i].region.code)
+              var num = data[i].region.code
+              createNode(id,data[i].region.name,num)
+            }
+          }
+        });
+    }
+    function showCity(){
+      var id = 'city'
+      var index = prov.selectedIndex
+      var value = prov.options[index].getAttribute('value')//获得所选城市的num
+      $.ajax({
+          url:"/city",
+          method:"get",
+          success:function(data){
+            for(i=0;i<data.length;i++){
+              if(data[i].region.code == value){
+                // console.log(data[i].region.name)
+                for(j=0;j<data[i].region.state.length;j++){
+                  // console.log(data[i].region.state[j].name)
+                  var name = data[i].region.state[j].name;
+                  var num = data[i].region.state[j].code;
+                  createNode(id,name,num)
+                }
+              }
+            }
+          }
+        });
+    }
+
+    function selecCounty(){
+      var id = 'coun'
+      var index = prov.selectedIndex
+      var value = prov.options[index].getAttribute('value')
+      var index1 = city.selectedIndex
+      var value1 = city.options[index].getAttribute('value')//获得所选城市的num
+      $.ajax({
+          url:"/city",
+          method:"get",
+          success:function(data){
+            for(i=0;i<data.length;i++){
+                if(data[i].region.code == value){
+                    for(j=0;j<data[i].region.state.length;j++){
+                      if(data[i].region.state[j].code == value1){
+                        // console.log(data[i].region.state[j].city[0])
+                        for(k=0;k<data[i].region.state[j].city.length;k++){
+                          // console.log(id)
+                          // console.log(data[i].region.state[j].city[k].code)
+                          // console.log(data[i].region.state[j].city[k].name)
+                          var name = data[i].region.state[j].city[k].name;
+                          var num = data[i].region.state[j].city[k].code;
+                          createNode(id,name,num)
+                        }
+                    }
+                  }
+                }
+              }
+            }
+        });
+    }
+  </script>
+</body>
+</html>

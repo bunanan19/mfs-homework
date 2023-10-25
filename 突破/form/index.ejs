@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>form</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+  <style>
+      body {
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }
+      form {
+        width: 400px;
+        height: 200px;
+        background-color: antiquewhite;
+        display: flex;
+        justify-content: center;
+        align-items: top;
+        flex-direction: column;
+      }
+      .input {
+        margin: 10px;
+        font-size: 20px;
+      }
+      .username {
+        height: 20px;
+        width: 170px;
+        border: 2px solid green;
+      }
+      .password {   
+        height: 20px;
+        width: 170px;
+        border: 2px solid green;
+      }
+      #submit {
+        align-self: center;
+      }
+      .username:hover{
+        border: 2px solid blue;
+      }
+      .password:hover{
+        border: 2px solid blue;
+      }
+      .valid{
+        opacity: 0;
+        font-size: 15px;
+        color: red;
+        background-color: rgb(255, 255, 255);
+        /* width: 40px; */
+        border-radius: 1px;
+      }
+      .show{
+        opacity: 1;
+      }
+  </style>
+</head>
+<body>
+  <form action="">
+    <div class="input">用户名:<input type="text" class="username" id="username" pattern="^[a-zA-Z][a-zA-Z0-9_]{5,17}$" oninput="usernameChange()" required="required"/>
+      <span class="valid">用户名已存在</span>
+    </div>
+    <div class="input">密码: <input type="password" class="password" id="password" pattern="[a-zA-Z0-9_]{5,17}" oninput="passwordInput()" required="required"/></div>
+    <div class="input">确认密码: <input type="password" class="password" id="password-repeat" oninput="passwordRepeatInput()" required="required"/></div>
+    <input type="submit" id="submit">
+  </form>
+
+  <script>
+    //通过 oninput 事件来触发执行的。当输入框中的内容发生变化时，oninput事件会被触发，从而调用事件处理函数。
+    //验证两次密码输入是否一致：
+    var password;
+    function passwordInput(){
+        password = document.getElementById("password").value
+    }
+    function passwordRepeatInput(){
+        var input=document.getElementById("password-repeat")
+        if(password != input.value){
+            input.setCustomValidity("Password values do not match.")
+        }else{
+            input.setCustomValidity("")
+        }
+    }
+    //验证用户名是否已经存在：
+    var input = document.getElementById("username")
+    var timer
+    function usernameChange(){
+      clearTimeout(timer)
+      timer = setTimeout(function(){
+        $.ajax({
+          url:"/usernameExist",
+          method:"post",
+          data:{
+            username:input.value
+          },
+          success:function(data){
+            console.log(data)
+            if(data.exist){
+              $(".valid").addClass("show")
+            }else{
+              $(".valid").removeClass("show")
+            }
+          }
+        })
+      },1000);
+    }
+  </script>
+</body>
+</html>
