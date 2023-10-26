@@ -51,64 +51,61 @@
     var city = document.getElementById("city");
     var coun = document.getElementById("coun");
 
-    function createNode(id,name,num){
+    function createNode(id,data){
       var option = document.createElement("option");
-      option.setAttribute('value',num);
-      option.innerText = name;
+      option.setAttribute('value',data.code);
+      option.innerText = data.name;
       if(id == 'prov'){
-        // for(i=0;i<prov.options.length;i++){
-        //   if(!prov.options[i].value == num){
-        //     prov.append(option)
-        //   }
-        // }
         prov.append(option)
       }
       if(id == 'city'){
-        city.append(option)
+        const myArray = Array.from(city.options);
+        if(!myArray.some(x=>x.value==data.code)){
+          city.append(option)
+        }//如果下拉框此option不存在才添加，避免重复
       }
       if(id == 'coun'){
-        coun.append(option)
+        const myArray = Array.from(coun.options);
+        if(!myArray.some(x=>x.value==data.code)){
+          coun.append(option)
+        }
       }
     }
-    // function change(){
-    //   while(city.hasChildNodes()){
-    //     city.removeChild(city.lastChild);
-    //   }
-    //   while(coun.hasChildNodes()){
-    //     coun.removeChild(coun.lastChild);
-    //   }
-    // }
-    function showProv(){
+    function province(){
       var id = 'prov';
         $.ajax({
           url:"/city",
           method:"get",
           success:function(data){
+            
             for(i=0;i<data.length;i++){
-              // console.log(data[i].region.name)
-              // console.log(data[i].region.code)
-              var num = data[i].region.code
-              createNode(id,data[i].region.name,num)
+              createNode(id,data[i].region)
             }
-          }
+          }       
         });
     }
+
+    province()//生成省的下拉框
+
+    function showProv(){
+      city.innerHTML="<option value=\"\">--请选择--</option>"
+      coun.innerHTML="<option value=\"\">--请选择--</option>"
+    }//当发生省份改动时，市县的下拉框清空初始化
     function showCity(){
       var id = 'city'
       var index = prov.selectedIndex
-      var value = prov.options[index].getAttribute('value')//获得所选城市的num
+      var value = prov.options[index].getAttribute('value')//获得所选城市的num，根据num生成对应的city
       $.ajax({
           url:"/city",
           method:"get",
           success:function(data){
+            coun.innerHTML="<option value=\"\">--请选择--</option>"
             for(i=0;i<data.length;i++){
               if(data[i].region.code == value){
-                // console.log(data[i].region.name)
                 for(j=0;j<data[i].region.state.length;j++){
-                  // console.log(data[i].region.state[j].name)
                   var name = data[i].region.state[j].name;
                   var num = data[i].region.state[j].code;
-                  createNode(id,name,num)
+                  createNode(id,data[i].region.state[j])
                 }
               }
             }
@@ -121,7 +118,7 @@
       var index = prov.selectedIndex
       var value = prov.options[index].getAttribute('value')
       var index1 = city.selectedIndex
-      var value1 = city.options[index].getAttribute('value')//获得所选城市的num
+      var value1 = city.options[index1].getAttribute('value')//获得所选城市的num
       $.ajax({
           url:"/city",
           method:"get",
@@ -130,14 +127,10 @@
                 if(data[i].region.code == value){
                     for(j=0;j<data[i].region.state.length;j++){
                       if(data[i].region.state[j].code == value1){
-                        // console.log(data[i].region.state[j].city[0])
                         for(k=0;k<data[i].region.state[j].city.length;k++){
-                          // console.log(id)
-                          // console.log(data[i].region.state[j].city[k].code)
-                          // console.log(data[i].region.state[j].city[k].name)
                           var name = data[i].region.state[j].city[k].name;
                           var num = data[i].region.state[j].city[k].code;
-                          createNode(id,name,num)
+                          createNode(id,data[i].region.state[j].city[k])
                         }
                     }
                   }
