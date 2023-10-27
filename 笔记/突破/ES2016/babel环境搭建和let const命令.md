@@ -4,6 +4,66 @@
 
 ### babel环境搭建
 
+##### babel-core:https://www.npmjs.com/package/babel-core
+
+##### babel-cli:https://www.npmjs.com/package/babel-cli ：把一个文件从高版本转码到低版本的文件，es6、es7编译成es5
+
+安装命令：npm install -g babel-cli
+
+测试安装是否成功：babel，不报错
+
+Babel-cli使用方法：
+
+node会成功是因为本地安装的node版本高，支持es6
+
+babel后将转码的文件输出到了控制台，不方法，另外一种方法：--out-file 
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026213057362.png" alt="image-20231026213057362" style="zoom:80%;" />
+
+执行` babel index.js --out-file index-compiled.js`后，生成了一个新的index-compiled.js文件，里面是转码后的代码。但是并没有转化的效果，没有变成将源代码中的箭头函数转化为function函数，是因为没有设置预设presets(当前版本比较新，支持箭头函数)
+
+babel index.js --out-file index-compiled.js --presets=es2015,react
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026213839815.png" alt="image-20231026213839815" style="zoom:80%;" />
+
+##### babel-node：直接去执行es6、es7或者高版本代码，不用去编译
+
+安装：npm install -g babel-node
+
+另外一种安装方式：npm包`npm init` 一路回车全使用默认。会在根目录下生成package.json文件，然后局部安装babel-node，babel-cli，`npm install babel-node`
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026220811589.png" alt="image-20231026220811589" style="zoom:80%;" />
+
+node本身对es高版本的支持已经很高了，所以不是非要用Babel。
+
+测试node所支持的es版本：`node --v8-options`
+
+设置.babelrc文件：
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026222639927.png" alt="image-20231026222639927" style="zoom:80%;" />
+
+并局部安装babel对应版本编译器：<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026222851350.png" alt="image-20231026222851350" style="zoom:80%;" />
+
+并在package.json文件添加语句：
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026223400982.png" alt="image-20231026223400982" style="zoom:80%;" />
+
+然后就可以在终端执行：<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026223518562.png" alt="image-20231026223518562" style="zoom:80%;" />
+
+将之前安装到全局的babel-cli删除：
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026223704975.png" alt="image-20231026223704975" style="zoom:80%;" />
+
+然后再调用Babel，出错：
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026223758739.png" alt="image-20231026223758739" style="zoom:80%;" />
+
+但是项目里面，即compiled文件里面是可以执行babel命令的：使用npm run compile，便执行script里面的compile：<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026224246197.png" alt="image-20231026224246197" style="zoom:80%;" />
+
+但是终端输出有一个错误error，couldn't find presets “env”,这是因为我们编写了presets文件，但是node_modules文件里没有安装presets相关的插件，所以解析出错
+
+安装：`npm install babel-preset-es2017 `  `npm install babel-preset-env `
+
 
 
 ### **Babel** JavaScript 编译器
@@ -305,11 +365,118 @@ Object.freeze(obj)
 ## 问答题
 
 1. babel 是什么，它能干什么，不能干什么？
+
+   > Babel是一个广泛使用的转码器，可以将ES6代码转化为ES5代码。Ecmascript的代码一直在更新 但是浏览器的兼容却没有根上，babel让我们可以随意使用新语法而不用考虑浏览器的兼容性问题。
+   >
+   > Babel的主要功能包括：  
+   >
+   > 1. 语法转换：Babel可以将使用了新语言特性的代码转换为向后兼容的旧版本，以便在不支持这些特性的环境中运行。  
+   > 2.  源码转换：Babel可以将使用一种源码语言编写的代码转换为另一种源码语言。例如，将使用TypeScript编写的代码转换为纯JavaScript代码。  
+   > 3. 插件系统：Babel具有可扩展的插件系统，允许开发人员根据自己的需求自定义转换规则。  
+   >
+   > Babel的局限性包括：  
+   >
+   > 1. 运行时依赖：由于Babel是在运行时对代码进行转换，因此在生产环境中使用Babel可能会增加应用程序的大小和运行时开销。  
+   > 2. 不支持所有语言特性：尽管Babel可以转换许多新语言特性，但它可能无法处理某些复杂或实验性的特性。  
+   > 3. 性能影响：由于转换过程需要额外的计算资源，使用Babel可能会对代码的性能产生一定的影响。 
+   > 4. babel默认只转换新的 JavaScript 语法，比如箭头函数、扩展运算（spread）。不转换新的 API，如果想使用这些新的对象和方法，则需要为当前环境提供一个垫片（polyfill）。
+
 2. 我们使用 babel 把 es6/7的代码编译为 es5代码后，为什么还需要引入 polyfill？
+
+   >`polyfill`顾名思义就是“补丁”，根据浏览器的一些情况，做一些兼容，比如`indexOf`的`polyfill`，当Array的原型中没有`indexOf`时，通过`polyfill`也能适配一些浏览器的使用。
+   >
+   >Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、 Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign ）都不会转码。 举例来说，ES6在 Array 对象上新增了 Array.from 方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使 用 babel-polyfill ，为当前环境提供一个垫片。
+
 3. `.babelrc`文件是干嘛的？常见配置是什么？
+
+   >该文件用来设置转码规则和插件，它是一个JSON格式的文件，在项目根目录下创建，并告诉Babel如何处理代码转换。 基本格式如下。
+   >
+   > ```js
+   > { 
+   >     "presets": [], 
+   >     "plugins": [] 
+   > } 
+   > ```
+   >
+   >常见的.babelrc配置包括：   
+   >
+   >1. 预设（Presets）：预设是一组预定义的转换规则和插件集合，可以一次性配置多个转换。常见的预设包括:
+   >
+   >   @babel/preset-env：根据目标环境自动选择需要的转换规则。    
+   >
+   >   @babel/preset-react：用于转换React代码的规则集。    
+   >
+   >   @babel/preset-typescript：用于转换TypeScript代码的规则集。   
+   >
+   >2. 插件（Plugins）：插件是Babel的转换规则，用于执行特定的代码转换。常见的插件包括：    
+   >
+   >   @babel/plugin-proposal-class-properties：用于转换类属性的插件。    @babel/plugin-transform-arrow-functions：将箭头函数转换为普通函数的插件。    @babel/plugin-transform-runtime：将一些辅助函数提取到运行时以减少重复代码。   
+   >
+   >3. 配置选项：除了预设和插件外，.babelrc文件还可以包含其他配置选项，例如：   "sourceMaps"：指定是否生成源映射文件以方便调试。
+   >
+   >    "ignore"：指定哪些文件或文件夹不需要进行转换。   
+   >
+   >   以下是一个示例的.babelrc文件配置：
+   >
+   >```json
+   >{
+   >  "presets": ["@babel/preset-env", "@babel/preset-react"],
+   >  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-transform-runtime"],
+   >  "sourceMaps": true,
+   >  "ignore": ["node_modules"]
+   >}
+   >```
+   >
+   >这个配置示例使用了@babel/preset-env和@babel/preset-react预设，以及@babel/plugin-proposal-class-properties和@babel/plugin-transform-runtime插件。同时，它还开启了源映射并忽略了node_modules文件夹。根据项目需要，可以根据具体情况进行配置。
+
 4. presets 中设置 env 是什么含义？
+
+   >在Babel的预设（presets）中设置"@babel/preset-env"意味着使用了一个称为"env"的预设。
+   >
+   >这个预设允许根据目标环境自动选择需要的转换规则。  
+   >
+   > "@babel/preset-env"预设的作用是根据指定的目标环境（如浏览器、Node.js版本）或配置选项来确定需要的转换规则。它根据目标环境的支持情况，自动启用相关的转换插件，以确保代码在目标环境中能够正常运行。   
+   >
+   >例如，如果你的目标环境是最新版本的浏览器，那么"@babel/preset-env"会根据最新的JavaScript语言规范，自动启用对应的转换规则。如果目标环境是旧版浏览器，它会根据这些旧版浏览器的支持情况，自动启用适当的转换规则，以使代码能够在这些旧版浏览器中运行。   
+   >
+   >通过使用"@babel/preset-env"预设，开发人员可以更方便地配置Babel，而不需要手动选择和配置大量的转换规则和插件。预设会根据目标环境智能地选择适当的转换规则，从而简化了Babel的配置过程。
+
 5. babel 中 `presets` 与 `plugin` 有什么区别？有什么联系？
+
+   >  `Presets` 是一组预定义的转换规则和插件集合，它们被打包成一个预设，方便在配置文件中一次性引用。预设是为了简化配置，将常用的转换规则和插件组合在一起，以便于开发人员快速配置Babel的转换规则。预设可以包含一个或多个转换规则和插件。   
+   >
+   > `Plugins` 是Babel的转换规则，用于执行特定的代码转换。每个插件都是一个独立的转换规则，可以单独引用和配置。插件可以用于执行各种转换，例如转换箭头函数、类属性、模块导入等。   
+   >
+   > 联系：  
+   >
+   > `Presets` 可以包含一个或多个 `plugins` ，它们是预设中的转换规则和插件的集合。  
+   >
+   > 开发人员可以根据需要自定义预设，选择适合自己项目的转换规则和插件，或者使用已有的预设。  
+   >
+   > 预设和插件都可以在 `.babelrc` 配置文件中进行配置，以告诉Babel如何处理代码转换。   
+   >
+   > 区别：
+   >
+   >  `Presets` 是一组预定义的转换规则和插件的集合，旨在简化配置，提供一次性引用多个转换规则和插件。  
+   >
+   > `Plugins` 是Babel的转换规则，每个插件都是一个独立的转换规则，可以单独引用和配置。  `Presets` 是对常见转换规则和插件的打包，而 `plugins` 是单个转换规则或插件的配置项。  
+   >
+   >  总结来说， `presets` 是一组预定义的转换规则和插件的集合，而 `plugins` 是单个的转换规则或插件。它们在Babel的配置中可以同时使用，以实现代码的转换和兼容性处理。
+
 6. 请比较 `let`,`var`,`const` 命令的不同
+
+   > - 使用var关键字声明的全局作用域变量属于window对象。
+   > - 使用let关键字声明的全局作用域变量不属于window对象。
+   > - 使用var关键字声明的变量在任何地方都可以修改。
+   > - 在相同的作用域或块级作用域中，不能使用let关键字来重置var关键字声明的变量。
+   > - 在相同的作用域或块级作用域中，不能使用let关键字来重置let关键字声明的变量。
+   > - let关键字在不同作用域，或不同块级作用域中是可以重新声明赋值的。
+   > - 在相同的作用域或块级作用域中，不能使用const关键字来重置var和let关键字声明的变量。
+   > - 在相同的作用域或块级作用域中，不能使用const关键字来重置const关键字声明的变量
+   > - const 关键字在不同作用域，或不同块级作用域中是可以重新声明赋值的:
+   > - var关键字定义的变量可以先使用后声明。
+   > - let关键字定义的变量需要先声明再使用。
+   > - const关键字定义的常量，声明时必须进行初始化，且初始化后不可再修改。
 
 ## 代码题
 
@@ -326,9 +493,37 @@ Object.freeze(obj)
    console.log(_a);
    ```
 
+   >在 presets: ['env'] 环境下，上述代码的编译结果如下所示：
+   >
+   >```js
+   >var a = 10;
+   >{
+   >  var _a = 11;
+   >  var b = 12;
+   >  console.log(_a);
+   >}
+   >var _a2 = 13;
+   >console.log(_a2);
+   >```
+   >
+   >Babel对代码进行编译时，根据指定的环境和配置规则进行转换。在这种情况下， presets: ['env'] 表示使用 `@babel/preset-env` 预设，它根据目标环境的支持情况选择需要的转换规则。   
+   >
+   >在上述代码中，有使用 `let` 和 `const` 声明的变量，这些是ES6的新语言特性。在旧版本的JavaScript中，没有 `let` 和 `const` 关键字，只有 `var` 关键字。因此，Babel会将 `let` 和 `const` 声明的变量转换为使用 `var` 关键字的变量声明，以确保代码在不支持 `let` 和 `const` 的环境中正常运行。   
+   >
+   >在编译结果中， `let` 和 `const` 声明的变量 `_a` 和 `b` 被转换为使用 `var` 关键字的变量声明，以便与旧版本的JavaScript兼容。同时，变量 `_a` 的名称在转换过程中发生了变化，以避免与外部的变量 `a` 冲突。   
+   >
+   >Babel通过将新语言特性转换为旧版本的等效代码，以保证两段代码的等价性。它根据预设和插件的规则，将新语言特性转换为目标环境所支持的旧版本语法，从而确保代码在不同环境中的兼容性。
+
 2. 以下代码在 `presets:['env']` 环境下编译结果是什么？为什么？
 
    ```javascript
    const a = 10
    a = 20;
    ```
+
+   >在 presets: ['env'] 环境下，给出的代码将导致编译错误。   
+   >
+   >使用 `const` 声明变量时，它创建了一个只读的引用，指向一个值。因此，一旦 `const` 变量被初始化，就无法重新赋值新的值。在给定的代码中， `const a = 10` 将 `a` 初始化为10。然而，后续的代码 `a = 20;` 试图重新给 `a` 赋予新的值，这违反了 `const` 变量的不可变性。   因此，在使用 presets: ['env'] 配置编译这段代码时，Babel会检测到无效的赋值操作，并抛出编译错误。错误消息将指示您试图给 `const` 变量赋予新的值，这是不允许的。
+
+
+
