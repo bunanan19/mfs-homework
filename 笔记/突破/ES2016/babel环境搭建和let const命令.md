@@ -28,7 +28,7 @@ babel index.js --out-file index-compiled.js --presets=es2015,react
 
 ##### babel-node：直接去执行es6、es7或者高版本代码，不用去编译
 
-安装：npm install -g babel-node
+安装：npm install -g babel-cli(babel-node已经废弃掉了，安装cli即可使用babel-node)
 
 另外一种安装方式：npm包`npm init` 一路回车全使用默认。会在根目录下生成package.json文件，然后局部安装babel-node，babel-cli，`npm install babel-node`
 
@@ -60,9 +60,29 @@ node本身对es高版本的支持已经很高了，所以不是非要用Babel。
 
 但是项目里面，即compiled文件里面是可以执行babel命令的：使用npm run compile，便执行script里面的compile：<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231026224246197.png" alt="image-20231026224246197" style="zoom:80%;" />
 
-但是终端输出有一个错误error，couldn't find presets “env”,这是因为我们编写了presets文件，但是node_modules文件里没有安装presets相关的插件，所以解析出错
+但是终端输出有一个错误error，couldn't find presets “env”,这是因为我们编写了presets文件，但是node_modules文件里没有安装presets相关的模块，所以解析出错
 
 安装：`npm install babel-preset-es2017 `  `npm install babel-preset-env `
+
+然后再执行`npm run compile`,compiled文件编译后效果：<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231027152133379.png" alt="image-20231027152133379" style="zoom:80%;" />
+
+垫片效果展示：
+
+对于代码`var arr = Array(3).fill(1)`<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231027153050172.png" alt="image-20231027153050172" style="zoom:80%;" />
+
+不添加垫片编译后的compile：<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231027153124314.png" alt="image-20231027153124314" style="zoom:67%;" />
+
+此代码在旧版本的浏览器中可能会出错，添加垫片：` npm install babel-polyfill`
+
+并在代码文件夹下引入：`import "babel-polyfill"`<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231027153647413.png" alt="image-20231027153647413" style="zoom:80%;" />
+
+在执行npm run，在compile文件里面生成了<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231027153832089.png" alt="image-20231027153832089" style="zoom:80%;" />
+
+
+
+
+
+
 
 
 
@@ -266,7 +286,7 @@ for (let i = 0; i < 10; i++) {
 
 ### 1.2、const 关键字
 
-const 用于声明一个或多个常量，声明时必须进行初始化，且初始化后值不可再修改
+**const 用于声明一个或多个常量，声明时必须进行初始化，且初始化后值不可再修改**
 
 const 关键字用来声明常量，const 声明有以下特点：
 
@@ -498,12 +518,12 @@ Object.freeze(obj)
    >```js
    >var a = 10;
    >{
-   >  var _a = 11;
-   >  var b = 12;
-   >  console.log(_a);
+   >    var _a2 = 11;
+   >    var _b = 12;
+   >    console.log(_a2);
    >}
-   >var _a2 = 13;
-   >console.log(_a2);
+   >var _a = 13;
+   >console.log(_a);
    >```
    >
    >Babel对代码进行编译时，根据指定的环境和配置规则进行转换。在这种情况下， presets: ['env'] 表示使用 `@babel/preset-env` 预设，它根据目标环境的支持情况选择需要的转换规则。   
@@ -522,6 +542,8 @@ Object.freeze(obj)
    ```
 
    >在 presets: ['env'] 环境下，给出的代码将导致编译错误。   
+   >
+   ><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231027164721692.png" alt="image-20231027164721692" style="zoom:80%;" />
    >
    >使用 `const` 声明变量时，它创建了一个只读的引用，指向一个值。因此，一旦 `const` 变量被初始化，就无法重新赋值新的值。在给定的代码中， `const a = 10` 将 `a` 初始化为10。然而，后续的代码 `a = 20;` 试图重新给 `a` 赋予新的值，这违反了 `const` 变量的不可变性。   因此，在使用 presets: ['env'] 配置编译这段代码时，Babel会检测到无效的赋值操作，并抛出编译错误。错误消息将指示您试图给 `const` 变量赋予新的值，这是不允许的。
 
