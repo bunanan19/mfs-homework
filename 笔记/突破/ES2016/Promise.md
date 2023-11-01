@@ -920,16 +920,14 @@ async函数与Promise、Generator函数一样，是用来取代回调函数、�
    >
    >    简而言之， `Promise.all`  等待所有的 Promise 都被解决，而  `Promise.race`  只要有一个 Promise 先完成就立即解决。
 
-6. Promise 中抛出未处理的异常会怎么样？会阻碍后面的代码执行吗？Chrome 和 Node.js 环境下有什么不同？
+6. Promise 中抛出未处理的异常会怎么样？会阻碍后面的代码执行吗？Chrome 和 Node.js 环境下有什么不同？   
 
-   > 在Promise中，如果抛出未处理的异常，会导致Promise对象被拒绝（rejected）。这意味着如果在Promise链中的任何一个Promise中发生未捕获的异常，它将会传播到Promise链的末尾，最终导致整个Promise链被拒绝。   
-   >
-   > 未处理的异常不会直接阻碍后面的代码执行。当Promise被拒绝时，可以使用 `.catch()` 方法或在 `.then()` 方法的第二个参数中提供的回调函数来处理拒绝的情况。这样可以避免未处理的异常中断代码的执行，并且可以对异常进行适当的处理和错误处理。   
+   > 未处理的异常不会直接阻碍后面的代码执行。
    >
    > 在Chrome和Node.js环境下，对未处理的异常的处理方式有一些不同：  
    >
-   > - Chrome环境：在Chrome浏览器中，默认情况下，会在控制台中打印错误信息。会报错， 但是不会立即终止，不影响执行。 
-   > - Node.js环境：在Node.js中，默认情况下，未处理的异常不会对执行有影响。
+   > - 在Chrome浏览器中会在控制台中打印错误信息。会报错， 但是不会立即终止，不影响后面代码执行。 
+   > - 在Node.js中不会报错，会报警告，产生UnhandledPromiseRejectionWarning，不会阻碍后面代码执行。
 
 7. `catch` 方法中再抛出异常会怎么样，需要怎样捕捉？
 
@@ -970,86 +968,97 @@ async函数与Promise、Generator函数一样，是用来取代回调函数、�
 
 1. 请使用 `Promise` 重构之前作业：*新闻瀑布流* 中的 **图片加载** 和 **加载更多** 部分，比较 `Promise` 写法与之前的写法的区别
 
-   > 之前的写法可能是使用回调函数来处理加载更多的异步操作，类似于以下示例：
-   >
-   > ```
-   > javascriptfunction loadMore(callback) {
-   >   // 异步加载更多的逻辑
-   >   // ...
-   >   if (success) {
-   >     callback(null, data);
-   >   } else {
-   >     callback(new Error('Load more error'));
-   >   }
+   > ```js
+   > function loadData() {
+   >     return new Promise(function (resolve, reject) {
+   >         $.ajax({
+   >             url: "http://learning-api.mafengshe.com/news",
+   >             data: {
+   >                 page: pageNum++,
+   >                 pageSize: pageSize
+   >             },
+   >             success: function (data) {
+   >                 var newNodes = data.result.data.list.map(i => data2node(i));
+   >                 resolve(newNodes);
+   >                 // add2waterfall(newNodes);
+   >             },
+   >             error: function (msg) {
+   >                 reject(msg);
+   >             }
+   >         })
+   >     })
    > }
-   > 
-   > loadMore(function(error, data) {
-   >   if (error) {
-   >     console.log('Error:', error);
-   >   } else {
-   >     console.log('Data loaded:', data);
-   >   }
-   > });
+   > loadData()
+   >         .then(data => add2waterfall(data))
+   >         .catch(err => {
+   >            console.log(err)
+   >         });
    > ```
    >
-   > 使用 `Promise` 重构后的写法如下：
-   >
-   > ```
-   > javascriptfunction loadMore() {
-   >   return new Promise(function(resolve, reject) {
-   >     // 异步加载更多的逻辑
-   >     // ...
-   >     if (success) {
-   >       resolve(data);
-   >     } else {
-   >       reject(new Error('Load more error'));
-   >     }
-   >   });
-   > }
    > 
-   > loadMore()
-   >   .then(function(data) {
-   >     console.log('Data loaded:', data);
-   >   })
-   >   .catch(function(error) {
-   >     console.log('Error:', error);
-   >   });
-   > ```
 
 2. 请自行封装 `ajaxGet(url)` 函数，其返回值为 Promise ，其中 data 为获取的数据（内部使用 XMLHttpRequest）
 
    > ```js
    > function ajaxGet(url) {
-   >   return new Promise(function(resolve, reject) {
-   >     var xhr = new XMLHttpRequest();
-   >     xhr.open('GET', url);
-   >     xhr.onload = function() {
-   >       if (xhr.status === 200) {
-   >         resolve(xhr.responseText);
-   >       } else {
-   >         reject(new Error('Request failed. Status: ' + xhr.status));
-   >       }
-   >     };
-   >     xhr.onerror = function() {
-   >       reject(new Error('Request failed'));
-   >     };
-   >     xhr.send();
-   >   });
+   > 	return new Promise(function(resolve, reject) {
+   > 		 var xhr = new XMLHttpRequest();
+   > 		 xhr.open('GET', url);
+   >   		 xhr.onreadystatechange = function () {
+   >             if (xhr.readyState === 4 && xhr.status === 200) {
+   >                 resolve(xhr.responseText);
+   >             }
+   >         } else {
+   >      		reject(new Error('Request failed. Status: ' + xhr.status));
+   >    			};
+   >  		xhr.send();
+   > 	});
    > }
    > ajaxGet('https://example.com/api/data')
-   >   .then(function(data) {
-   >     console.log('Data:', data);
-   >   })
-   >   .catch(function(error) {
-   >     console.log('Error:', error);
-   >   });
+   > .then(function(data) {
+   >  	console.log('Data:', data);
+   > })
+   > .catch(function(error) {
+   > 	 console.log('Error:', error);
+   > });
    > ```
    >
-   > 
 
 3. 请利用自己实现的 `ajaxGet(url)` 函数，实现**串行**（一个接一个的）发送10个请求，来获取下面 api 的前10页数据
 
-   > 
+   > ```js
+   > ajaxGet("http://learning-api.mafengshe.com/news?page=1")
+   >     .then(data => {
+   >         console.log("page 1");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=2")
+   >     }).then(data => {
+   >         console.log("page 2");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=3")
+   >     }).then(data => {
+   >         console.log("page 3");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page4")
+   >     }).then(data => {
+   >         console.log("page 4");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=5")
+   >     }).then(data => {
+   >         console.log("page 5");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=6")
+   >     }).then(data => {
+   >         console.log("page 6");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=7")
+   >     }).then(data => {
+   >         console.log("page 7");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=8")
+   >     }).then(data => {
+   >         console.log("page 8");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=9")
+   >     }).then(data => {
+   >         console.log("page 9");
+   >         return ajaxGet("http://learning-api.mafengshe.com/news?page=10")
+   >     }).then(data => {
+   >         console.log("page 10");
+   >     })
+   > ```
 
 4. 请利用自己实现的 `ajaxGet(url)` 函数，实现**并行**（同时）发送10个请求，来获取下面 api 的前10页数据
 
@@ -1060,4 +1069,21 @@ GET http://learning-api.mafengshe.com/news （后端已经添加跨域返回头�
 | `pageSize` | 默认值 30（最大200），每一页的新闻条目数 |
 |   `page`   | 默认 1，请求的页码                       |
 
+> ```js
+> p = Promise.all([ajaxGet("http://learning-api.mafengshe.com/news?page=1"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=2"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=3"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=4"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=5"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=6"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=7"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=8"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=9"),
+>     ajaxGet("http://learning-api.mafengshe.com/news?page=10")])
 > 
+> p.then(data => {
+>     console.log("success");
+> }).catch(err => {
+>     console.log(err);
+> })
+> ```
