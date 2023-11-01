@@ -1,36 +1,26 @@
-import "babel-polyfill"
-let main = () =>{
-    console.log("hello es6")
-}
-main();
-let {a:{sa,sb},b} = {a:{sa:"sa",sb:"sb"},b:"b"}//所支持的es版本高，此写法支持
-class Test{
+let set = new Set([1,2,3,4,1,1,1])
+let arr = [...set]//将set转化为数组，set是可迭代的
 
-}
-var test = new Test();//此方法也支持
-
-
-var arr = Array(3).fill(1)
-
-for(let i = 0; i<2; i++){
+for(let i of set){
     console.log(i)
 }
-console.log(i)//报错undefined，因为let块级作用域
 
-for(var j = 0; j<2; j++){
-    console.log(j)
-}
-console.log(j)//2
+let map =new Map()
+map.set("key","value")
+map.set("key1","value1")
+map.set("key2","value2")
 
-var a = 10;
-{
-   let _a = 11;
-   const b = 12;
-   console.log(_a);
-}
-var _a = 13;
-console.log(_a);
+map.forEach(i=>{console.log(i)})//value  value1 value2打印出的是键值
 
-// const a = 10
-// a = 20;
+map.forEach(([key,value])=>{console.log([key,value])})//解构赋值语法，直接将数组中的键值赋值value字符串给key和value。由于值为字符串，所以得到三个 v 和a的打印
 
+for(let [key,value] of map){
+    console.log(key,value)
+}//使用了for...of循环和解构赋值语法来遍历map中的键值对。，并将当前键值对的数组[key, value]解构为key和value两个变量，并赋值给key、value。 
+
+map.forEach((key,value)=>{console.log(key,value)})//使用key和value两个参数来访问Map中的键和值
+
+let wmap =new WeakMap()
+wmap.set(1,"value")//weakmap的键不能随便设置
+wmap.set(2,"value1")
+wmap.set(3,"value2")
