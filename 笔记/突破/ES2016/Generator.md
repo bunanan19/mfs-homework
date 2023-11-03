@@ -232,7 +232,7 @@ function wrapper(generatorFunction) {
 	};
 }
 const wrapped = wrapper(function* () {
-	console.log('First input: ${yield}');
+	console.log(`First input: ${yield}`);
 	return 'DONE';
 });
 wrapped().next('hello!')
@@ -244,8 +244,8 @@ wrapped().next('hello!')
 ```js
 function* dataConsumer() {
 	console.log('Started');
-	console.log('1. ${yield}');
-	console.log('2. ${yield}');
+	console.log(`1. ${yield}`);
+	console.log(`2. ${yield}`);
 	return 'result';
 }
 let genObj = dataConsumer();
@@ -353,7 +353,7 @@ function* objectEntries(obj) {
 }
 let jane = { first: 'Jane', last: 'Doe' };
 for (let [key, value] of objectEntries(jane)) {
-	console.log('${key}: ${value}');
+	console.log(`${key}: ${value}`);
 }
 // first: Jane
 // last: Doe

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <script>
+        //callback版本
+        let ajaxGetCallback = (url,callback)=>{//callback函数在异步操作完成时被调用，以处理操作的结果
+            $.ajax({
+                url:url,
+                dataType:"json"
+            }).done((data)=>{
+                callback(null,data)
+            }).fail((xhr,status,err)=>{
+                callback(err)
+            })
+        }
+        
+        // let ajaxGetThunk = (url) =>{
+        //     return callback=>{
+        //         ajaxGetCallback(url,callback)
+        //     }
+        // }//thunk函数
+
+        let ajaxGetThunk = url =>callback =>ajaxGetCallback(url,callback)//thunk函数
+
+        function *genTen(){
+            let [page,pageSize] =[1,30]
+            for(;page<=10;page++){
+                let tk = ajaxGetThunk(`http://learning-api.mafengshe.com/news?page=${page}&pageSize=${pageSize}`)
+                console.log(tk)
+                console.log(yield tk)
+            }
+            // yield ajaxGetThunk(`http://learning-api.mafengshe.com/news?page=${page}&pageSize=${pageSize}`)//模板字符串，中间有部分是动态的
+        }
+        //非自动，选要多次调用next方法
+        let it = genTen()
+        it.next().value((err,data)=>{
+            console.log(data)
+            it.next().value((err,data)=>{
+                console.log(data)
+            })//多次调用next方法才能实现串行，还是有回调地狱，缩进多
+        })//.value获得了ajaxGetThunk(`http://learning-api.mafengshe.com/news?page=1&pageSize=30`),传入callback函数（url已经传入，需要传入callback），并调用了该thunk函数，
+        
+        //自动调用：
+        let run = fn=>{
+            let it = fn()
+            function next(err,data){//callback函数
+                let result = it.next(data)//调用next方法,并传入data参数
+                if(result.done) return//当生成器执行完，便结束回调
+                result.value(next)//next.value为thunk函数，调用thunk函数，在次回调next方法，将next当callback参数传入
+            }//将next方法封装成next函数，可以实现自动调用生成器的next方法直到结束
+            next()//调用封装后的next函数
+        }//但是此方法只是对生成器函数实现了自动调用next方法，没有实现对数据的处理，比如此处应该打印data(可以对生成器函数进行修改)
+
+        run(genTen)//调用函数
+
+        //promise版本：
+        let ajaxGetPromise = (url)=>{
+            return new Promise((resolve,reject)=>{
+                $.ajax({
+                    url:url,
+                    dataType:"json"
+                }).done((data)=>{
+                    resolve(data)
+                }).fail((xhr,status,err)=>{
+                    reject(err)
+                })
+            })
+        }
+
+        function *genTen(){
+            let [page,pageSize] =[1,30]
+            for(;page<=10;page++){
+                let p = ajaxGetPromise(`http://learning-api.mafengshe.com/news?page=${page}&pageSize=${pageSize}`)
+                console.log(p)
+                console.log(yield p)
+            }
+        }
+
+        //手动执行：
+        let ita = genTen()
+        ita.next().value.then(data=>{
+            console.log(data)
+            ita.next().value.then(data=>{
+                console.log(data)
+            })
+        })
+        //自动执行：
+        function runa(fn){
+            let it = fn()
+            function next(data){
+                let res = it.next(data)
+                if(res.done) return
+                res.value.then(data=>{
+                    next(data)
+                })
+            }
+            next()
+        }
+        runa(geTen)
+
+        //调用
+        ajaxGetCallback("http://learning-api.mafengshe.com/news?page=8&pageSize=30",(err,data0)=>{
+            console.log(data)
+            ajaxGetCallback("http://learning-api.mafengshe.com/news?page=9&pageSize=30",(err,data0)=>{
+                console.log(data)
+            })//多次调用
+        })
+        ajaxGetPromise("http://learning-api.mafengshe.com/news?page=8&pageSize=30").then(data=>{
+            console.log(data)
+            return ajaxGetPromise("http://learning-api.mafengshe.com/news?page=9&pageSize=30")
+        }).then(data=>{
+            console.log(data)
+        })//多次调用
+
+        //async await
+        async function main(){
+
+        }
+    </script>
+</body>
+</html>

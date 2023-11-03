@@ -35,7 +35,7 @@ function *fib(){
             break
         }
     }
-    return "gen end"
+    return "gen end"//return  语句用于指定生成器函数的最终返回值。 
 }
 var fi =fib()
 fi.next()//?
