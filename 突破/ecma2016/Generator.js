@@ -49,3 +49,23 @@ function *number(){
     yield 4;
 }
 [...number()]//[1,2]
+
+let obj ={
+    [Symbol.iterator]: function(){
+        return {
+            next(){
+                return {
+                    value: 1,
+                    done:false
+                }
+            }
+        }
+    }
+}
+
+// for(let i of obj){
+//     console.log(i)
+// }
+
+let [a,b,c] = obj
+console.log(a,b,c)
