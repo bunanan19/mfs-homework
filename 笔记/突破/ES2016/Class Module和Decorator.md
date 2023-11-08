@@ -8,26 +8,28 @@ JavaScript语言的传统方法是通过构造函数，定义并生成新对象�
 
 ```js
 function Point(x,y){
-this.x = x;
-this.y = y;
+    this.x = x;
+    this.y = y;
 }
 Point.prototype.toString = function () {
-return '(' + this.x + ', ' + this.y + ')';
+	return '(' + this.x + ', ' + this.y + ')';
 };
 ```
 
-上面这种写法跟传统的面向对象语言（比如C++和Java）差异很大，很容易让新学习这门语言的程序员感到困惑。 ES6提供了更接近传统语言的写法，引入了Class（类）这个概念，作为对象的模板。通过 class 关键字，可以定义类。基本 上，ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES5都可以做到，新的 class 写法只是让对象原型的写法更加 清晰、更像面向对象编程的语法而已。上面的代码用ES6的“类”改写，就是下面这样。
+上面这种写法跟传统的面向对象语言（比如C++和Java）差异很大，很容易让新学习这门语言的程序员感到困惑。 
+
+ES6提供了更接近传统语言的写法，引入了Class（类）这个概念，作为对象的模板。通过 class 关键字，可以定义类。基本 上，ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES5都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用ES6的“类”改写，就是下面这样。
 
 ```js
 //定义类
 class Point {
-constructor(x, y) {
-this.x = x;
-this.y = y;
-}
-toString() {
-return '(' + this.x + ', ' + this.y + ')';
-}
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    toString() {
+    	return '(' + this.x + ', ' + this.y + ')';
+    }
 }
 ```
 
@@ -41,24 +43,24 @@ typeof Point // "function"
 Point === Point.prototype.constructor // true
 ```
 
-上面代码表明，类的数据类型就是函数，类本身就指向构造函数。 构造函数的 prototype 属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的 prototype 属性上面。
+上面代码表明，类的数据类型就是函数，类本身就指向构造函数。 构造函数的 prototype 属性，在ES6的“类”上面继续存在。事实上，**类的所有方法都定义在类的 prototype 属性上面。**
 
 ```js
 class Point {
-constructor(){
-// ...
-}
-toString(){
-// ...
-}
-toValue(){
-// ...
-}
+    constructor(){
+    // ...
+	}
+    toString(){
+    // ...
+    }
+    toValue(){
+    // ...
+    }
 }
 // 等同于
 Point.prototype = {
-toString(){},
-toValue(){}
+    toString(){},
+    toValue(){}
 };
 ```
 
@@ -74,13 +76,13 @@ b.constructor === B.prototype.constructor // true
 
 ```js
 class Point {
-constructor(){
-// ...
-}
+    constructor(){
+    // ...
+    }
 }
 Object.assign(Point.prototype, {
-toString(){},
-toValue(){}
+    toString(){},
+    toValue(){}
 });
 ```
 
@@ -94,12 +96,12 @@ Point.prototype.constructor === Point // true
 
 ```js
 class Point {
-constructor(x, y) {
-// ...
-}
-toString() {
-// ...
-}
+    constructor(x, y) {
+    // ...
+	}
+    toString() {
+    // ...
+    }
 }
 Object.keys(Point.prototype)
 // []
@@ -127,12 +129,12 @@ Object.getOwnPropertyNames(Point.prototype)
 ```js
 let methodName = "getArea";
 class Square{
-constructor(length) {
-// ...
-}
-[methodName]() {
-// ...
-}
+    constructor(length) {
+    // ...
+    }
+    [methodName]() {
+    // ...
+    }
 }
 ```
 
@@ -142,13 +144,13 @@ constructor(length) {
 
 constructor 方法是类的默认方法，通过 new 命令生成对象实例时，自动调用该方法。一个类必须有 constructor 方法， 如果没有显式定义，一个空的 constructor 方法会被默认添加。
 
-constructor 方法默认返回实例对象（即 this ），完全可以指定返回另外一个对象。
+**constructor 方法默认返回实例对象（即 this ）**，完全可以指定返回另外一个对象。
 
 ```js
 class Foo {
-constructor() {
-return Object.create(null);
-}
+    constructor() {
+   	 	return Object.create(null);
+	}
 }
 new Foo() instanceof Foo
 // false
@@ -172,13 +174,13 @@ var point = new Point(2, 3);
 ```js
 //定义类
 class Point {
-constructor(x, y) {
-this.x = x;
-this.y = y;
-}
-toString() {
-return '(' + this.x + ', ' + this.y + ')';
-}
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    toString() {
+    	return '(' + this.x + ', ' + this.y + ')';
+    }
 }
 var point = new Point(2, 3);
 point.toString() // (2, 3)
@@ -228,9 +230,9 @@ name 属性总是返回紧跟在 class 关键字后面的类名。
 
 ```js
 const MyClass = class Me {
-getClassName() {
-return Me.name;
-}
+    getClassName() {
+        return Me.name;
+    }
 };
 ```
 
@@ -252,12 +254,12 @@ const MyClass = class { /* ... */ };
 
 ```js
 let person = new class {
-constructor(name) {
-this.name = name;
-}
-sayName() {
-console.log(this.name);
-}
+    constructor(name) {
+    	this.name = name;
+    }
+    sayName() {
+    	console.log(this.name);
+    }
 }('张三');
 person.sayName(); // "张三"
 ```
@@ -277,9 +279,9 @@ class Foo {}
 
 ```js
 {
-let Foo = class {};
-class Bar extends Foo {
-}
+	let Foo = class {};
+	class Bar extends Foo {
+	}
 }
 ```
 
@@ -303,24 +305,24 @@ class ColorPoint extends Point {}
 
 ```js
 class ColorPoint extends Point {
-constructor(x, y, color) {
-super(x, y); // 调用父类的constructor(x, y)
-this.color = color;
-}
-toString() {
-return this.color + ' ' + super.toString(); // 调用父类的toString()
-}
+    constructor(x, y, color) {
+        super(x, y); // 调用父类的constructor(x, y)
+        this.color = color;
+    }
+    toString() {
+    	return this.color + ' ' + super.toString(); // 调用父类的toString()
+    }
 }
 ```
 
-上面代码中， constructor 方法和 toString 方法之中，都出现了 super 关键字，它在这里表示父类的构造函数，用来新 建父类的 this 对象。 子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继 承父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类就得不到 this 对象。
+上面代码中， constructor 方法和 toString 方法之中，都出现了 super 关键字，**它在这里表示父类的构造函数，用来新 建父类的 this 对象。** 子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继 承父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类就得不到 this 对象。
 
 ```js
 class Point { /* ... */ }
-class ColorPoint extends Point {
-constructor() {
-}
-}
+    class ColorPoint extends Point {
+        constructor() {
+        }
+    }
 let cp = new ColorPoint(); // ReferenceError
 ```
 
@@ -328,7 +330,7 @@ let cp = new ColorPoint(); // ReferenceError
 
 ```js
 constructor(...args) {
-super(...args);
+	super(...args);
 }
 ```
 
@@ -336,17 +338,17 @@ super(...args);
 
 ```js
 class Point {
-constructor(x, y) {
-this.x = x;
-this.y = y;
-}
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
 }
 class ColorPoint extends Point {
-constructor(x, y, color) {
-this.color = color; // ReferenceError
-super(x, y);
-this.color = color; // 正确
-}
+    constructor(x, y, color) {
+        this.color = color; // ReferenceError
+        super(x, y);
+        this.color = color; // 正确
+    }
 }
 ```
 
@@ -394,8 +396,8 @@ Object.setPrototypeOf(B, A);
 
 ```js
 Object.setPrototypeOf = function (obj, proto) {
-obj.__proto__ = proto;
-return obj;
+    obj.__proto__ = proto;
+    return obj;
 }
 ```
 
@@ -481,12 +483,12 @@ super 这个关键字，有两种用法，含义不同。
 
 ```js
 class B extends A {
-get m() {
-return this._p * super._p;
-}
-set m() {
-throw new Error('该属性只读');
-}
+    get m() {
+        return this._p * super._p;
+    }
+    set m() {
+   		throw new Error('该属性只读');
+    }
 }
 ```
 
@@ -494,9 +496,9 @@ throw new Error('该属性只读');
 
 ```js
 var obj = {
-toString() {
-return "MyObject: " + super.toString();
-}
+    toString() {
+    	return "MyObject: " + super.toString();
+    }
 };
 obj.toString(); // MyObject: [object Object]
 ```
@@ -516,7 +518,7 @@ p2.__proto__.__proto__ === p1.__proto__ // true
 
 ```js
 p2.__proto__.__proto__.printName = function () {
-console.log('Ha');
+	console.log('Ha');
 };
 p1.printName() // "Ha"
 ```
@@ -539,15 +541,15 @@ p1.printName() // "Ha"
 
 ```js
 function MyArray() {
-Array.apply(this, arguments);
+	Array.apply(this, arguments);
 }
 MyArray.prototype = Object.create(Array.prototype, {
-constructor: {
-value: MyArray,
-writable: true,
-configurable: true,
-enumerable: true
-}
+    constructor: {
+        value: MyArray,
+        writable: true,
+        configurable: true,
+        enumerable: true
+    }
 });
 ```
 
@@ -561,13 +563,17 @@ colors.length = 0;
 colors[0] // "red"
 ```
 
-之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过 Array.apply() 或者分配给原型对象都不行。 ES5是先新建子类的实例对象 this ，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构 造函数。比如，Array构造函数有一个内部属性 [[DefineOwnProperty]] ，用来定义新属性时，更新 length 属性，这个内部 属性无法在子类获取，导致子类的 length 属性行为不正常。 ES6允许继承原生构造函数定义子类，因为ES6是先新建父类的实例对象 this ，然后再用子类的构造函数修饰 this ，使得 父类的所有行为都可以继承。下面是一个继承 Array 的例子。
+之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过 Array.apply() 或者分配给原型对象都不行。 
+
+ES5是先新建子类的实例对象 this ，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构 造函数。比如，Array构造函数有一个内部属性 [[DefineOwnProperty]] ，用来定义新属性时，更新 length 属性，这个内部 属性无法在子类获取，导致子类的 length 属性行为不正常。 
+
+ES6允许继承原生构造函数定义子类，因为ES6是先新建父类的实例对象 this ，然后再用子类的构造函数修饰 this ，使得 父类的所有行为都可以继承。下面是一个继承 Array 的例子。
 
 ```js
 class MyArray extends Array {
-constructor(...args) {
-super(...args);
-}
+    constructor(...args) {
+    	super(...args);
+    }
 }
 var arr = new MyArray();
 arr[0] = 12;
@@ -580,16 +586,16 @@ arr[0] // undefined
 
 ```js
 class VersionedArray extends Array {
-constructor() {
-super();
-this.history = [[]];
-}
-commit() {
-this.history.push(this.slice());
-}
-revert() {
-this.splice(0, this.length, ...this.history[this.history.length - 1]);
-}
+    constructor() {
+        super();
+        this.history = [[]];
+    }
+    commit() {
+    	this.history.push(this.slice());
+    }
+    revert() {
+    	this.splice(0, this.length, ...this.history[this.history.length - 1]);
+    }
 }
 var x = new VersionedArray();
 x.push(1);
@@ -608,17 +614,17 @@ x // [1, 2]
 
 ```js
 class ExtendableError extends Error {
-constructor(message) {
-super();
-this.message = message;
-this.stack = (new Error()).stack;
-this.name = this.constructor.name;
-}
+    constructor(message) {
+        super();
+        this.message = message;
+        this.stack = (new Error()).stack;
+        this.name = this.constructor.name;
+    }
 }
 class MyError extends ExtendableError {
-constructor(m) {
-super(m);
-}
+    constructor(m) {
+    	super(m);
+    }
 }
 var myerror = new MyError('ll');
 myerror.message // "ll"
@@ -649,16 +655,95 @@ console.log(o.attr === true); // false
 与ES5一样，在Class内部可以使用 get 和 set 关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。
 
 ```js
+class Point{
+    _x//私有属性
+    _y//私有属性
+    z = 0//共有属性，且可以赋值默认值
+    constructor(x,y,z){
+        this._x = x;
+        this._y = y;
+        this.z = z;
+    }
+    get x(){
+        console.log("get x val: "+this._x)
+        return this._x
+    }
+    set x(val){
+        console.log("set x val: "+val)
+        this._x = val;
+    }
+    get y(){
+        console.log("get y val: "+this._y)
+        return this._y
+    }
+    set y(val){
+        console.log("set y val: "+val)
+        this._y = val;
+    }
+    //generator函数
+    *number(){
+        yield this._x;
+        yield this._y;
+    }
+    //异步函数
+    async number2(){
+        console.log(await this._x);
+	    console.log(await this._y);
+    }
+    get norm(){
+        return this.dis(0,0)
+    }
+    dis(x,y){
+        return this._bar(new Point(x,y))
+    }
+    _bar(point){
+        return Math.sqrt((this.x-point.x)*(this.x-point.x)+(this.y-point.y)*(this.y-point.y))
+    }
+    //静态方法：
+    static xiangxian(point){
+        if(point.x>0&&point.y>0){
+            return 1
+        }
+        if(point.x>0&&point.y<0){
+            return 4
+        }
+        if(point.x<0&&point.y>0){
+            return 2
+        }
+        if(point.x<0&&point.y<0){
+            return 3
+        }
+    }
+}
+let point = new Point(1,2)
+//set x val: 1
+//set y val: 2
+
+console.log(point.__proto__ === Point.prototype)//true
+
+console.log(point)//Point {_x: 1, _y: 2, z: 0} z未被赋值，此时z为默认值0
+let point = new Point(1,2,4)
+console.log(point)//Point {_x: 1, _y: 2, z: 4} z被赋值，默认值被覆盖
+
+let it = point.number2()
+//1
+//2
+Point.xiangxian(new Point(3,-3))
+```
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231107165041348.png" alt="image-20231107165041348" style="zoom:80%;" /><img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231107165814791.png" alt="image-20231107165814791" style="zoom:80%;" />
+
+```js
 class MyClass {
-constructor() {
-// ...
-}
-get prop() {
-return 'getter';
-}
-set prop(value) {
-console.log('setter: '+value);
-}
+    constructor() {
+    // ...
+	}
+    get prop() {
+        return 'getter';
+    }
+    set prop(value) {
+        console.log('setter: '+value);
+    }
 }
 let inst = new MyClass();
 inst.prop = 123;
@@ -671,15 +756,15 @@ inst.prop
 
 ```js
 class CustomHTMLElement {
-constructor(element) {
-this.element = element;
-}
-get html() {
-return this.element.innerHTML;
-}
-set html(value) {
-this.element.innerHTML = value;
-}
+    constructor(element) {
+    	this.element = element;
+    }
+    get html() {
+    	return this.element.innerHTML;
+    }
+    set html(value) {
+    	this.element.innerHTML = value;
+    }
 }
 var descriptor = Object.getOwnPropertyDescriptor(
 CustomHTMLElement.prototype, "html");
@@ -695,14 +780,14 @@ CustomHTMLElement.prototype, "html");
 
 ```js
 class Foo {
-constructor(...args) {
-this.args = args;
-}
-* [Symbol.iterator]() {
-for (let arg of this.args) {
-yield arg;
-}
-}
+    constructor(...args) {
+    	this.args = args;
+    }
+    * [Symbol.iterator]() {
+        for (let arg of this.args) {
+        	yield arg;
+        }
+    }
 }
 for (let x of new Foo('hello', 'world')) {
 console.log(x);
@@ -719,9 +804,9 @@ console.log(x);
 
 ```js
 class Foo {
-static classMethod() {
-return 'hello';
-}
+    static classMethod() {
+    	return 'hello';
+    }
 }
 Foo.classMethod() // 'hello'
 var foo = new Foo();
@@ -733,9 +818,9 @@ foo.classMethod()
 
 ```js
 class Foo {
-static classMethod() {
-return 'hello';
-}
+    static classMethod() {
+    	return 'hello';
+    }
 }
 class Bar extends Foo {
 }
@@ -746,14 +831,14 @@ Bar.classMethod(); // 'hello'
 
 ```js
 class Foo {
-static classMethod() {
-return 'hello';
-}
+    static classMethod() {
+    	return 'hello';
+    }
 }
 class Bar extends Foo {
-static classMethod() {
-return super.classMethod() + ', too';
-}
+	static classMethod() {
+    	return super.classMethod() + ', too';
+    }
 }
 Bar.classMethod();
 ```
@@ -791,10 +876,10 @@ ES7有一个静态属性的提案，目前Babel转码器支持。 这个提案�
 
 ```js
 class MyClass {
-myProp = 42;
-constructor() {
-console.log(this.myProp); // 42
-}
+    myProp = 42;
+    constructor() {
+    	console.log(this.myProp); // 42
+    }
 }
 ```
 
@@ -802,12 +887,12 @@ console.log(this.myProp); // 42
 
 ```js
 class ReactCounter extends React.Component {
-constructor(props) {
-super(props);
-this.state = {
-count: 0
-};
-}
+    constructor(props) {
+        super(props);
+        this.state = {
+        	count: 0
+        };
+    }
 }
 ```
 
@@ -815,9 +900,9 @@ count: 0
 
 ```js
 class ReactCounter extends React.Component {
-state = {
-count: 0
-};
+    state = {
+    	count: 0
+    };
 }
 ```
 
@@ -825,13 +910,13 @@ count: 0
 
 ```js
 class ReactCounter extends React.Component {
-constructor(props) {
-super(props);
-this.state = {
-count: 0
-};
-}
-state;
+    constructor(props) {
+        super(props);
+        this.state = {
+        	count: 0
+        };
+    }
+    state;
 }
 ```
 
@@ -839,10 +924,10 @@ state;
 
 ```js
 class MyClass {
-static myStaticProp = 42;
-constructor() {
-console.log(MyClass.myProp); // 42
-}
+    static myStaticProp = 42;
+    constructor() {
+    	console.log(MyClass.myProp); // 42
+    }
 }
 ```
 
@@ -867,19 +952,19 @@ static prop = 1;
 
 ```js
 function Person(name) {
-if (new.target !== undefined) {
-this.name = name;
-} else {
-throw new Error('必须使用new生成实例');
-}
+    if (new.target !== undefined) {
+    	this.name = name;
+    } else {
+    	throw new Error('必须使用new生成实例');
+    }
 }
 // 另一种写法
 function Person(name) {
-if (new.target === Person) {
-this.name = name;
-} else {
-throw new Error('必须使用new生成实例');
-}
+    if (new.target === Person) {
+    	this.name = name;
+    } else {
+    	throw new Error('必须使用new生成实例');
+    }
 }
 var person = new Person('张三'); // 正确
 var notAPerson = Person.call(person, '张三'); // 报错
@@ -889,11 +974,11 @@ var notAPerson = Person.call(person, '张三'); // 报错
 
 ```js
 class Rectangle {
-constructor(length, width) {
-console.log(new.target === Rectangle);
-this.length = length;
-this.width = width;
-}
+    constructor(length, width) {
+        console.log(new.target === Rectangle);
+        this.length = length;
+        this.width = width;
+    }
 }
 var obj = new Rectangle(3, 4); // 输出 true
 ```
@@ -902,15 +987,15 @@ var obj = new Rectangle(3, 4); // 输出 true
 
 ```js
 class Rectangle {
-constructor(length, width) {
-console.log(new.target === Rectangle);
-// ...
-}
+	constructor(length, width) {
+		console.log(new.target === Rectangle);
+		// ...
+	}
 }
 class Square extends Rectangle {
-constructor(length) {
-super(length, length);
-}
+    constructor(length) {
+    	super(length, length);
+    }
 }
 var obj = new Square(3); // 输出 false
 ```
@@ -919,17 +1004,17 @@ var obj = new Square(3); // 输出 false
 
 ```js
 class Shape {
-constructor() {
-if (new.target === Shape) {
-throw new Error('本类不能实例化');
-}
-}
+    constructor() {
+        if (new.target === Shape) {
+        	throw new Error('本类不能实例化');
+        }
+    }
 }
 class Rectangle extends Shape {
-constructor(length, width) {
-super();
-// ...
-}
+    constructor(length, width) {
+        super();
+        // ...
+    }
 }
 var x = new Shape(); // 报错
 var y = new Rectangle(3, 4); // 正确
@@ -943,23 +1028,23 @@ Mixin模式指的是，将多个类的接口“混入”（mix in）另一个类
 
 ```js
 function mix(...mixins) {
-class Mix {}
-for (let mixin of mixins) {
-copyProperties(Mix, mixin);
-copyProperties(Mix.prototype, mixin.prototype);
-}
-return Mix;
+    class Mix {}
+    for (let mixin of mixins) {
+        copyProperties(Mix, mixin);
+        copyProperties(Mix.prototype, mixin.prototype);
+    }
+    return Mix;
 }
 function copyProperties(target, source) {
-for (let key of Reflect.ownKeys(source)) {
-if ( key !== "constructor"
-&& key !== "prototype"
-&& key !== "name"
-) {
-let desc = Object.getOwnPropertyDescriptor(source, key);
-Object.defineProperty(target, key, desc);
-}
-}
+    for (let key of Reflect.ownKeys(source)) {
+        if ( key !== "constructor"
+        	&& key !== "prototype"
+        	&& key !== "name"
+        ) {
+            let desc = Object.getOwnPropertyDescriptor(source, key);
+            Object.defineProperty(target, key, desc);
+        }
+    }
 }
 ```
 
@@ -979,7 +1064,7 @@ class DistributedEdit extends mix(Loggable, Serializable) {
 
 ```js
 function testable(target) {
-target.isTestable = true;
+	target.isTestable = true;
 }
 @testable
 class MyTestableClass {}
@@ -1008,9 +1093,9 @@ function testable(target) {
 
 ```js
 function testable(isTestable) {
-return function(target) {
-target.isTestable = isTestable;
-}
+    return function(target) {
+    	target.isTestable = isTestable;
+    }
 }
 @testable(true)
 class MyTestableClass {}
@@ -1024,7 +1109,7 @@ MyClass.isTestable // false
 
 ```js
 function testable(target) {
-target.prototype.isTestable = true;
+	target.prototype.isTestable = true;
 }
 @testable
 class MyTestableClass {}
@@ -1037,14 +1122,14 @@ obj.isTestable // true
 ```js
 // mixins.js
 export function mixins(...list) {
-return function (target) {
-Object.assign(target.prototype, ...list)
-}
+    return function (target) {
+    	Object.assign(target.prototype, ...list)
+    }
 }
 // main.js
 import { mixins } from './mixins'
 const Foo = {
-foo() { console.log('foo') }
+	foo() { console.log('foo') }
 };
 @mixins(Foo)
 class MyClass {}
@@ -1056,7 +1141,7 @@ obj.foo() // 'foo
 
 ```js
 const Foo = {
-foo() { console.log('foo') }
+	foo() { console.log('foo') }
 };
 class MyClass {}
 Object.assign(MyClass.prototype, Foo);
@@ -1070,8 +1155,8 @@ obj.foo() // 'foo
 
 ```js
 class Person {
-@readonly
-name() { return `${this.first} ${this.last}` }
+    @readonly
+    name() { return `${this.first} ${this.last}` }
 }
 ```
 
@@ -1079,15 +1164,15 @@ name() { return `${this.first} ${this.last}` }
 
 ```js
 function readonly(target, name, descriptor){
-// descriptor对象原来的值如下
-// {
-// value: specifiedFunction,
-// enumerable: false,
-// configurable: true,
-// writable: true
-// };
-descriptor.writable = false;
-return descriptor;
+    // descriptor对象原来的值如下
+    // {
+    // value: specifiedFunction,
+    // enumerable: false,
+    // configurable: true,
+    // writable: true
+    // };
+    descriptor.writable = false;
+    return descriptor;
 }
 readonly(Person.prototype, 'name', descriptor);
 // 类似于
@@ -1098,12 +1183,12 @@ Object.defineProperty(Person.prototype, 'name', descriptor);
 
 ```js
 class Person {
-@nonenumerable
-get kidCount() { return this.children.length; }
-}
+    @nonenumerable
+    get kidCount() { return this.children.length; }
+    }
 function nonenumerable(target, name, descriptor) {
-descriptor.enumerable = false;
-return descriptor;
+    descriptor.enumerable = false;
+    return descriptor;
 }
 ```
 
@@ -1111,18 +1196,18 @@ return descriptor;
 
 ```js
 class Math {
-@log
-add(a, b) {
-return a + b;
-}
+    @log
+    add(a, b) {
+    	return a + b;
+    }
 }
 function log(target, name, descriptor) {
-var oldValue = descriptor.value;
-descriptor.value = function() {
-console.log(`Calling "${name}" with`, arguments);
-return oldValue.apply(null, arguments);
-};
-return descriptor;
+    var oldValue = descriptor.value;
+    descriptor.value = function() {
+        console.log(`Calling "${name}" with`, arguments);
+        return oldValue.apply(null, arguments);
+    };
+    return descriptor;
 }
 const math = new Math();
 // passed parameters should get logged now
@@ -1144,13 +1229,13 @@ name() { return `${this.first} ${this.last}` }
 
 ```js
 function dec(id){
-console.log('evaluated', id);
-return (target, property, descriptor) => console.log('executed', id);
+    console.log('evaluated', id);
+    return (target, property, descriptor) => console.log('executed', id);
 }
 class Example {
-@dec(1)
-@dec(2)
-method(){}
+    @dec(1)
+    @dec(2)
+    method(){}
 }
 // evaluated 1
 // evaluated 2
@@ -1162,12 +1247,12 @@ method(){}
 
 ## 为什么修饰器不能用于函数？ 
 
-修饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。
+**修饰器只能用于类和类的方法**，不能用于函数，**因为存在函数提升。**
 
 ```js
 var counter = 0;
-var add = function () {
-counter++;
+    var add = function () {
+    counter++;
 };
 @add
 function foo() {
@@ -1184,7 +1269,7 @@ function foo() {
 }
 counter = 0;
 add = function () {
-counter++;
+	counter++;
 };
 ```
 
@@ -1216,10 +1301,10 @@ core-decorators.js是一个第三方模块，提供了几个常见的修饰器�
 ```js
 import { autobind } from 'core-decorators';
 class Person {
-@autobind
-getPerson() {
-return this;
-}
+    @autobind
+    getPerson() {
+    	return this;
+	}
 }
 let person = new Person();
 let getPerson = person.getPerson;
@@ -1232,8 +1317,8 @@ getPerson() === person;
 ```js
 import { readonly } from 'core-decorators';
 class Meal {
-@readonly
-entree = 'steak';
+    @readonly
+    entree = 'steak';
 }
 var dinner = new Meal();
 dinner.entree = 'salmon';
@@ -1245,20 +1330,20 @@ dinner.entree = 'salmon';
 ```js
 import { override } from 'core-decorators';
 class Parent {
-speak(first, second) {}
+		speak(first, second) {}
 }
 class Child extends Parent {
-@override
-speak() {}
-// SyntaxError: Child#speak() does not properly override Parent#speak(first, second)
+    @override
+    speak() {}
+    // SyntaxError: Child#speak() does not properly override Parent#speak(first, second)
 }
 // or
 class Child extends Parent {
-@override
-speaks() {}
-// SyntaxError: No descriptor matching Child#speaks() was found on the prototype chain.
-//
-// Did you mean "speak"?
+    @override
+    speaks() {}
+    // SyntaxError: No descriptor matching Child#speaks() was found on the prototype chain.
+    //
+    // Did you mean "speak"?
 }
 ```
 
@@ -1267,12 +1352,12 @@ speaks() {}
 ```js
 import { deprecate } from 'core-decorators';
 class Person {
-@deprecate
-facepalm() {}
-@deprecate('We stopped facepalming')
-facepalmHard() {}
-@deprecate('We stopped facepalming', { url: 'http://knowyourmeme.com/memes/facepalm' })
-facepalmHarder() {}
+    @deprecate
+    facepalm() {}
+    @deprecate('We stopped facepalming')
+    facepalmHard() {}
+    @deprecate('We stopped facepalming', { url: 'http://knowyourmeme.com/memes/facepalm' })
+    facepalmHarder() {}
 }
 let person = new Person();
 person.facepalm();
@@ -1310,13 +1395,13 @@ person.facepalmWithoutWarning();
 ```js
 import postal from "postal/lib/postal.lodash";
 export default function publish(topic, channel) {
-return function(target, name, descriptor) {
-const fn = descriptor.value;
-descriptor.value = function() {
-let value = fn.apply(this, arguments);
-postal.channel(channel || target.channel || "/").publish(topic, value);
-};
-};
+    return function(target, name, descriptor) {
+        const fn = descriptor.value;
+        descriptor.value = function() {
+        let value = fn.apply(this, arguments);
+        postal.channel(channel || target.channel || "/").publish(topic, value);
+        };
+    };
 }
 ```
 
@@ -1325,16 +1410,16 @@ postal.channel(channel || target.channel || "/").publish(topic, value);
 ```js
 import publish from "path/to/decorators/publish";
 class FooComponent {
-@publish("foo.some.message", "component")
-someMethod() {
-return {
-my: "data"
-};
-}
-@publish("foo.some.other")
-anotherMethod() {
-// ...
-}
+    @publish("foo.some.message", "component")
+    someMethod() {
+        return {
+            my: "data"
+            };
+        }
+        @publish("foo.some.other")
+        anotherMethod() {
+        // ...
+    }
 }
 ```
 
@@ -1577,7 +1662,7 @@ ES6的Class只是面向对象编程的语法糖，升级了ES5的构造函数的
 
 历史上，JavaScript一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其 他语言都有这项功能，比如Ruby的 require 、Python的 import ，甚至就连CSS都有 @import ，但是JavaScript任何这方面 的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。 
 
-在ES6之前，社区制定了一些模块加载方案，最主要的有CommonJS和AMD两种。前者用于服务器，后者用于浏览器。ES6在语 言规格的层面上，实现了模块功能，而且实现得相当简单，完全可以取代现有的CommonJS和AMD规范，成为浏览器和服务器 通用的模块解决方案。
+在ES6之前，社区制定了一些模块加载方案，最主要的有CommonJS和AMD两种。**前者用于服务器，后者用于浏览器。**ES6在语 言规格的层面上，实现了模块功能，而且实现得相当简单，完全可以取代现有的CommonJS和AMD规范，成为浏览器和服务器 通用的模块解决方案。
 
  ES6模块的设计思想，是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS和AMD模 块，都只能在运行时确定这些东西。比如，CommonJS模块就是对象，输入时必须查找对象属性。
 
@@ -1631,7 +1716,7 @@ ES6的模块自动采用严格模式，不管你有没有在模块头部加上 "
 
 ## export命令 
 
-模块功能主要由两个命令构成： export 和 import 。 export 命令用于规定模块的对外接口， import 命令用于输入其他 模块提供的功能。 一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必 须使用 export 关键字输出该变量。下面是一个JS文件，里面使用 export 命令输出变量。
+模块功能主要由两个命令构成： export 和 import 。**export 命令用于规定模块的对外接口， import 命令用于输入其他 模块提供的功能。** 一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必 须使用 export 关键字输出该变量。下面是一个JS文件，里面使用 export 命令输出变量。
 
 ```js
 // profile.js
@@ -1654,7 +1739,7 @@ export {firstName, lastName, year};
 
 ```js
 export function multiply (x, y) {
-return x * y;
+	return x * y;
 };
 ```
 
@@ -1664,9 +1749,9 @@ return x * y;
 function v1() { ... }
 function v2() { ... }
 export {
-v1 as streamV1,
-v2 as streamV2,
-v2 as streamLatestVersion
+    v1 as streamV1,
+    v2 as streamV2,
+    v2 as streamLatestVersion
 };
 ```
 
@@ -1732,7 +1817,7 @@ foo()
 // main.js
 import {firstName, lastName, year} from './profile';
 function setName(element) {
-element.textContent = firstName + ' ' + lastName;
+	element.textContent = firstName + ' ' + lastName;
 }
 ```
 
@@ -1782,10 +1867,10 @@ import 'lodash';
 ```js
 // circle.js
 export function area(radius) {
-return Math.PI * radius * radius;
+	return Math.PI * radius * radius;
 }
 export function circumference(radius) {
-return 2 * Math.PI * radius;
+	return 2 * Math.PI * radius;
 }
 ```
 
@@ -1813,7 +1898,7 @@ console.log('圆周长：' + circle.circumference(14));
 ```js
 // export-default.js
 export default function () {
-console.log('foo');
+	console.log('foo');
 }
 ```
 
@@ -1830,11 +1915,11 @@ customName(); // 'foo'
 ```js
 // export-default.js
 export default function foo() {
-console.log('foo');
+	console.log('foo');
 }
 // 或者写成
 function foo() {
-console.log('foo');
+	console.log('foo');
 }
 export default foo;
 ```
@@ -1861,7 +1946,7 @@ import {crc32} from 'crc32';
 ```js
 // modules.js
 function add(x, y) {
-return x * y;
+	return x * y;
 };
 export {add as default};
 // 等同于
@@ -1921,7 +2006,7 @@ let o = new MyClass();
 export * from 'circle';
 export var e = 2.71828182846;
 export default function(x) {
-return Math.exp(x);
+	return Math.exp(x);
 }
 ```
 
@@ -1951,11 +2036,11 @@ ES6模块加载的机制，与CommonJS模块完全不同。CommonJS模块输出�
 // lib.js
 var counter = 3;
 function incCounter() {
-counter++;
+	counter++;
 }
 module.exports = {
-counter: counter,
-incCounter: incCounter,
+    counter: counter,
+    incCounter: incCounter,
 };
 ```
 
@@ -1975,13 +2060,13 @@ console.log(mod.counter); // 3
 // lib.js
 var counter = 3;
 function incCounter() {
-counter++;
+	counter++;
 }
 module.exports = {
-get counter() {
-return counter
-},
-incCounter: incCounter,
+    get counter() {
+    	return counter
+	},
+	incCounter: incCounter,
 };
 ```
 
@@ -1999,7 +2084,7 @@ ES6模块的运行机制与CommonJS不一样，它遇到模块加载命令 impor
 // lib.js
 export let counter = 3;
 export function incCounter() {
-counter++;
+	counter++;
 }
 // main.js
 import { counter, incCounter } from './lib';
@@ -2351,43 +2436,341 @@ console.log(new m.q().es6); // hello
 
 1. ES6 中的 class 其本质是 es5 声明类的方式的语法糖吗？请从原型链方面证明你的想法
 
+   >class的本质就是原型链的封装,可以看作是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
    >
+   >在ES6的 `class` 语法中，类的方法被定义在类的原型对象上。也就是说，类的方法实际上是定义在类的原型链上的。   下面是一个对比ES6  `class` 和ES5原型链的示例代码：
    >
+   >```js
+   >// ES6 class
+   >class Point {
+   > constructor(x, y) {
+   >   this.x = x;
+   >   this.y = y;
+   > }
+   >norm(){
+   >   return Math.sqrt(this._x**2+ this._y**2)
+   >}
+   >}
    >
+   >let point = new Point(1, 2);
+   >console.log(point.__proto__.norm)
+   >//ƒ norm(){
+   >//return Math.sqrt(this._x**2+ this._y**2)
+   >//}
+   >console.log(point.__proto__ === Point.prototype)//true
+   >
+   >// ES5 原型链
+   >function Point(x, y) {
+   >  this.x = x;
+   >  this.y = y;
+   >}
+   >
+   >Point.prototype.getCoordinates = function() {
+   >  return '(' + this.x + ', ' + this.y + ')';
+   >};
+   >
+   >var point = new Point(1, 2);
+   >console.log(point.getCoordinates()); // 输出：(1, 2)
+   >```
+   >
+   >在这个示例中，我们创建了一个 `Point` 类，它有一个构造函数和一个 `getCoordinates` 方法。在ES6的 `class` 中， `getCoordinates` 方法被定义在 `Point` 类的原型对象上。在ES5的原型链中， `getCoordinates` 方法也是通过将其添加到 `Point` 函数的原型对象上来实现的。   接下来，我们验证 `class` 和原型链的关系：
+   >
+   >```js
+   >console.log(Point === Point.prototype.constructor); // 输出：true
+   >console.log(point.__proto__ === Point.prototype)//true
+   >```
+   >
+   >这个验证表明， `Point` 类和它的原型对象的构造函数引用是相同的。这意味着 `class` 的实例通过原型链继承了类的方法，与ES5的原型链方式相同。   因此，可以说ES6中的 `class` 语法只是更清晰、更符合面向对象编程语法的一种方式，本质上仍然基于ES5中的原型链机制。
 
 2. ES6 中的类构造函数如何声明？
 
+   >在ES6中，可以使用 `class` 关键字来声明类构造函数。下面是一个示例：
+   >```js
+   >class MyClass {
+   >  constructor() {
+   >    // 构造函数逻辑
+   >  }
    >
+   >  // 其他类方法
+   >}
+   >```
    >
-   >
+   >通过 `class` 关键字声明的类构造函数可以包含构造函数逻辑，并且可以定义其他类方法。
 
 3. ES6 实现类 `private` 方法有几种形式？各是什么？
 
+   > 私有方法通常是通过在方法名前面添加下划线  `_`  或使用Symbol来表示的。 
+   >
+   > 在JavaScript中，使用下划线  `_`  或 Symbol 来表示私有方法只是一种约定，并不能真正地限制对私有方法的访问。实际上，您仍然可以通过直接访问类的私有方法来调用它们，但这并不是推荐的做法。   正确的做法是将私有方法定义为类的内部方法，只能在类的其他方法内部调用。这样，外部代码将无法直接访问和调用私有方法，从而实现了私有性。 
+   >
+   > ```js
+   > class Point {
+   >  constructor(x, y) {
+   >      this.x = x;
+   >      this.y = y;
+   >  }
    > 
+   >  dis(x, y) {
+   >      return this._bar(new Point(x, y));
+   >  }
+   > 
+   >  _bar(point) {
+   >      return Math.sqrt((this.x - point.x) ** 2 + (this.y - point.y) ** 2);
+   >  }
+   > }
+   > 
+   > let point = new Point(1, 2);
+   > console.log(point.dis(3, 4)); // 输出：2.8284271247461903
+   > console.log(point._bar(new Point(3, 4))); // 不推荐的做法，但仍然可以访问私有方法
+   > ```
+   >
+   > 请注意，使用下划线  `_`  作为私有方法的约定并不能真正限制对私有方法的访问。这只是一种约定，用于向其他开发人员传达私有性的意图。
+   >
+   > 通过将方法名称以`_`开头，我们可以表示这个方法是私有的，并且不应该在对象外部调用。当然，这种方式并不能真正保护方法，因为在JavaScript中我们仍然可以直接调用对象的属性和方法。
+   >
+   > 在ECMAScript 6中，我们可以使用Symbol类型的属性来创建私有方法。Symbol是一种新的基本数据类型，可以用来创建对象的属性。由于Symbol类型的属性是唯一的，因此我们可以使用它来创建私有方法，以确保没有方法名称冲突的问题。
+   >
+   > <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231107160018105.png" alt="image-20231107160018105" style="zoom:80%;" />
+   >
+   > <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231107160036618.png" alt="image-20231107160036618" style="zoom:80%;" />
+   >
+   > 
+   >
+   > 使用私有方法的主要目的是封装类的实现细节，以提高代码的可维护性和安全性。私有方法只能在类内部使用，外部代码无法直接访问或调用，从而隐藏了类的实现细节，使得代码更加健壮和安全。   以下是一个具体的示例，展示了如何使用私有方法来封装类的实现细节：
+   >
+   > ```javascript
+   > class User {
+   >   constructor(name, email, password) {
+   >     this.name = name;
+   >     this.email = email;
+   >     this.setPassword(password);
+   >   }
+   > 
+   >   setPassword(password) {
+   >     this._password = password;
+   >     this._hash = this._generateHash(password);
+   >   }
+   > 
+   >   authenticate(password) {
+   >     const hash = this._generateHash(password);
+   >     return this._hash === hash;
+   >   }
+   > 
+   >   _generateHash(password) {
+   >     // 这里是私有方法，用于生成密码的哈希值
+   >     // 不暴露给外部代码，确保安全性
+   >     const salt = "my-secret-salt";
+   >     const hash = password + salt;
+   >     return hash;
+   >   }
+   > }
+   > 
+   > const user = new User("Alice", "alice@example.com", "password123");
+   > 
+   > console.log(user.authenticate("password123")); // true
+   > console.log(user.authenticate("wrong-password")); // false
+   > ```
+   >
+   > 在这个示例中， `User` 类封装了一个用户对象，包含了用户的姓名、电子邮件和密码。为了确保密码的安全性， `User` 类使用了私有方法 `_generateHash` 来生成密码的哈希值。这个方法只能在类的内部使用，外部代码无法直接访问或调用，从而确保了密码的安全性。   在 `User` 类的 `setPassword` 方法中，将密码存储在私有变量 `_password` 中，并使用 `_generateHash` 方法生成密码的哈希值，将其存储在私有变量 `_hash` 中。这样，外部代码无法直接访问或修改密码的哈希值，从而确保了密码的安全性。   在 `User` 类的 `authenticate` 方法中，使用 `_generateHash` 方法生成输入密码的哈希值，并将其与存储在私有变量 `_hash` 中的密码哈希值进行比较。这样，外部代码无法直接访问或修改密码哈希值，从而确保了密码的安全性。   通过使用私有方法， `User` 类封装了密码的生成和比较细节，从而提高了代码的可维护性和安全性。
 
 4. 如何声明类的`get`，`set`方法？何时会调用`get`、`set`方法？
 
+   > 在类中，可以使用  `get`  和  `set`  关键字来声明类的访问器方法。 `get`  方法用于获取属性的值，而  `set`  方法用于设置属性的值。 在对类的属性进行存值或取值时会使用。  
+   >
+   > 下面是一个示例，展示了如何声明和使用  `get`  和  `set`  方法：
+   >
+   > ```js
+   > class MyClass {
+   >   constructor() {
+   >     this._myProperty = 0;
+   >   }
    > 
+   >   get myProperty() {
+   >     return this._myProperty;
+   >   }
+   > 
+   >   set myProperty(value) {
+   >     this._myProperty = value;
+   >   }
+   > }
+   > 
+   > const myObject = new MyClass();
+   > console.log(myObject.myProperty); // 输出: 0
+   > 
+   > myObject.myProperty = 42;
+   > console.log(myObject.myProperty); // 输出: 42
+   > ```
+   >
+   > 在上面的示例中， `myProperty`  属性使用  `_myProperty`  来存储实际的值。通过定义  `get`  和  `set`  方法，我们可以在访问该属性时进行自定义的逻辑操作。   当我们访问  `myProperty`  时，会调用  `get`  方法并返回属性的值。当我们为  `myProperty`  赋值时，会调用  `set`  方法，并将新的值传递给该方法。   需要注意的是， `get`  和  `set`  方法的命名必须与属性名相同，以及它们不能接受任何参数。
 
 5. 什么是类的静态方法？如何声明？如何调用？
 
+   > 类的静态方法是属于类本身而不是类的实例的方法。它们可以通过类名直接调用，而不需要创建类的实例。静态方法通常用于执行与类相关的操作，而不依赖于类的实例。   
+   >
+   > 要声明一个静态方法，可以使用  `static`  关键字。下面是一个示例：
+   >
+   > ```js
+   > class MyClass {
+   >   static staticMethod() {
+   >     console.log("This is a static method");
+   >   }
+   > }
    > 
+   > MyClass.staticMethod(); // 调用静态方法
+   > ```
+   >
+   > 在上面的示例中， `staticMethod`  是一个静态方法。我们可以直接通过类名  `MyClass`  调用它，而不需要创建  `MyClass`  的实例。   需要注意的是，静态方法不能访问类的实例属性或方法，因为它们与实例无关。它们仅与类本身相关。   静态方法在许多情况下很有用，例如在类级别上执行某些操作，或者提供一些实用函数供类的使用者直接调用。
 
 6. ES6 中如何进行继承？子类的构造函数中如何调用父类的构造函数？
 
+   > 在ES6中，可以使用  `extends`  关键字来实现继承。子类可以继承父类的属性和方法。
+   >
+   > 要在子类的构造函数中调用父类的构造函数，可以使用  `super()`  方法。 `super()`  方法必须在子类的构造函数中的第一行调用，以确保在访问父类属性之前先初始化父类。
+   >
+   > 下面是一个示例，展示了如何进行继承并在子类的构造函数中调用父类的构造函数：
+   > ```js
+   > class ParentClass {
+   >   constructor(name) {
+   >     this.name = name;
+   >   }
    > 
+   >   sayHello() {
+   >     console.log(`Hello, ${this.name}!`);
+   >   }
+   > }
+   > 
+   > class ChildClass extends ParentClass {
+   >   constructor(name, age) {
+   >     super(name); // 调用父类的构造函数
+   >     this.age = age;
+   >   }
+   > 
+   >   sayAge() {
+   >     console.log(`I am ${this.age} years old.`);
+   >   }
+   > }
+   > 
+   > const child = new ChildClass("Alice", 10);
+   > child.sayHello(); // 输出: Hello, Alice!
+   > child.sayAge(); // 输出: I am 10 years old.
+   > ```
+   >
+   > 在上面的示例中， `ChildClass`  继承了  `ParentClass` 。子类构造函数中通过  `super(name)`  调用了父类的构造函数，并传递了相应的参数。这样，子类实例就能够拥有父类的属性并且可以调用父类的方法。
+   >
+   > 需要注意的是，如果子类中定义了构造函数，则必须在构造函数中调用  `super()` ，否则会导致错误。如果子类没有定义构造函数，那么会默认调用父类的构造函数。
 
 7. ES6 的模块中如何导入导出变量？
 
+   > 在ES6中，可以使用  `import`  和  `export`  关键字来导入和导出变量。
+   >
+   > 要导出一个变量或函数，可以使用  `export`  关键字。下面是一个示例，展示了如何导出一个变量和一个函数：
+   > ```js
+   > // 导出变量
+   > export const myVariable = 42;
    > 
+   > // 导出函数
+   > export function myFunction() {
+   >   console.log("This is a function");
+   > }
+   > ```
+   >
+   > 要导入一个变量或函数，可以使用  `import`  关键字。下面是一个示例，展示了如何导入上面导出的变量和函数：
+   > ```js
+   > // 导入变量
+   > import { myVariable } from "./myModule";
+   > 
+   > console.log(myVariable); // 输出: 42
+   > 
+   > // 导入函数
+   > import { myFunction } from "./myModule";
+   > 
+   > myFunction(); // 输出: This is a function
+   > ```
+   >
+   > 在上面的示例中，我们首先使用  `export`  导出了一个变量和一个函数。然后，在另一个文件中使用  `import`  导入了这些变量和函数。注意，导入的变量和函数名称必须与导出的名称相同。
+   >
+   > 需要注意的是，导入和导出的路径需要指定正确的文件路径，以确保正确地引入和导出模块。
 
 8. ES6 的模块 `export default` 和 `export` 有何异同？
 
+   > 在ES6模块中， `export default`  和  `export`  有一些异同。
+   >
+   > -  `export default`  只能导出一个默认的值，而  `export`  可以导出多个命名的值。
+   > - 在一个模块中，只能有一个  `export default` ，而可以有多个  `export` 。
+   > - 在导入时，使用  `export default`  导出的值可以使用任意名称进行导入，而使用  `export`  导出的值必须使用与导出时相同的名称进行导入。
+   >
+   > 下面是一个示例，展示了如何使用  `export default`  和  `export` ：
+   > ```js
+   > // 导出默认值
+   > export default function() {
+   >   console.log("This is the default function");
+   > }
    > 
+   > // 导出命名的值
+   > export function myFunction() {
+   >   console.log("This is a named function");
+   > }
+   > ```
+   >
+   > 在另一个文件中导入这些值：
+   >
+   > ```js
+   > // 导入默认值
+   > import myDefaultFunction from "./myModule";
+   > 
+   > myDefaultFunction(); // 输出: This is the default function
+   > 
+   > // 导入命名的值
+   > import { myFunction } from "./myModule";
+   > 
+   > myFunction(); // 输出: This is a named function
+   > ```
+   >
+   >  在上面的示例中，我们使用  `export default`  导出了一个默认的函数，并使用  `export`  导出了一个命名的函数。在导入时，我们可以使用任意名称导入默认函数，但必须使用与导出时相同的名称导入命名函数。
 
 9. 修饰器（Decorator）是什么？如何使用？
 
+   > 修饰器（Decorator）是一种在类、方法或属性上添加元数据（metadata）的特殊语法。它们是一种函数，可以用于修改或扩展类、方法或属性的行为。   
+   >
+   > 在JavaScript中，可以使用  `@`  符号来应用修饰器。修饰器可以在不修改原始类或方法的情况下，通过对其进行包装或修改来添加额外的功能。   下面是一个示例，展示了如何使用修饰器：
+   >
+   > ```js
+   > function logDecorator(target, name, descriptor) {
+   >   const originalMethod = descriptor.value;
    > 
+   >   descriptor.value = function (...args) {
+   >     console.log(`Calling method ${name} with arguments ${args}`);
+   >     return originalMethod.apply(this, args);
+   >   };
+   > 
+   >   return descriptor;
+   > }
+   > 
+   > class MyClass {
+   >   @logDecorator
+   >   myMethod(arg1, arg2) {
+   >     console.log(`Executing myMethod with arguments ${arg1} and ${arg2}`);
+   >   }
+   > }
+   > 
+   > const myObject = new MyClass();
+   > myObject.myMethod("foo", "bar");
+   > ```
+   >
+   > 在上面的示例中，我们定义了一个修饰器函数  `logDecorator` 。它接收三个参数： `target`  是被修饰的类的原型（或构造函数本身）， `name`  是被修饰的方法名， `descriptor`  是被修饰方法的属性描述符。   修饰器函数可以修改  `descriptor`  对象中的  `value`  属性，以改变原始方法的行为。在示例中，我们在  `logDecorator`  中将原始方法替换为一个新的函数，该函数在调用原始方法之前打印出方法名和参数。   通过在类的方法前面使用  `@logDecorator` ，我们应用了修饰器，并在调用  `myMethod`  时触发了修饰器的逻辑。   需要注意的是，修饰器的执行顺序是从上到下，从右到左。也就是说，如果有多个修饰器应用于同一个方法，它们的执行顺序将从最后一个修饰器开始，然后向前执行。
+   >
+   > Decorator是一种与类相关的语法，用来注释或修改类和类方法。Decorator是一种函数，写成 @+函数名。
+   > （1）对类进行装饰
+   > [@decorator](https://github.com/decorator)
+   > class A{}
+   > 装饰器函数的第一个参数就是所要装饰的目标类，如果觉得一个参数不够用，就可以在装饰器外面再封装一层函数，这样就可以修改装饰器的行为。
+   > （2）对类属性进行装饰
+   > class Person{
+   > [@decorator](https://github.com/decorator)
+   > name(){…}
+   > }
+   > 装饰器函数参数一般是(类的原型, 属性名，该属性的描述对象)
+   > 装饰器会修改属性的描述对象，然后被修改的描述对象再用来定义属性，然后返回修改的描述对象。
 
 ## 代码题
 
@@ -2406,6 +2789,157 @@ console.log(new m.q().es6); // hello
    var p = new Point(1, 2);
    ```
 
+   ```js
+   class Point{
+       constructor(x,y){
+           this.x = x;
+      		this.y = y;
+       }
+       toString(){
+           return '(' + this.x + ', ' + this.y + ')';
+       }
+   }
+   
+   let p = new Point(1, 2);
+   ```
+
+   
+
 2. 请实现`Circle`类，其表示平面上的一个圆，构造时需要传入 `x`,`y`,`r` 分别为圆在平面上的坐标 (x,y）和其半径 `r`，需要支持使用 `circle.area` 获取圆的面积
 
+   ```js
+   class Circle{
+       constructor(x,y,r){
+           this.x = x;
+      		this.y = y;
+           this.r = r;
+       }
+       get area(){
+           return Math.PI*this.r*this.r;
+       }
+   }
+   let circle = new Circle(0, 0, 5);
+   console.log(circle.area);//78.53981633974483
+   ```
+
 3. 假定我们的代码中需要4个类，分别是 `Animal`，`Dog`，`Cat`，`Human`。`Animal` 有方法 `eat`,`sleep`;`Dog`,`Cat`有方法`bark`；`Human`有方法`speak`；请使用 ES6 中的继承实现。
+
+   ```js
+   //ES6
+   class Animal {
+     constructor(x){
+           this.x = x;
+       } 
+     eat(food) {
+       console.log("Animal " + this.x +" is eating " + food);
+     }
+   
+     sleep() {
+       console.log("Animal " + this.x +" is sleeping");
+     }
+   }
+   
+   class Dog extends Animal {
+     constructor(x,sound) {
+           super(x);//继承Animal的x
+         	this.sound = sound;
+     }
+     bark() {
+       console.log("Dog " + this.x +" is barking: " +this.sound);
+     }
+   }
+   
+   class Cat extends Animal {
+     constructor(x,sound) {
+           super(x);//继承Animal的x
+           this.sound = sound;
+       }
+     bark() {
+       console.log("Cat " + this.x +" is meowing: "+this.sound);
+     }
+   }
+   
+   class Human extends Animal {
+       constructor(x,sound) {
+           super(x);//继承Animal的x
+           this.sound = sound;
+       }
+     speak() {
+       console.log("Human " + this.x +" is speaking: " +this.sound);
+     }
+   }
+   
+   const dog = new Dog("dog","汪");
+   dog.eat("bone"); // Animal dog is eating bone
+   dog.sleep(); // Animal dog is sleeping
+   dog.bark(); // Dog dog is barking: 汪
+   
+   const cat = new Cat("cat","喵");
+   cat.eat("fish"); // Animal cat is eating fish
+   cat.sleep(); // Animal cat is sleeping
+   cat.bark(); // Cat cat is meowing: 喵
+   
+   const human = new Human("Jean","Hi");
+   human.eat("bread"); // Animal Jean is eating bread
+   human.sleep(); // Animal Jean is sleeping
+   human.speak(); // Human Jean is speaking: Hi
+   ```
+   
+   ```js
+   //ES5
+   function Animal(x){
+       this.x = x;
+   }
+   Animal.prototype.eat = function(food){
+       console.log("Animal " + this.x +" is eating " + food);
+   }
+   Animal.prototype.sleep = function(){
+       console.log("Animal " + this.x +" is sleeping");
+   }
+   
+   function Dog(x,sound){
+       Animal.call(this,x);
+       this.sound = sound;       
+   }
+   Dog.prototype = Object.create(Animal.prototype);
+   Dog.prototype.constructor = Dog;
+   Dog.prototype.bark = function(){
+       console.log("Dog " + this.x +" is barking: " +this.sound);
+   }
+   
+   function Cat(x,sound){
+       Animal.call(this,x);
+       this.sound = sound;       
+   }
+   Cat.prototype.__proto__ = Animal.prototype;
+   Cat.prototype.bark = function(){
+        console.log("Cat " + this.x +" is meowing: " +this.sound);
+   }
+   
+   function Human(x,sound){
+       Animal.call(this,x);
+       this.sound = sound;       
+   }
+   Human.prototype= Object.create(Animal.prototype);
+   Human.prototype.constructor = Human;
+   Human.prototype.speak = function(){
+       console.log("Human " + this.x +" is barking: " +this.sound);
+   }
+   
+   const dog = new Dog("dog","汪");
+   dog.eat("bone"); // Animal dog is eating bone
+   dog.sleep(); // Animal dog is sleeping
+   dog.bark(); // Dog dog is barking: 汪
+   
+   const cat = new Cat("cat","喵");
+   cat.eat("fish"); // Animal cat is eating fish
+   cat.sleep(); // Animal cat is sleeping
+   cat.bark(); // Cat cat is meowing: 喵
+   
+   const human = new Human("Jean","Hi");
+   human.eat("bread"); // Animal Jean is eating bread
+   human.sleep(); // Animal Jean is sleeping
+   human.speak();
+   ```
+   
+   

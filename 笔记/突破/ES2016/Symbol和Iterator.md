@@ -1,8 +1,8 @@
-# Symbol
+# Symbol(符号,象征)
 
 ES5的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的 方法（mixin模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好 了，这样就从根本上防止属性名的冲突。这就是ES6引入Symbol的原因。 
 
-ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是JavaScript语言的第七种数据类型，前六种是：Undefined、 Null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。 Symbol值通过 Symbol 函数生成。这就是说，对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增 的Symbol类型。凡是属性名属于Symbol类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。
+ES6引入了一种新的原始数据类型Symbol，表示独一无二的值,为了工程实践的方便，命名规范化。它是JavaScript语言的第七种数据类型，前六种是：Undefined、 Null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。 Symbol值通过 Symbol 函数生成。这就是说，对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增 的Symbol类型。凡是属性名属于Symbol类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。
 
 ```js
 let s = Symbol();
@@ -11,6 +11,35 @@ typeof s
 ```
 
 上面代码中，变量 s 就是一个独一无二的值。 typeof 运算符的结果，表明变量 s 是Symbol数据类型，而不是字符串之类 的其他类型。 
+
+```js
+key = [1,2];
+k = Symbol();
+k2 = Symbol();
+console.log(k == k2);//false
+obj = {
+    name:"mafengshe",
+    [key]:"11111",
+    [k]:"222"
+};
+console.log(obj)//{name: 'mafengshe', 1,2: '11111', Symbol(): '222'}
+console.log(obj.key)//undefined
+console.log(obj[key]);//11111
+console.log(obj[[1,2]])//11111
+console.log(obj[k])//222
+
+for (var i in obj) {
+	console.log(i+'->'+obj[i]); 
+}
+// name->mafengshe
+// 1,2->11111
+//没有打印出symbol，因为Symbol作为属性名，该属性不会出现在 for...in 、 for...of 循环中，也不会被 Object.keys() 、 Object.getOwnPropertyNames() 返回。
+
+var objectSymbols = Object.getOwnPropertySymbols(obj);
+objectSymbols//[Symbol()] Object.getOwnPropertySymbols()可以访问到是symbol属性
+
+// obj.key 不能像 obj.name 一样调用，是因为 key 是一个数组，而不是一个字符串键。在JavaScript中，对象的属性键必须是字符串类型，而不能是数组、对象或其他类型。 如果你想通过键数组来访问对象的属性，你可以使用方括号表示法，像这样： obj[key] 。这将使用数组中的值作为属性键来访问对象的属性。
+```
 
 注意， **Symbol 函数前不能使用 new 命令**，否则会报错。**这是因为生成的Symbol是一个原始类型的值，不是对象。**也就是 说，由于Symbol值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。 Symbol 函数可以接受一个字符串作为参数，表示对Symbol实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。
 
@@ -230,9 +259,9 @@ Object.getOwnPropertySymbols(obj)
 
 ```js
 let obj = {
-[Symbol('my_key')]: 1,
-enum: 2,
-nonEnum: 3
+    [Symbol('my_key')]: 1,
+    enum: 2,
+    nonEnum: 3
 };
 Reflect.ownKeys(obj)
 // [Symbol(my_key), 'enum', 'nonEnum']
@@ -259,7 +288,7 @@ Collection.sizeOf(x) // 0
 x.add('foo');
 Collection.sizeOf(x) // 1 在add方法中size自加
 Object.keys(x) // ['0'] 在add方法里添加的属性，值为调用时传入的参数‘foo’
-Object.getOwnPropertyNames(x) // ['0'] add方法中添加的属性，但是查询不到size属性
+Object.getOwnPropertyNames(x) // ['0'] add方法中添加的属性，但是查询不到Symbol(size)属性
 Object.getOwnPropertySymbols(x) // [Symbol(size)]
 Reflect.ownKeys(x) // ['0', Symbol(size)]
 ```
@@ -589,7 +618,7 @@ with (MyClass.prototype) {
 
 JavaScript原有的表示“集合”的数据结构，主要是数组（Array）和对象（Object），ES6又添加了Map和Set。这样就有了四种数 据集合，用户还可以组合使用它们，定义自己的数据结构，比如数组的成员是Map，Map的成员是对象。这样就需要一种统一 的接口机制，来处理所有不同的数据结构。 
 
-遍历器（Iterator）就是这样一种机制。它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 Iterator接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。 
+遍历器（Iterator）就是这样一种机制。**它是一种接口，为各种不同的数据结构提供统一的访问机制。**任何数据结构只要部署 Iterator接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。 
 
 Iterator的作用有三个：一是为各种数据结构，提供一个统一的、简便的访问接口；二是使得数据结构的成员能够按某种次序排 列；三是ES6创造了一种新的遍历命令 for...of 循环，Iterator接口主要供 for...of 消费。 
 
@@ -611,14 +640,14 @@ it.next() // { value: "a", done: false }
 it.next() // { value: "b", done: false }
 it.next() // { value: undefined, done: true }
 function makeIterator(array) {
-var nextIndex = 0;
-return {
-next: function() {
-return nextIndex < array.length ?
-{value: array[nextIndex++], done: false} :
-{value: undefined, done: true};
-}
-};
+    var nextIndex = 0;
+    return {
+        next: function() {
+            return nextIndex < array.length ?
+            {value: array[nextIndex++], done: false} :
+            {value: undefined, done: true};
+        }
+    };
 }
 ```
 
@@ -634,14 +663,14 @@ next 方法返回一个对象，表示当前数据成员的信息。这个对象
 
 ```js
 function makeIterator(array) {
-var nextIndex = 0;
-return {
-next: function() {
-return nextIndex < array.length ?
-{value: array[nextIndex++]} :
-{done: true};
-}
-};
+    var nextIndex = 0;
+        return {
+        next: function() {
+            return nextIndex < array.length ?
+            {value: array[nextIndex++]} :
+            {done: true};
+        }
+    };
 }
 ```
 
@@ -654,12 +683,12 @@ it.next().value // '1'
 it.next().value // '2'
 // ...
 function idMaker() {
-var index = 0;
-return {
-next: function() {
-return {value: index++, done: false};
-}
-};
+    var index = 0;
+        return {
+            next: function() {
+            return {value: index++, done: false};
+        }
+    };
 }
 ```
 
@@ -667,17 +696,17 @@ return {value: index++, done: false};
 
  在ES6中，有些数据结构原生具备Iterator接口（比如数组），即不用任何处理，就可以被 for...of 循环遍历，有些就不行 （比如对象）。原因在于，这些数据结构原生部署了 Symbol.iterator 属性（详见下文），另外一些数据结构没有。凡是部 署了 Symbol.iterator 属性的数据结构，就称为部署了遍历器接口。调用这个接口，就会返回一个遍历器对象。 如果使用TypeScript的写法，遍历器接口（Iterable）、指针对象（Iterator）和next方法返回值的规格可以描述如下。
 
-```js
+```typescript
 interface Iterable {
-[Symbol.iterator]() : Iterator,
+	[Symbol.iterator]() : Iterator,
 }
 interface Iterator {
-next(value?: any) : IterationResult,
+	next(value?: any) : IterationResult,
 }
 interface IterationResult {
-value: any,
-done: boolean,
-}
+    value: any,
+    done: boolean,
+}		
 ```
 
 ## 数据结构的默认Iterator接口
@@ -701,32 +730,32 @@ iter.next() // { value: undefined, done: true }
 
 上面提到，原生就部署Iterator接口的数据结构有三类，对于这三类数据结构，不用自己写遍历器生成函数， for...of 循环会 自动遍历它们。除此之外，其他数据结构（主要是对象）的Iterator接口，都需要自己在 Symbol.iterator 属性上面部署，这 样才会被 for...of 循环遍历。
 
- 对象（Object）之所以没有默认部署Iterator接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动 指定。本质上，遍历器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。不过，严 格地说，对象部署遍历器接口并不是很必要，因为这时对象实际上被当作Map结构使用，ES5没有Map结构，而ES6原生提供 了。
+ 对象（Object）之所以没有默认部署Iterator接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动 指定。**本质上，遍历器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。**不过，严 格地说，对象部署遍历器接口并不是很必要，因为这时对象实际上被当作Map结构使用，ES5没有Map结构，而ES6原生提供 了。
 
  一个对象如果要有可被 for...of 循环调用的Iterator接口，就必须在 Symbol.iterator 的属性上部署遍历器生成方法（原型 链上的对象具有该方法也可）。
 
 ```js
 class RangeIterator {
-constructor(start, stop) {
-this.value = start;
-this.stop = stop;
-}
-[Symbol.iterator]() { return this; }
-next() {
-var value = this.value;
-if (value < this.stop) {
-this.value++;
-return {done: false, value: value};
-} else {
-return {done: true, value: undefined};
-}
-}
+    constructor(start, stop) {
+        this.value = start;
+        this.stop = stop;
+    }
+	[Symbol.iterator]() { return this; }
+	next() {
+        var value = this.value;
+        if (value < this.stop) {
+        	this.value++;
+        	return {done: false, value: value};
+        } else {
+            return {done: true, value: undefined};
+        }
+    }
 }
 function range(start, stop) {
-return new RangeIterator(start, stop);
+    return new RangeIterator(start, stop);
 }
 for (var value of range(0, 3)) {
-console.log(value);
+	console.log(value);
 }
 ```
 
@@ -734,30 +763,30 @@ console.log(value);
 
 ```js
 function Obj(value) {
-this.value = value;
-this.next = null;
+    this.value = value;
+    this.next = null;
 }
 Obj.prototype[Symbol.iterator] = function() {
-var iterator = {
-next: next
-};
-var current = this;
-function next() {
-if (current) {
-var value = current.value;
-var done = current.next === null;
-current = current.next;
-return {
-done: done,
-value: value
-};
-} else {
-return {
-done: true
-};
-}
-}
-return iterator;
+    var iterator = {
+    next: next
+	};
+    var current = this;
+    function next() {
+        if (current) {
+            var value = current.value;
+            var done = current.next === null;
+            current = current.next;
+            return {
+                done: done,
+                value: value
+            };
+            } else {
+                return {
+                done: true
+            };
+        }
+    }
+    return iterator;
 }
 var one = new Obj(1);
 var two = new Obj(2);
@@ -776,25 +805,24 @@ console.log(i);
 
 ```js
 let obj = {
-data: [ 'hello', 'world' ],
-[Symbol.iterator]() {
-const self = this;
-let index = 0;
-return {
-next() {
-if (index < self.data.length) {
-return {
-value: self.data[index++],
-done: false
+    data: [ 'hello', 'world' ],
+    [Symbol.iterator]() {
+        const self = this;
+        let index = 0;
+        return {
+            next() {
+                if (index < self.data.length) {
+                return {
+                    value: self.data[index++],
+                    done: false
+                };
+                } else {
+                	return { value: undefined, done: true };
+                }
+            }
+        };
+    }
 };
-} else {
-return { value: undefined, done: true };
-}
-}
-};
-}
-};
-
 ```
 
 对于类似数组的对象（存在数值键名和length属性），部署Iterator接口，有一个简便方法，就是 Symbol.iterator 方法直接引 用数组的Iterator接口。
@@ -810,14 +838,14 @@ NodeList.prototype[Symbol.iterator] = [][Symbol.iterator];
 
 ```js
 let iterable = {
-0: 'a',
-1: 'b',
-2: 'c',
-length: 3,
-[Symbol.iterator]: Array.prototype[Symbol.iterator]
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    length: 3,
+    [Symbol.iterator]: Array.prototype[Symbol.iterator]
 };
 for (let item of iterable) {
-console.log(item); // 'a', 'b', 'c'
+	console.log(item); // 'a', 'b', 'c'
 }
 ```
 
@@ -825,14 +853,14 @@ console.log(item); // 'a', 'b', 'c'
 
 ```js
 let iterable = {
-a: 'a',
-b: 'b',
-c: 'c',
-length: 3,
-[Symbol.iterator]: Array.prototype[Symbol.iterator]
-};
+    a: 'a',
+    b: 'b',
+    c: 'c',
+    length: 3,
+    [Symbol.iterator]: Array.prototype[Symbol.iterator]
+    };
 for (let item of iterable) {
-console.log(item); // undefined, undefined, undefined
+    console.log(item); // undefined, undefined, undefined
 }
 ```
 
@@ -850,9 +878,9 @@ obj[Symbol.iterator] = () => 1;
 var $iterator = ITERABLE[Symbol.iterator]();
 var $result = $iterator.next();
 while (!$result.done) {
-var x = $result.value;
-// ...
-$result = $iterator.next();
+    var x = $result.value;
+    // ...
+    $result = $iterator.next();
 }
 ```
 
@@ -943,17 +971,17 @@ iterator.next() // { value: undefined, done: true }
 var str = new String("hi");
 [...str] // ["h", "i"]
 str[Symbol.iterator] = function() {
-return {
-next: function() {
-if (this._first) {
-this._first = false;
-return { value: "bye", done: false };
-} else {
-return { done: true };
-}
-},
-_first: true
-};
+    return {
+        next: function() {
+            if (this._first) {
+                this._first = false;
+                return { value: "bye", done: false };
+            } else {
+            	return { done: true };
+            }
+        },
+        _first: true
+    };
 };
 [...str] // ["bye"]
 str // "hi"
@@ -968,20 +996,20 @@ Symbol.iterator 方法的最简单实现，还是使用下一章要介绍的Gene
 ```js
 var myIterable = {};
 myIterable[Symbol.iterator] = function* () {
-yield 1;
-yield 2;
-yield 3;
+    yield 1;
+    yield 2;
+    yield 3;
 };
 [...myIterable] // [1, 2, 3]
 // 或者采用下面的简洁写法
 let obj = {
-* [Symbol.iterator]() {
-yield 'hello';
-yield 'world';
-}
+    * [Symbol.iterator]() {
+        yield 'hello';
+        yield 'world';
+    }
 };
 for (let x of obj) {
-console.log(x);
+	console.log(x);
 }
 // hello
 // world
@@ -995,18 +1023,18 @@ console.log(x);
 
 ```js
 function readLinesSync(file) {
-return {
-next() {
-if (file.isAtEndOfFile()) {
-file.close();
-return { done: true };
-}
-},
-return() {
-file.close();
-return { done: true };
-},
-};
+    return {
+        next() {
+            if (file.isAtEndOfFile()) {
+                file.close();
+                return { done: true };
+            }
+        },
+        return() {
+            file.close();
+            return { done: true };
+    	},
+    };
 }
 ```
 
@@ -1014,8 +1042,8 @@ return { done: true };
 
 ```js
 for (let line of readLinesSync(fileName)) {
-console.log(x);
-break;
+    console.log(x);
+    break;
 }
 ```
 
@@ -1025,6 +1053,8 @@ break;
 
 ES6借鉴C++、Java、C#和Python语言，引入了 for...of 循环，作为遍历所有数据结构的统一的方法。一个数据结构只要部署 了 Symbol.iterator 属性，就被视为具有iterator接口，就可以用 for...of 循环遍历它的成员。也就是说， for...of 循环 内部调用的是数据结构的 Symbol.iterator 方法。 for...of循环可以使用的范围包括数组、Set和Map结构、某些类似数组的对象（比如arguments对象、DOM NodeList对象）、后文 的Generator对象，以及字符串。
 
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231106182616629.png" alt="image-20231106182616629" style="zoom:80%;" />
+
 ## 数组
 
 数组原生具备iterator接口， for...of 循环本质上就是调用这个接口产生的遍历器，可以用下面的代码证明。
@@ -1033,10 +1063,10 @@ ES6借鉴C++、Java、C#和Python语言，引入了 for...of 循环，作为遍�
 const arr = ['red', 'green', 'blue'];
 let iterator = arr[Symbol.iterator]();
 for(let v of arr) {
-console.log(v); // red green blue
+	console.log(v); // red green blue
 }
 for(let v of iterator) {
-console.log(v); // red green blue
+	console.log(v); // red green blue
 }
 ```
 
@@ -1045,8 +1075,8 @@ console.log(v); // red green blue
 ```js
 const arr = ['red', 'green', 'blue'];
 arr.forEach(function (element, index) {
-console.log(element); // red green blue
-console.log(index); // 0 1 2
+    console.log(element); // red green blue
+    console.log(index); // 0 1 2
 });
 ```
 
@@ -1055,10 +1085,10 @@ JavaScript原有的 for...in 循环，只能获得对象的键名，不能直接
 ```js
 var arr = ['a', 'b', 'c', 'd'];
 for (let a in arr) {
-console.log(a); // 0 1 2 3
+	console.log(a); // 0 1 2 3
 }
 for (let a of arr) {
-console.log(a); // a b c d
+	console.log(a); // a b c d
 }
 ```
 
@@ -1068,10 +1098,10 @@ console.log(a); // a b c d
 let arr = [3, 5, 7];
 arr.foo = 'hello';
 for (let i in arr) {
-console.log(i); // "0", "1", "2", "foo"
+	console.log(i); // "0", "1", "2", "foo"
 }
 for (let i of arr) {
-console.log(i); // "3", "5", "7"
+	console.log(i); // "3", "5", "7"
 }
 ```
 
@@ -1084,7 +1114,7 @@ Set和Map结构也原生具有Iterator接口，可以直接使用 for...of 循�
 ```js
 var engines = new Set(["Gecko", "Trident", "Webkit", "Webkit"]);
 for (var e of engines) {
-console.log(e);
+	console.log(e);
 }
 // Gecko
 // Trident
@@ -1094,7 +1124,7 @@ es6.set("edition", 6);
 es6.set("committee", "TC39");
 es6.set("standard", "ECMA-262");
 for (var [name, value] of es6) {
-console.log(name + ": " + value);
+	console.log(name + ": " + value);
 }
 // edition: 6
 // committee: TC39
@@ -1106,12 +1136,12 @@ console.log(name + ": " + value);
 ```js
 let map = new Map().set('a', 1).set('b', 2);
 for (let pair of map) {
-console.log(pair);
+	console.log(pair);
 }
 // ['a', 1]
 // ['b', 2]
 for (let [key, value] of map) {
-console.log(key + ' : ' + value);
+	console.log(key + ' : ' + value);
 }
 // a : 1
 // b : 2
@@ -1130,7 +1160,7 @@ console.log(key + ' : ' + value);
 ```js
 let arr = ['a', 'b', 'c'];
 for (let pair of arr.entries()) {
-console.log(pair);
+	console.log(pair);
 }
 // [0, 'a']
 // [1, 'b']
@@ -1145,18 +1175,18 @@ console.log(pair);
 // 字符串
 let str = "hello";
 for (let s of str) {
-console.log(s); // h e l l o
+	console.log(s); // h e l l o
 }
 // DOM NodeList对象
 let paras = document.querySelectorAll("p");
 for (let p of paras) {
-p.classList.add("test");
+	p.classList.add("test");
 }
 // arguments对象
 function printArgs() {
-for (let x of arguments) {
-console.log(x);
-}
+	for (let x of arguments) {
+		console.log(x);
+	}
 }
 printArgs('a', 'b');
 // 'a'
@@ -1167,7 +1197,7 @@ printArgs('a', 'b');
 
 ```js
 for (let x of 'a\uD83D\uDC0A') {
-console.log(x);
+	console.log(x);
 }
 // 'a'
 // '\uD83D\uDC0A'
@@ -1179,12 +1209,12 @@ console.log(x);
 let arrayLike = { length: 2, 0: 'a', 1: 'b' };
 // 报错
 for (let x of arrayLike) {
-console.log(x);
+	console.log(x);
 }
 // 正确
 for (let x of Array.from(arrayLike)) {
-console.log(x);
-}
+	console.log(x);
+}//a  b
 ```
 
 ## 对象
@@ -1193,18 +1223,18 @@ console.log(x);
 
 ```js
 var es6 = {
-edition: 6,
-committee: "TC39",
-standard: "ECMA-262"
+    edition: 6,
+    committee: "TC39",
+    standard: "ECMA-262"
 };
 for (e in es6) {
-console.log(e);
+	console.log(e);
 }
 // edition
 // committee
 // standard
 for (e of es6) {
-console.log(e);
+	console.log(e);
 }
 // TypeError: es6 is not iterable
 ```
@@ -1213,11 +1243,13 @@ console.log(e);
 
 ```js
 for (var key of Object.keys(someObject)) {
-console.log(key + ": " + someObject[key]);
+	console.log(key + ": " + someObject[key]);
 }
 ```
 
-在对象上部署iterator接口的代码，参见本章前面部分。一个方便的方法是将数组的 Symbol.iterator 属性，直接赋值给其他 对象的 Symbol.iterator 属性。比如，想要让 for...of 环遍历jQuery对象，只要加上下面这一行就可以了。
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231106155110487.png" alt="image-20231106155110487" style="zoom:80%;" />
+
+在对象上部署iterator接口的代码，参见本章前面部分。**一个方便的方法是将数组的 Symbol.iterator 属性，直接赋值给其他 对象的 Symbol.iterator 属性。**比如，想要让 for...of 环遍历jQuery对象，只要加上下面这一行就可以了。
 
 ```js
 jQuery.prototype[Symbol.iterator] =
@@ -1228,12 +1260,12 @@ Array.prototype[Symbol.iterator];
 
 ```js
 function* entries(obj) {
-for (let key of Object.keys(obj)) {
-yield [key, obj[key]];
-}
+    for (let key of Object.keys(obj)) {
+    	yield [key, obj[key]];
+    }
 }
 for (let [key, value] of entries(obj)) {
-console.log(key, "->", value);
+	console.log(key, "->", value);
 }
 // a -> 1
 // b -> 2
@@ -1246,7 +1278,7 @@ console.log(key, "->", value);
 
 ```js
 for (var index = 0; index < myArray.length; index++) {
-console.log(myArray[index]);
+	console.log(myArray[index]);
 }
 ```
 
@@ -1254,7 +1286,7 @@ console.log(myArray[index]);
 
 ```js
 myArray.forEach(function (value) {
-console.log(value);
+	console.log(value);
 });
 ```
 
@@ -1262,7 +1294,7 @@ console.log(value);
 
 ```js
 for (var index in myArray) {
-console.log(myArray[index]);
+	console.log(myArray[index]);
 }
 ```
 
@@ -1277,7 +1309,7 @@ for...in循环有几个缺点。
 
 ```js
 for (let value of myArray) {
-console.log(value);
+	console.log(value);
 }
 ```
 
@@ -1289,9 +1321,9 @@ console.log(value);
 
 ```js
 for (var n of fibonacci) {
-if (n > 1000)
-break;
-console.log(n);
+	if (n > 1000)
+	break;
+	console.log(n);
 }
 ```
 
@@ -1301,23 +1333,72 @@ console.log(n);
 
 1. Symbol 是什么？有哪些使用场景？
 
-   > 
+   > ES6引入的一种新的原始数据类型Symbol，表示独一无二的值。它是唯一且不可变的数据类型，用于表示一个独一无二的标识符。
+   >
+   > Symbol 的主要用途是创建对象的唯一属性键。由于 Symbol 值是唯一的，因此可以确保对象属性名的唯一性，避免命名冲突。Symbol 属性键不会被常规的对象遍历方法（如 for...in 循环）遍历到，但可以通过 Object.getOwnPropertySymbols() 方法获取到。
+   >
+   > Symbol 还可以用作常量，用于定义枚举类型。通过将不同的 Symbol 值作为枚举项，可以确保枚举值的唯一性。
+   >
+   > Symbol 还有其他一些使用场景，例如：
+   >
+   > 1. 作为私有属性和方法的命名空间，可以防止外部访问和修改。
+   > 2. 在类的设计中，用作类的方法名，以确保方法的唯一性。
+   > 3. 与迭代器和生成器一起使用，用于自定义迭代行为。
+   > 4. 在 JavaScript 内置对象中，有一些内置的 Symbol 值，如 Symbol.iterator、Symbol.toStringTag 等，用于定义对象的行为和特性。
+   >
+   > 总之，Symbol 提供了一种创建唯一标识符的方式，可以用于确保对象属性的唯一性，定义枚举类型，以及其他一些高级用途。
 
 2. `Symbol("foo") == Symbol("foo")`输出什么？为什么？
 
-   > 
+   > false。当创建一个Symbol时，即使使用相同的描述作为参数，每个Symbol都是完全独特且与其他Symbol不同的。   所以， `Symbol("foo")` 创建了一个带有描述"foo"的新Symbol实例，而 `Symbol("foo")` 也创建了一个带有相同描述的新Symbol实例。由于Symbol是唯一的，它们被视为不相等，因此比较它们的结果是 `false` 。
 
 3. `Symbol.iterator` 是什么？这里为什么要使用 `Symbol` 那？
 
-   > 
+   >  `Symbol.iterator`  是 JavaScript 中的一个内置 Symbol 值。它用于定义对象的默认迭代器。当一个对象具有  `Symbol.iterator`  属性时，它被认为是可迭代的，并且可以使用  `for...of`  循环或其他迭代器相关的功能来遍历该对象。
+   >
+   > 为什么要使用  `Symbol`  来定义迭代器？这是因为  `Symbol`  是唯一且不可变的。使用  `Symbol`  来定义迭代器属性可以确保属性名的唯一性，避免与其他属性冲突。由于  `Symbol`  值是唯一的，每个对象都可以拥有独立的迭代器，而不会相互干扰。
+   >
+   > 此外，使用  `Symbol`  还可以隐藏迭代器的实现细节，将其封装在对象内部。这样可以提供更好的封装性和安全性，防止外部直接访问和修改迭代器。
+   >
+   > 总结起来， `Symbol.iterator`  提供了一种标准化的方式来定义对象的默认迭代器，并且使用  `Symbol`  可以确保属性名的唯一性和迭代器的封装性。
+   >
+   > 为了避免一些可以被遍历的数据结构(数组，字符串，set等)的iterator方法被改写，而失去了该数据结构的性质
 
 4. 哪些对象（容器）内部实现了 iterator ？
 
-   > 
+   > 许多内置的 JavaScript 对象（容器）实现了迭代器。以下是一些常见的对象（容器），它们内部实现了迭代器：
+   >
+   > 1. 数组（Array）：数组是有序的集合，可以使用  `for...of`  循环或  `Array.prototype.forEach`  方法进行迭代。
+   >
+   > 2. 字符串（String）：字符串是字符的有序序列，可以使用  `for...of`  循环迭代字符串的每个字符。
+   >
+   > 3. Set：Set 是一种集合数据结构，它存储唯一的值。Set 对象内部实现了迭代器，可以使用  `for...of`  循环迭代 Set 中的每个值。
+   >
+   > 4. Map：Map 是一种键值对的集合，其中每个键都是唯一的。Map 对象内部实现了迭代器，可以使用  `for...of`  循环迭代 Map 中的每个键值对。
+   >
+   > 5. NodeList：NodeList 是一种类数组对象，它包含了由选择器查询或 DOM 方法返回的节点列表。NodeList 对象内部实现了迭代器，可以使用  `for...of`  循环迭代 NodeList 中的每个节点。
+   >
+   > 这些是一些常见的对象（容器），它们内部实现了迭代器。可以使用  `for...of`  循环或其他迭代器相关的功能来遍历它们。
 
 5. 数组解构的核心本质是什么？哪些对象（容器）可以作为数组解构的右值？
 
-   > 
+   > 数组解构的核心本质是使用数组的默认迭代器，按照顺利遍历数组，从数组中取值，将它们赋值给变量。
+   >
+   > 在 JavaScript 中，可以将任何具有迭代器的可迭代对象作为数组解构的右值，不仅限于数组。以下是可以作为数组解构右值的一些对象（容器）：
+   >
+   > 1. 数组：最常见的用例是将数组解构为单独的变量。
+   >
+   > 2. 字符串：可以将字符串解构为单独的字符。
+   >
+   > 3. Set：Set 是一种集合数据结构，它存储唯一的值。Set 对象可以作为数组解构的右值。
+   >
+   > 4. Map：Map 是一种键值对的集合，其中每个键都是唯一的。Map 对象可以作为数组解构的右值。
+   >
+   > 5. Arguments 对象：在函数内部可用的  `arguments`  对象可以进行解构。
+   >
+   > 6. 可迭代对象：任何可迭代对象，如 NodeList，都可以进行解构。
+   >
+   > 需要注意的是，数组解构的右值应该是具有兼容结构的可迭代对象，也就是说它应该有适当的迭代器实现来提取值。
 
 ## 代码题
 
@@ -1332,13 +1413,43 @@ console.log(n);
    ```
 
    ```js
+   function makeIterator(array) {
+       var nextIndex = 0;
+       return {
+           next: function() {
+               return nextIndex < array.length-1 ?
+               {value: array[nextIndex++], done: false} :
+               {value: array[nextIndex++], done: true};
+           }
+       };
+   }
+   let it = makeIterator([1,2,3])
+   it.next()//{value: 1, done: false}
+   it.next()//{value: 2, done: false}
+   it.next()//{value: 3, done: true}
+   it.next()//{value: undefined, done: true}
    ```
-
-   
 
 2. 请给对象 `let obj={}` 加上迭代器，实现可以无限打印 `a`
 
-   > 
+   > ```js
+   > let obj = {
+   >     [Symbol.iterator]: function() {
+   >     	return {
+   >         	next() {
+   >             	return {
+   >                     value: 'a',
+   >                     done: false
+   >             	};
+   >     		}
+   >     	} 
+   > 	}
+   > }
+   > // 使用 for...of 循环打印无限个 'a'
+   > for (let i of obj) {
+   >     console.log(i);
+   > }
+   > ```
 
 3. 请给对象 `obj` 加上迭代器，使其可以像数组一样使用 `for of` 循环
 
@@ -1352,6 +1463,44 @@ console.log(n);
    ```
 
    ```js
+   let obj = {
+      [0] : "a",
+      [1] : "b",
+      [2] : "c",
+      length : 3,
+      [Symbol.iterator]: function() {
+           var nextIndex = 0;
+           return {
+               next: function() {
+                   return nextIndex < this.length?
+                   	{value: this[nextIndex++], done: false} :
+                   	{value: undefined, done: true};
+               }.bind(this)
+           };
+       }
+   }
+   for(let i of obj){
+       console.log(i)
+   }
    ```
-
+   
+   ```js
+   let obj ={
+       [0] : "a",
+       [1] : "b",
+       [2] : "c",
+       length : 3 ,
+       [Symbol.iterator]:Array.prototype[Symbol.iterator],
+   }
+   
+   for(let i of obj){
+       console.log(i)
+   }
+   //a
+   //b
+   //c
+   ```
+   
+   
+   
    
