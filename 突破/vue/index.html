@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>vue start</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <!-- 通过CDN使用vue -->
+    </head>
+    <body>
+        <!-- <div id="app">{{message}}</div> -->
+        
+
+        <div id="app">
+            <ul>
+                <!-- v-for ：vue的循环遍历 -->
+                <!-- <li v-for="item in list">{{item}}</li> -->
+
+                <!--局部组件的用法:  -->
+                <c-item v-for="i in list" :data="i"></c-item>
+            </ul>
+            <button @click="btnAdd">add</button>
+            <button @click="btnDel">Del</button>
+        </div><br><br>
+
+
+        <div id="count">
+            <button @click="increment">
+                Count is:{{count}}
+            </button>
+        </div><br><br>
+
+
+        <!-- 表单双向绑定 -->
+        <!-- 通过这种双向数据绑定，输入框中的值和 formdata.username 的值保持同步
+        任何一方的变化都会影响另一方
+        这样可以方便地在Vue实例中获取和修改输入框的值。 -->
+        <div id="form">
+            <div>{{JSON.stringify(formdata)}}</div><br>
+            username:<input v-model="formdata.username"><br>
+            password:<input v-model="formdata.password">
+        </div>
+
+        <script>
+
+            var app = Vue.createApp({
+                data(){
+                    return{
+                        // message:"hello vue!",
+                        list:[
+                            "web component",
+                            "组件生命周期",
+                            "模板语法",
+                            "计算属性"
+                        ]
+                    };
+                },
+                methods:{
+                    btnAdd:function (){
+                        this.list.push("new item")
+                    },
+                    btnDel:function(){
+                        this.list.pop()
+                    }
+                }
+            })
+            //关于app局部组件处理list数据:
+            app.component("c-item",{
+                props:["data"],
+                template:"<li>{{data}}</li>"
+            })
+            app.mount("#app")//挂载点
+
+            var count = Vue.createApp({
+                data() {
+                    return {
+                        count: 0
+                    }
+                },
+                methods: {
+                    increment() {
+                        this.count++
+                    }
+                },
+                mounted() {
+                    console.log(`The initial count is ${this.count}.`)
+                }
+            }).mount("#count")
+
+
+            var form = Vue.createApp({
+                data(){
+                    return {
+                        formdata:{
+                            username:"111",
+                            password:""
+                        }
+                    }
+                }
+            }).mount("#form")
+        </script>
+    </body>
+</html>
