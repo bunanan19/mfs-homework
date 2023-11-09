@@ -1,0 +1,162 @@
+<html>
+    <head>
+        <title>vue start</title>
+        <!-- Vue cdn -->
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+        <!-- 时间格式化moment.js库 -->
+        <script src="https://momentjs.cn/downloads/moment.js"></script>
+        <style>
+            .red{
+                color: red;
+            }
+            .blue{
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" v-bind:class="isActive">
+            <!-- 插值语法`{{}}` -->
+            <div>count is :{{count}}, (count+1) is: {{count + 1}}</div>
+
+
+            <!-- 属性绑定 `v-bind` -->
+            <!-- 使用v-bind指令来绑定"data-message"属性到"message"变量。
+                这将使得"data-message"属性的值与"message"变量的值保持同步
+                也可以使用语法糖，不写v-bind，直接写一个：在需要绑定的属性前面
+                :data-message="message"等价于v-bind:data-message="message"-->
+            <p v-bind:data-time="time">属性data-time的属性值为: {{time}}</p>
+
+            <!-- 属性绑定和插值语法其中绑定的是vue数据的表达式,如下;将下面message的字母顺序颠倒-->
+            <p :data-message="message.split('').reverse().join('')">{{message.split('').reverse().join('')}}</p>
+
+            <div>时间：{{dateTime}}</div><br>
+
+            <!-- 三元表达式 -->
+            <div>{{count>5?"greater":"less"}}</div><br>
+
+            <!-- 事件绑定 -->
+            <!-- v-on:事件="事件处理函数名" -->
+            <button v-on:click="btn">v-on 点击alert</button><br><br>
+            <button v-on:click="add">v-on 点击add-count</button><br><br>
+
+            <!-- @事件="事件处理函数名" -->
+            <button @click="newT">&#64 点击更新时间</button><br><br>
+            <button @click="getY(1900)">&#64 点击获取年份</button><br>
+
+            <P v-if="login==true">欢迎</P>
+            <p v-if="login==false">登录</p>
+            <li v-for="i in list">{{i}}</li>
+
+            <!-- 过滤器 -->
+            <p>'{{message}}' filters to '{{splice(reverseStr(message))}}'</p>
+            <!-- 过滤器用法管道写法达到等效： -->
+            <p>'{{message}}' filters to '{{message | reverseStr | splice | uppercase}}'</p>
+
+            <P>{{reverseMessage}}</P>
+
+            <p v-bind:class="color">这段文字因为属性值的绑定，所以为红色</p>
+            <p :class="clazz" :style="style">另外一种写法</p>
+
+            <p>{{ fullname }}</p>
+            <img :src="changeImage">
+        </div>
+
+        <script>
+            var app = new Vue({
+                el:"#app",
+                data: {
+                    count:2,
+                    time: new Date(),//如果前面加+，可以将任何数据类型强转为number，比如如：Thu Nov 09 2023 15:37:31 GMT+0800 (中国标准时间)强转为1699515451456
+                    message:"Hello world!",
+                    dateTime:moment(new Date()).format(),//moment(data).format()是时间格式化moment.js的API接口
+                    year: new Date().getYear(),
+                    // login:false,
+                    login:true,
+                    list:[1,2,3,4],
+                    firstName: 'Foo', 
+                    lastName: 'Bar',
+                    color:"red",//属性绑定实例操作
+                    // clazz:{
+                    //     red:false,
+                    //     blue:true,
+                    // }也可以将这部分放入computed
+                    // clazz:["red","blue"],//也可以写成数组的形式，最后的颜色是根据style标签里面的优先级确定的
+                    style:{
+                        color:"green",
+                        fontSize:"20px"
+                    },
+                    images: [
+                        "C:/Users/86153/Desktop/mfs-homework/基础/test1/images/pic.jpg",
+                        "C:/Users/86153/Desktop/mfs-homework/基础/test1/images/cat.jpg",
+                        "C:/Users/86153/Desktop/mfs-homework/基础/test1/images/PHP.png"
+                    ],
+                    Index: 0,
+                    isActive: {
+                        isActive: true,
+                    }
+                },
+                mounted() {
+                    setInterval(() => {
+                        this.Index = (this.Index + 1) % this.images.length;
+                    }, 1000);//使用箭头函数来保持this指向Vue实例
+                },//将setInterval函数放置在了created生命周期钩子函数中，这样每隔1秒就会更新Index值，从而切换图片。
+                computed: {
+                    reverseMessage: function(){
+                        return this.message.split("").reverse().join("")
+                    },
+                    clazz(){
+                        return{
+                            red:this.list.length>5,
+                            blue:this.list.length<=5,
+                        }
+                    },
+                    fullname(){
+                        return this.firstName+' '+this.lastName
+                    },
+                    changeImage: function() {
+                        // setInterval(()=>{
+                        //     this.Index >=this.images.length? 0:this.Index + 1;
+                        // }, 1000);//使用箭头函数来保持 this 的正确上下文
+                        return this.images[this.Index];
+                    },//computed 属性只在其依赖项发生变化时才会重新计算，setInterval 函数不能放置在computed 属性中
+                },
+                methods: {
+                    btn(){
+                        alert("click event")
+                        this.message ="new message"
+                    },
+                    newT(){
+                        this.dateTime = moment(new Date()).format()
+                    },
+                    getY(data){
+                        console.log(data)
+                        this.dateTime = new Date(this.dateTime).getYear()+1900//由于getYear()方法返回的是相对于1900年的偏移量，所以我们需要将其加上1900，以得到实际的年份。
+                    },
+                    add(){
+                        this.count++
+                    },
+                    reverseStr(str){
+                        return str.split("").reverse().join("")
+                    },
+                    splice(str){
+                        if(str.length>5) return str.substr(0,5);
+                        return str;
+                    },
+                },
+                filters: {
+                    reverseStr(str){
+                        return str.split("").reverse().join("")
+                    },
+                    splice(str){
+                        if(str.length>5) return str.substr(0,5);
+                        return str;
+                    },
+                    uppercase: function(str) {
+                        return str.toUpperCase();
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
