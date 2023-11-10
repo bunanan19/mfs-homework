@@ -299,6 +299,12 @@ template
 
    > 在Vue中，模板是一种基于HTML语法的字符串，用于描述Vue实例的视图结构。模板中可以包含Vue的特殊语法和指令，用于绑定数据和控制视图的渲染。
    >
+   > Vue 使用一种基于 HTML 的模板语法，使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上。所有的 Vue 模板都是语法层面合法的 HTML，可以被符合规范的浏览器和 HTML 解析器解析。
+   >
+   > dom模板就是原先就写在页面上的，能被浏览器识别的HTML结构，会在一加载就被浏览器渲染。
+   > vue.js使用了基于HTML的模板语法，允许开发者 声明式的将dom绑定至底层vue实例的数据。在底层的实现上，vue将模板编译成虚拟dom渲染函数。
+   > 结合响应系统，vue能够智能地计算出最少需要重新渲染多少组件，并把dom操作次数减到最少。
+   >
    > 模板和真实的DOM之间有关系，因为Vue会根据模板的描述来生成真实的DOM元素，并将其插入到页面中。当Vue实例的数据发生变化时，Vue会根据模板中的指令和绑定，自动更新对应的DOM元素，以反映数据的变化。
    >
    > Vue使用虚拟DOM（Virtual DOM）来优化性能。虚拟DOM是一种轻量级的JavaScript对象，它与真实的DOM具有相似的结构。当数据发生变化时，Vue会先更新虚拟DOM，然后通过比较虚拟DOM和真实DOM的差异，最小化对真实DOM的操作，从而提高性能和效率。
@@ -587,15 +593,19 @@ template
            Index: 0
          },
          created() {
-             setInterval(()=>{
+             this.timer = setInterval(()=>{
                    this.Index = (this.Index + 1) % this.images.length;
                }, 1000);
-         }
+         }//生命周期函数
          computed: {
            changeImage: function() {
                return this.images[this.Index];
            },
          },
+         beforeDestroy() {
+               clearInterval(this.timer);
+               this.timer=null;
+         }//生命周期函数,回收内存
        });
    </script>
    ```
@@ -607,6 +617,45 @@ template
    如果  `(this.Index + 1)`  的结果大于等于  `this.images.length` ，则取模运算的结果就是  `(this.Index + 1)`  减去  `this.images.length`  后的余数。   
 
    这样，通过  `(this.Index + 1) % this.images.length`  的计算，可以确保索引始终在  `this.images`  数组的有效范围内循环，实现了图片的自动切换效果。 
+
+   ```html
+   <div id="app">
+           <img :src="changeSrc" alt="" class="img1" @load="imgLoad()">
+       </div>
+       <script>
+           var img1 = document.getElementsByClassName("img1")[0]
+           const app = new Vue({
+               el: "#app",
+               data: {
+                   imgSrc: [
+                       "https://www.yulumi.cn/gl/uploads/allimg/201121/11200I923-1.jpg",
+                       "https://pic.3gbizhi.com/2019/1112/20191112013312648.jpg",
+                       "https://desk-fd.zol-img.com.cn/t_s960x600c5/g1/M0B/03/06/ChMljl402K6IOTZbAARWayFg6S4AAQJPwFhuRIABFaD752.jpg"
+                   ],
+                   imgIndex: 0
+               },
+               computed: {
+                   changeSrc: function () {
+                       return this.imgSrc[this.imgIndex]
+                   }
+               },
+               methods: {
+                   imgLoad() {
+                       setTimeout(() => {
+                           if (this.imgIndex < 2) {
+                               this.imgIndex++
+                           } else {
+                               this.imgIndex = 0;
+                           }
+                       }, 1000);
+                   }
+               }
+   
+           })
+       </script>
+   ```
+
+   
 
 2. 请自行查阅文档实现：当用户提交表单时，防止页面刷新，并在组件内部使用`ajax`方式提交表单。
 
@@ -633,35 +682,78 @@ template
      methods: {
        submitForm() {
          // 获取表单数据
-         let formData = new FormData(/* 表单元素 */);
-   
+         let formData = new FormData(/*表单元素*/);//创建一个FormData对象，将表单数据传递给它
          // 使用ajax发送异步请求
-         ajax.post('url', formData)
-           .then(response => {
-             // 处理响应
+           $.ajax({ 
+                method:'post',  
+                url:url, 
+                data:formData,  
+                dataType:'json', 
+                success:function(data){      
+                  	// 处理服务器返回的数据
+       			console.log(data);
+                },
+                error:function(err){ 
+                 	// 处理请求失败的情况
+       			console.error(err);
+                }
            })
-           .catch(error => {
-             // 处理错误
-           });
-           let ajaxPostPromise = (url)=>{
-               return new Promise((resolve,reject)=>{
-                   $.ajax({
-                       url:url,
-                       dataType:"json"
-                   }).done((data)=>{
-                       resolve(data)
-                   }).fail((xhr,status,err)=>{
-                       reject(err)
-                   })
-               })
-           }
        }
      }
    })
    </script>
    ```
 
-   在上述代码中，您需要将 `your-api-url` 替换为实际的API接口URL。根据您的需求，可以使用其他HTTP方法（如GET、PUT等）来发送请求。   通过以上步骤，您可以在Vue组件中使用ajax方式提交表单，并防止页面刷新。在 `submitForm` 方法中，您可以处理请求的响应和错误。 
+   > 要获取表单数据，您可以使用JavaScript或jQuery来获取。下面是两种方法的示例：   使用JavaScript：
+   >
+   > ```js
+   > var form = document.getElementById("myForm"); // 获取表单元素
+   > var formData = new FormData(form); // 创建一个FormData对象，将表单数据传递给它
+   > 
+   > // 获取表单数据中的特定字段值
+   > var fieldValue = formData.get("fieldName");
+   > ```
+   >
+   > 使用jQuery：
+   >
+   > ```js
+   > var formData = $("#myForm").serialize(); // 使用serialize()方法获取表单数据
+   > 
+   > // 获取表单数据中的特定字段值
+   > var fieldValue = $("#myForm input[name='fieldName']").val();
+   > ```
+   >
+   > 在上述示例中，假设表单的id为"myForm"，要获取整个表单数据，可以使用 `FormData` 对象（JavaScript）或 `serialize()` 方法（jQuery）。要获取特定字段的值，可以使用 `get()` 方法（JavaScript）或选择器和 `val()` 方法（jQuery）。请确保将"myForm"替换为您实际表单的id，并将"fieldName"替换为您要获取其值的特定字段的名称。 
+
+   ```html
+   <div id="test">
+   <form action="" onsubmit="return false">
+       姓名：<input type="text" v-model="username">
+       密码：<input type="password" v-model="password">
+       <button type="button" @click="submit">提交</button>
+   </form>
+   </div>
+   <script >
+   var test=new Vue({
+       el:"#test",
+       data:{
+           username:"Mary",
+           password:"123"
+       },
+       methods:{
+           submit: function () {
+               $.ajax({
+                   method: 'post',
+                   url: 'http:a.test.com:8000/regist',
+                   data: { username: this.username, password: this.password },
+                   success: function (res) {
+                       console.log(res);
+                   }
+               })
+           }
+       }
+   })
+   ```
 
    
 
@@ -730,4 +822,70 @@ template
    </script>
    ```
 
+   ```vue
+   <style>
+       .active {
+           color: blue;
+       }
+   </style>
+   <div id="test">
+       <div :class ="{active:isActive}">text</div>
+   </div>
+   <script >
+       var test=new Vue({
+           el:"#test",
+           data:{
+               isActive:true
+           }
+       })
+   </script>
+   ```
+   
+   ```html
+   <style>
+           .Active {
+               /* display: block; */
+               background-color: green;
+               height: 50px;
+           }
+           .Active:after {
+               content: 'active';
+           }
+           .noActive {
+               /* display: none; */
+               background-color: red;
+               height: 50px;
+   
+           }
+           .noActive:after {
+               content: 'noactive';
+           }
+       </style>
+   </head>
+   
+   <body>
+       <div id="app">
+           <mycomponent :isactive="active" ></mycomponent>
+       </div>
+       <script>
+           Vue.component('mycomponent', {
+               props: ["isactive"],
+               template: "<div :class='isactive'></div>",
+           })
+           let app = new Vue({
+               el: "#app",
+               data: {
+                   isActive: true,
+               },
+               computed: {
+                   active() {
+                       return this.isActive ? "Active" : "noActive";
+                   }
+               }
+           })
+   
+       </script>
+   </body>
+   ```
+   
    

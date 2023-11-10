@@ -50,12 +50,12 @@
                 destroyed() {
                     console.log("Destroy")
                 },
-            })//.mount("#app")
+            }).mount("#app")
             app.component("custom-item",{ 
                 props:["data"], 
                 template:"<li>{{data}}</li>" 
             })//组件声明
-            app.mount("#app");//创建Vue实例并将其挂载到指定的DOM元素上。
+            // app.mount("#app");//创建Vue实例并将其挂载到指定的DOM元素上。
         </script>
     </body>
 </html>

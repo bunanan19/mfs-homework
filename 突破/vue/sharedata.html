@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>vue-component</title>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <counter></counter>
+            <counter></counter>
+            <counter></counter>
+        </div>
+        <script>
+            var data={times:0}//共享变量，点击一个button其他的counter数据都会自加
+            Vue.component("counter",{
+                data:function(){
+                    // return{times:0}//每个button的counter都是独立不互相影响的
+                    return data
+                },
+                methods: {
+                    btnclick(){
+                        this.times++
+                    }
+                },
+                template:`
+                    <button v-on:click="btnclick">{{times}}</button>`
+            })
+            var app = new Vue({
+                el:"#app",
+                data:{
+
+                }
+            })
+        </script>
+    </body>
+</html>

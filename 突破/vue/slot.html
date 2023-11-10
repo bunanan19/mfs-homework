@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>vue-component</title>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+        <style>
+            .sep{
+                border: 1px solid gray;
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <container :a="5">
+                <div slot="content1">content1</div>
+                <div slot="content2">content2</div>
+            </container>
+        </div>
+        <script>
+            Vue.component("container",{
+                props:["a"],
+                template:`
+                    <div class="main">
+                        <header>header</header>
+                        <slot name="content1"></slot>
+                        <div class="sep"></div>
+                        <slot name="content2"></slot>
+                        <footer>footer</footer>
+                    </div>
+                    `
+            })
+            // Vue.component("container",{
+            //     props:["a"],
+            //     template:`
+            //         <div class="main">
+            //             <container v-if="a" :a="a-1"></container>
+            //             <header>header</header>
+            //             <slot name="content1"></slot>
+            //             <div class="sep"></div>
+            //             <slot name="content2"></slot>
+            //             <footer>footer</footer>
+            //         </div>
+            //         `
+            // })//template里面还包裹了一个container，v-if实现有限递归，使用场景：文件夹目录
+
+            //组件异步加载
+            // Vue.component("container",function(resolve,reject){
+            //     setTimeout(()=>{
+            //         resolve({
+            //             template:`
+            //             <div class="main">
+            //                 <header>header</header>
+            //                 <slot name="content1"></slot>
+            //                 <div class="sep"></div>
+            //                 <slot name="content2"></slot>
+            //                 <footer>footer</footer>
+            //             </div>
+            //             `
+            //         })
+            //     },3000)//使用定时器模拟异步
+            // })
+            var app = new Vue({
+                el:"#app",
+                data:{
+
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>vue-component</title>
+        <style>
+            .parent{
+                background: red;
+                padding: 10px;
+            }
+            .child{
+                background:yellow;
+                padding: 10px;
+            }
+        </style>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <parent></parent>
+        </div>
+        <br>
+        <div id="reuse">
+            <parent></parent>
+        </div>
+        <script>
+            // 父组件
+            Vue.component("parent",{
+                data:function(){
+                    return{a:6}
+                },
+                methods:{
+                    childincrement(){
+                        this.a++
+                    }
+                },
+                template:`
+                          <div class='parent'>
+                            <p>a in parent: {{a}}<p/>
+                            <child :message="a" v-on:increment ="childincrement"></child>
+                          </div>
+                          `//此处的essage绑定了父组件的a，此组件挂载到parent标签上，所以：message绑定的是此组件的数据a
+                          //实现了父组件向子组件传值
+                          //@increment,获取捕捉子组件的事件消息,捕捉到后调用父组件method的方法
+                          //实现每次子组件点击按钮，子组件的a++，父组件a--,即子组件向父组件传消息
+            })
+            // 子组件
+            Vue.component("child",{
+                // props:["message"],
+                props:{
+                    // message:String,//比如此处，规定message的类型为string但是父组件传值为number，控制台会报出warn
+                    // message:[String,Number],//指定message的类型,要么string要么number
+                    message:{
+                        default(){
+                            return 0
+                        },//设置message的默认值，当父组件未传值时，message未默认值
+                        required:true,//设置message父组件必须传值，不传值报错
+                        validator(val){
+                            return val<10
+                        }
+                    }//规定message的范围，小于10,一旦大于10，会警告
+                },
+                data:function(){
+                    return{a:2}
+                },
+                methods: {
+                    btnclick(e){
+                        console.log(this.message)
+                        this.a++;
+                        this.$emit("increment")
+                    }
+                },//子组件通过method和emit方法向父组件传值
+                computed:{
+                    newm(){
+                        return this.message+" new!"
+                    }
+                },
+                template:`
+                        <div class='child'>
+                            <p>child message come from parent: {{message}}</p>
+                            <p>child message: {{newm}}</p>
+                            <p>a in child: {{a}}</p>
+                            <button v-on:click="btnclick">a++</button>
+                        </div>
+                        `
+            })
+
+            var app = new Vue({
+                el:"#app",
+                data:{
+
+                }
+            })
+            var reuse = new Vue({
+                el:"#reuse",
+                data:{
+
+                }
+            })
+        </script>
+    </body>
+</html>

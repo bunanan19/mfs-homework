@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>vue-mfs-homework</title>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <parent></parent>
+        </div>
+        <script>
+            //父组件
+            Vue.component("parent",{
+                data:function(){
+                    return {a:0}
+                },
+                methods: {
+                    catchone(){
+                        this.a++
+                    },
+                    catchtwo(){
+                        this.a++
+                    }
+                },
+                template:`
+                    <div>
+                        <p>{{a}}</p>
+                        <childone v-on:one="catchone"></childone>
+                        <childtwo v-on:two="catchtwo"></childtwo>
+                    </div>`
+            })
+            //子组件1
+            Vue.component("childone",{
+                data:function(){
+                    return {a:0}
+                },
+                methods: {
+                    childone(){
+                        this.a++;
+                        this.$emit("one")
+                    },
+                },
+                template:`<button v-on:click="childone">{{a}}</button>`
+            })
+            //子组件2
+            Vue.component("childtwo",{
+                data:function(){
+                    return {a:0}
+                },
+                methods: {
+                    childtwo(){
+                        this.a++;
+                        this.$emit("two")
+                    }
+                },
+                template:`<button v-on:click="childtwo">{{a}}</button>`
+            })
+            var app = new Vue({
+                el:"#app",
+                data:{
+
+                }
+            })
+        </script>
+    </body>
+</html>
