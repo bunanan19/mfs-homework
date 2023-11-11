@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tree-list</title>
+    <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+</head>
+<body>
+    <ul>
+        <TreeItem class="item" :model="treeData"></TreeItem>
+    </ul>
+
+    <script >
+    import { ref } from 'vue'
+    import TreeItem from './TreeItem.vue'
+    
+    const treeData = ref({
+        name: 'My Tree',
+        children: [
+        { name: 'hello' },
+        { name: 'world' },
+        {
+            name: 'child folder',
+            children: [
+            {
+                name: 'child folder',
+                children: [{ name: 'hello' }, { name: 'world' }]
+            },
+            { name: 'hello' },
+            { name: 'world' },
+            {
+                name: 'child folder',
+                children: [{ name: 'hello' }, { name: 'world' }]
+            }
+            ]
+        }
+        ]
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>vue start</title>
+        <style>
+            body{
+                padding: 0;
+                margin: 0;
+                
+            }
+            #app{
+                display: flex;
+                height: 100vh;
+                
+            }
+            textarea{
+                width: 50%;
+                background-color: #f6f6f6;
+                padding: 20px;
+                font-size: 18px;
+            }
+            .content{
+                width: 50%;
+                background: rgb(235, 236, 235);
+                padding: 20px;
+                font-size: 18px;
+            }
+        </style>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+        <script src="https://cdn.bootcss.com/marked/0.3.6/marked.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 将输入内容通过v-model绑定到vue -->
+            <textarea v-model="text"></textarea>
+            <div class="content" v-html="content"></div>
+            <!-- 由于被marked后的值是HTML文本，所以需要v-html将content返回值进行HTML解析 -->
+        </div>
+        <script>
+            var app = new Vue({
+                el:"#app",
+                data:{
+                    text:""
+                },//输入框的内容会双向绑定到text的值
+                computed:{
+                    content(){
+                        return marked(this.text)
+                        //因为引入了marked的cdn所以可以使用marked方法将内容转换成对应的HTML文本
+                        //使用computed选项实现当text发生改变时，就重新算text被marked后的值
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

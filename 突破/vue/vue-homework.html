@@ -61,5 +61,44 @@
                 }
             })
         </script>
+        <script>
+            Vue.component("parent", {
+                data: function () {
+                    return { a: 0 }
+                },
+                methods: {
+                    add(e) {
+                        this.a++;
+                    }
+                },
+                template: `
+                 <div>
+                    <div >{{a}}</div>
+                    <child :num="a" v-onincrement="add"></child>
+                    <child :num="a" v-onincrement="add"></child>
+                    </div>`
+            })
+            Vue.component("child", {
+                props: ["num"],
+                data: function () {
+                    return { a: 0 }
+                },
+                methods: {
+                    btnClick(e) {
+                        this.a++;
+                        this.$emit("increment");
+                    }
+                },
+                template: `
+                 <button @click="btnClick">{{a}}</button>`
+    
+            })
+            var app = new Vue({
+                el: "#app",
+                data: {
+    
+                }
+            })
+        </script>
     </body>
 </html>

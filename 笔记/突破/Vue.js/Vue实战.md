@@ -10,7 +10,7 @@
 >
 > [leetcode](https://leetcode.com/)上可以选择语言，建议使用 js 或者 c/c++（如果会） 完成，如下图所示选择语言
 >
-> ![0_1498292114350_upload-aeefa5bb-c26f-4af7-bb1f-f6ef2e645a09](http://bbs.static.mafengshe.com/FlvBVLh0IBNWqlnWOcuLObOGkB3k?imageMogr2/quality/40)
+> 
 
 1. [[1\]Two Sum](https://leetcode.com/problems/two-sum/)
 
