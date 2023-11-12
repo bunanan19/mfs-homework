@@ -7,36 +7,85 @@
     <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
 </head>
 <body>
-    <ul>
-        <TreeItem class="item" :model="treeData"></TreeItem>
-    </ul>
-
-    <script >
-    import { ref } from 'vue'
-    import TreeItem from './TreeItem.vue'
+    <div id="app">
+        <h2>树形视图</h2>
+        <ul>
+            <tree :items="nodes"></tree>
+        </ul>
+    </div>
     
-    const treeData = ref({
-        name: 'My Tree',
-        children: [
-        { name: 'hello' },
-        { name: 'world' },
-        {
-            name: 'child folder',
-            children: [
-            {
-                name: 'child folder',
-                children: [{ name: 'hello' }, { name: 'world' }]
+    <script>
+    Vue.component('tree',{
+            props:["items"],
+            methods:{
+                addItem(){
+                    this.items.push({name:'new-node',isFolder:false,isShow:false,children:null})
+                },
+                itemOpen(index){
+                    this.items[index].isShow=!this.items[index].isShow;
+                },
+                toFolder(index){
+                    this.items[index].isShow=!this.items[index].isShow;
+                }
             },
-            { name: 'hello' },
-            { name: 'world' },
-            {
-                name: 'child folder',
-                children: [{ name: 'hello' }, { name: 'world' }]
+            //tree模板递归
+            template:`
+                <ul>
+                    <li v-for="(i,index) in items" @click.stop="itemOpen(index)" @dblclick.stop="toFolder(index)">{{i.name}}
+                        <span v-if="i.isFolder&&i.isShow">[-]</span>
+                        <span v-else-if="i.isFolder&&!i.isShow">[+]</span>
+                        <tree v-if="i.isFolder&&i.isShow" :items="i.children"></tree>
+                    </li>
+                    <li @click.stop="addItem">+</li>
+                </ul>
+            `
+        })
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                // 数据流
+                nodes:[
+                    {
+                        name:'My tree',
+                        isShow:false,//是否展开
+                        isFolder:true,//是否是文件夹
+                        children:[
+                            {
+                                name:'happy',
+                                isShow:false,
+                                isFolder:false,
+                                children:null
+                            },
+                            {
+                                name:'good',
+                                isShow:false,
+                                isFolder:false,
+                                children:null 
+                            },
+                            {
+                                name:'morning',
+                                isShow:false,
+                                isFolder:true,
+                                children:[
+                                    {
+                                        name:'afternoon',
+                                        isShow:false,
+                                        isFolder:false,
+                                        children:null                                        
+                                    },
+                                    {
+                                        name: 'hello',
+                                        isShow: false,
+                                        isFolder: false,
+                                        children: null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
-            ]
-        }
-        ]
-    })
+        })
     </script>
 </body>
 </html>
