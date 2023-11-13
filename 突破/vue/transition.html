@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>vue-start</title>
+        <style>
+            .fade-enter-active,.fade-leave-active{
+                transition: opacity 0.5s;
+            }
+            .fade-enter,.fade-leave-to /* .fade-leave-active in<2.1.8*/{
+                opacity: 0;
+            }
+            .fade-enter-to,.fade-leave{
+                opacity: 1;
+            }/*这一行可写可不写，默认opacity为1*/
+        </style>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <button @click="show = !show">Toggle</button>
+            <transition name="fade">  <!-- 添加动画  -->
+                <p v-if ="show">hello</p>
+            </transition>
+        </div>
+        <script>
+            //实现全局混合，当组件创建(created)的时候打印 `created`
+            Vue.mixin({
+                created: function() {
+                    console.log('created');
+                }
+            });
+
+            var myMixin = {
+                created: function () {
+                    console.log('混合对象的钩子被调用')
+                }
+            };
+
+            // 创建Vue实例
+            var app = new Vue({
+                el:"#app",
+                data:{
+                    show:true
+                },
+                mixins: [myMixin],
+                created: function () {
+                    console.log('混合对象的钩子被调用')
+                }
+            })
+        </script>
+    </body>
+</html>

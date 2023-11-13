@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>vue-start</title>
+        <style>
+            .container{
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .fade-enter-active,.fade-leave-active{
+                transition: all 0.5s;
+            }
+            .fade-enter,.fade-leave-to /* .fade-leave-active in<2.1.8*/{
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            .fade-enter-to,.fade-leave{
+                opacity: 1;
+                transform: translateY(-5px);
+            }/*这一行可写可不写，默认opacity为1*/
+            span{
+                padding: 5px;
+            }
+        </style>
+        <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <button @click="add">Add</button>
+            <button @click="remove">Remove</button><br>
+            <transition-group name="fade" class="container">  <!-- 添加动画  -->
+                <span v-for="i in arr" :key="i">{{i}}</span>
+            </transition-group>
+        </div>
+        <script>
+            var app = new Vue({
+                el:"#app",
+                data:{
+                    arr:[1,2,3,4,5,6,7,8]
+                },
+                methods: {
+                    add(){
+                        this.arr.push(this.arr.length? this.arr[this.arr.length-1]+1: 1)
+                    },
+                    remove(){
+                        return this.arr.pop()
+                    }
+                },
+            })
+        </script>
+    </body>
+</html>
