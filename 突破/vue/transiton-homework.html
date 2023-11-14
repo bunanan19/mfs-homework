@@ -40,10 +40,17 @@
                 },
                 methods: {
                     add(){
-                        this.arr.push(this.arr.length? this.arr[this.arr.length-1]+1: 1)
+                        // this.arr.push(this.arr.length? this.arr[this.arr.length-1]+1: 1)
+                        var length = this.arr.length
+                        var index = Math.floor(Math.random() * length)
+                        var i = Math.max(...this.arr) + 1
+                        this.arr.splice(index, 0, i)//新增元素
                     },
                     remove(){
-                        return this.arr.pop()
+                        // return this.arr.pop()
+                        var length = this.arr.length
+                        var index = Math.floor(Math.random() * length)
+                        this.arr.splice(index, 1)//移除元素
                     }
                 },
             })

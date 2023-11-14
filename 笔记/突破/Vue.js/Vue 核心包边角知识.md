@@ -8,6 +8,8 @@ Vue 最标志性的功能就是其低侵入性的响应式系统。组件状态�
 
 <img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113142455635.png" alt="image-20231113142455635" style="zoom:80%;" />
 
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113142927587.png" alt="image-20231113142927587" style="zoom:80%;" />
+
 ## 什么是响应性
 
 这个术语在今天的各种编程讨论中经常出现，但人们说它的时候究竟是想表达什么意思呢？本质上，响应性是一种可以使我们声明式地处理变化的编程范式。一个经常被拿来当作典型例子的用例即是 Excel 表格：
@@ -640,32 +642,498 @@ div (block root)
 
 # [渲染函数 & JSX](https://cn.vuejs.org/guide/extras/render-function.html#render-functions-jsx)
 
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113153802368.png" alt="image-20231113153802368" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113153850703.png" alt="image-20231113153850703" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113153930067.png" alt="image-20231113153930067" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154033301.png" alt="image-20231113154033301" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154056385.png" alt="image-20231113154056385" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154114329.png" alt="image-20231113154114329" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154203402.png" alt="image-20231113154203402" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154225415.png" alt="image-20231113154225415" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154244905.png" alt="image-20231113154244905" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154412164.png" alt="image-20231113154412164" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154514655.png" alt="image-20231113154514655" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154535860.png" alt="image-20231113154535860" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154559340.png" alt="image-20231113154559340" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154632512.png" alt="image-20231113154632512" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154650659.png" alt="image-20231113154650659" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154748530.png" alt="image-20231113154748530" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154822662.png" alt="image-20231113154822662" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154925342.png" alt="image-20231113154925342" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113155011060.png" alt="image-20231113155011060" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113155041487.png" alt="image-20231113155041487" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113155108018.png" alt="image-20231113155108018" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113154854296.png" alt="image-20231113154854296" style="zoom:80%;" />
+
 # [Vue 与 Web Components](https://cn.vuejs.org/guide/extras/web-components.html#vue-and-web-components)
 
 # [动画技巧](https://cn.vuejs.org/guide/extras/animation.html#animation-techniques)
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113144157002.png" alt="image-20231113144157002" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113144258874.png" alt="image-20231113144258874" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113144617736.png" alt="image-20231113144617736" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113144759159.png" alt="image-20231113144759159" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113144719064.png" alt="image-20231113144719064" style="zoom:80%;" />
+
+css中可以通过transition，animation，transform添加动画
+
+Vue 提供了 [`<Transition>`](https://cn.vuejs.org/guide/built-ins/transition.html) 和 [`<TransitionGroup>`](https://cn.vuejs.org/guide/built-ins/transition-group.html) 组件来处理元素进入、离开和列表顺序变化的过渡效果。但除此之外，还有许多其他制作网页动画的方式在 Vue 应用中也适用。这里我们会探讨一些额外的技巧。
+
+## 基于 CSS class 的动画
+
+对于那些不是正在进入或离开 DOM 的元素，我们可以通过给它们动态添加 CSS class 来触发动画：
+
+```js
+const disabled = ref(false)
+
+function warnDisabled() {
+  disabled.value = true
+  setTimeout(() => {
+    disabled.value = false
+  }, 1500)
+}
+```
+
+```html
+<div :class="{ shake: disabled }">
+  <button @click="warnDisabled">Click me</button>
+  <span v-if="disabled">This feature is disabled!</span>
+</div>
+```
+
+```css
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+```
+
+## 状态驱动的动画
+
+有些过渡效果可以通过动态插值来实现，比如在交互时动态地给元素绑定样式。看下面这个例子：
+
+```js
+const x = ref(0)
+function onMousemove(e) {
+  x.value = e.clientX
+}
+```
+
+```html
+<div
+  @mousemove="onMousemove"
+  :style="{ backgroundColor: `hsl(${x}, 80%, 50%)` }"
+  class="movearea"
+>
+  <p>Move your mouse across this div...</p>
+  <p>x: {{ x }}</p>
+</div>
+```
+
+```css
+.movearea {
+  transition: 0.3s background-color ease;
+}
+```
+
+
+
+除了颜色外，你还可以使用样式绑定 CSS transform、宽度或高度。你甚至可以通过运用弹性物理模拟为 SVG 添加动画，毕竟它们也只是 attribute 的数据绑定：
+
+## 基于侦听器的动画
+
+通过发挥一些创意，我们可以基于一些数字状态，配合侦听器给任何东西加上动画。例如，我们可以将数字本身变成动画：
+
+```js
+import { ref, reactive, watch } from 'vue'
+import gsap from 'gsap'
+const number = ref(0)
+const tweened = reactive({
+  number: 0
+})
+watch(number, (n) => {
+  gsap.to(tweened, { duration: 0.5, number: Number(n) || 0 })
+})
+```
+
+```html
+Type a number: <input v-model.number="number" />
+<p>{{ tweened.number.toFixed(0) }}</p>
+```
+
+# 自定义指令
+
+## 介绍
+
+除了 Vue 内置的一系列指令 (比如 `v-model` 或 `v-show`) 之外，Vue 还允许你注册自定义的指令 (Custom Directives)。
+
+我们已经介绍了两种在 Vue 中重用代码的方式：[组件](https://cn.vuejs.org/guide/essentials/component-basics.html)和[组合式函数](https://cn.vuejs.org/guide/reusability/composables.html)。组件是主要的构建模块，而组合式函数则侧重于有状态的逻辑。另一方面，自定义指令主要是为了重用涉及普通元素的底层 DOM 访问的逻辑。
+
+一个自定义指令由一个包含类似组件生命周期钩子的对象来定义。钩子函数会接收到指令所绑定元素作为其参数。下面是一个自定义指令的例子，当一个 input 元素被 Vue 插入到 DOM 中后，它会被自动聚焦：
+
+```vue
+<script setup>
+// 在模板中启用 v-focus
+const vFocus = {
+  mounted: (el) => el.focus()
+}
+</script>
+
+<template>
+  <input v-focus />
+</template>
+```
+
+假设你还未点击页面中的其他地方，那么上面这个 input 元素应该会被自动聚焦。该指令比 `autofocus` attribute 更有用，因为它不仅仅可以在页面加载完成后生效，还可以在 Vue 动态插入元素后生效。
+
+在 `<script setup>` 中，任何以 `v` 开头的驼峰式命名的变量都可以被用作一个自定义指令。在上面的例子中，`vFocus` 即可以在模板中以 `v-focus` 的形式使用。
+
+在没有使用 `<script setup>` 的情况下，自定义指令需要通过 `directives` 选项注册：
+
+```js
+export default {
+  setup() {
+    /*...*/
+  },
+  directives: {
+    // 在模板中启用 v-focus
+    focus: {
+      /* ... */
+    }
+  }
+}
+```
+
+将一个自定义指令全局注册到应用层级也是一种常见的做法：
+
+```js
+const app = createApp({})
+
+// 使 v-focus 在所有组件中都可用
+app.directive('focus', {
+  /* ... */
+})
+```
+
+只有当所需功能只能通过直接的 DOM 操作来实现时，才应该使用自定义指令。其他情况下应该尽可能地使用 `v-bind` 这样的内置指令来声明式地使用模板，这样更高效，也对服务端渲染更友好。
+
+## 指令钩子
+
+一个指令的定义对象可以提供几种钩子函数 (都是可选的)：
+
+```js
+const myDirective = {
+  // 在绑定元素的 attribute 前
+  // 或事件监听器应用前调用
+  created(el, binding, vnode, prevVnode) {
+    // 下面会介绍各个参数的细节
+  },
+  // 在元素被插入到 DOM 前调用
+  beforeMount(el, binding, vnode, prevVnode) {},
+  // 在绑定元素的父组件
+  // 及他自己的所有子节点都挂载完成后调用
+  mounted(el, binding, vnode, prevVnode) {},
+  // 绑定元素的父组件更新前调用
+  beforeUpdate(el, binding, vnode, prevVnode) {},
+  // 在绑定元素的父组件
+  // 及他自己的所有子节点都更新后调用
+  updated(el, binding, vnode, prevVnode) {},
+  // 绑定元素的父组件卸载前调用
+  beforeUnmount(el, binding, vnode, prevVnode) {},
+  // 绑定元素的父组件卸载后调用
+  unmounted(el, binding, vnode, prevVnode) {}
+}
+```
+
+### 钩子参数
+
+指令的钩子会传递以下几种参数：
+
+- `el`：指令绑定到的元素。这可以用于直接操作 DOM。
+- `binding`：一个对象，包含以下属性。
+  - `value`：传递给指令的值。例如在 `v-my-directive="1 + 1"` 中，值是 `2`。
+  - `oldValue`：之前的值，仅在 `beforeUpdate` 和 `updated` 中可用。无论值是否更改，它都可用。
+  - `arg`：传递给指令的参数 (如果有的话)。例如在 `v-my-directive:foo` 中，参数是 `"foo"`。
+  - `modifiers`：一个包含修饰符的对象 (如果有的话)。例如在 `v-my-directive.foo.bar` 中，修饰符对象是 `{ foo: true, bar: true }`。
+  - `instance`：使用该指令的组件实例。
+  - `dir`：指令的定义对象。
+- `vnode`：代表绑定元素的底层 VNode。
+- `prevNode`：代表之前的渲染中指令所绑定元素的 VNode。仅在 `beforeUpdate` 和 `updated` 钩子中可用。
+
+举例来说，像下面这样使用指令：
+
+```html
+<div v-example:foo.bar="baz">
+```
+
+`binding` 参数会是一个这样的对象：
+
+```js
+{
+  arg: 'foo',
+  modifiers: { bar: true },
+  value: /* `baz` 的值 */,
+  oldValue: /* 上一次更新时 `baz` 的值 */
+}
+```
+
+和内置指令类似，自定义指令的参数也可以是动态的。举例来说：
+
+```html
+<div v-example:[arg]="value"></div>
+```
+
+这里指令的参数会基于组件的 `arg` 数据属性响应式地更新。
+
+除了 `el` 外，其他参数都是只读的，不要更改它们。若你需要在不同的钩子间共享信息，推荐通过元素的 [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) attribute 实现。
+
+## 简化形式
+
+对于自定义指令来说，一个很常见的情况是仅仅需要在 `mounted` 和 `updated` 上实现相同的行为，除此之外并不需要其他钩子。这种情况下我们可以直接用一个函数来定义指令，如下所示：
+
+```
+<div v-color="color"></div>
+```
+
+```js
+app.directive('color', (el, binding) => {
+  // 这会在 `mounted` 和 `updated` 时都调用
+  el.style.color = binding.value
+})
+```
+
+## 对象字面量
+
+如果你的指令需要多个值，你可以向它传递一个 JavaScript 对象字面量。别忘了，指令也可以接收任何合法的 JavaScript 表达式。
+
+```html
+<div v-demo="{ color: 'white', text: 'hello!' }"></div>
+```
+
+```js
+app.directive('demo', (el, binding) => {
+  console.log(binding.value.color) // => "white"
+  console.log(binding.value.text) // => "hello!"
+})
+```
+
+## 在组件上使用
+
+当在组件上使用自定义指令时，它会始终应用于组件的根节点，和[透传 attributes](https://cn.vuejs.org/guide/components/attrs.html) 类似。
+
+```
+<MyComponent v-demo="test" />
+```
+
+```html
+<!-- MyComponent 的模板 -->
+
+<div> <!-- v-demo 指令会被应用在此处 -->
+  <span>My component content</span>
+</div>
+```
+
+需要注意的是组件可能含有多个根节点。当应用到一个多根组件时，指令将会被忽略且抛出一个警告。和 attribute 不同，指令不能通过 `v-bind="$attrs"` 来传递给一个不同的元素。总的来说，**不**推荐在组件上使用自定义指令。
+
+# 混合
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113161218891.png" alt="image-20231113161218891" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113161339967.png" alt="image-20231113161339967" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113161525954.png" alt="image-20231113161525954" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113161650752.png" alt="image-20231113161650752" style="zoom:80%;" />
+
+<img src="C:\Users\86153\AppData\Roaming\Typora\typora-user-images\image-20231113162355874.png" alt="image-20231113162355874" style="zoom:80%;" />
+
+
+
+# 路由
+
+## 客户端 vs. 服务端路由
+
+服务端路由指的是服务器根据用户访问的 URL 路径返回不同的响应结果。当我们在一个传统的服务端渲染的 web 应用中点击一个链接时，浏览器会从服务端获得全新的 HTML，然后重新加载整个页面。
+
+然而，在[单页面应用](https://developer.mozilla.org/en-US/docs/Glossary/SPA)中，客户端的 JavaScript 可以拦截页面的跳转请求，动态获取新的数据，然后在无需重新加载的情况下更新当前页面。这样通常可以带来更顺滑的用户体验，尤其是在更偏向“应用”的场景下，因为这类场景下用户通常会在很长的一段时间中做出多次交互。
+
+在这类单页应用中，“路由”是在客户端执行的。一个客户端路由器的职责就是利用诸如 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) 或是 [`hashchange` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event)这样的浏览器 API 来管理应用当前应该渲染的视图。
+
+## 官方路由
+
+在 Vue School 上观看免费的视频课程
+
+Vue 很适合用来构建单页面应用。对于大多数此类应用，都推荐使用官方支持的[路由库](https://github.com/vuejs/router)。要了解更多细节，请查看 [Vue Router 的文档](https://router.vuejs.org/zh/)。
+
+## 从头开始实现一个简单的路由
+
+如果你只需要一个简单的页面路由，而不想为此引入一整个路由库，你可以通过[动态组件](https://cn.vuejs.org/guide/essentials/component-basics.html#dynamic-components)的方式，监听浏览器 [`hashchange` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event)或使用 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) 来更新当前组件。
+
+下面是一个简单的例子：
+
+```HTML
+<script setup>
+import { ref, computed } from 'vue'
+import Home from './Home.vue'
+import About from './About.vue'
+import NotFound from './NotFound.vue'
+const routes = {
+  '/': Home,
+  '/about': About
+}
+const currentPath = ref(window.location.hash)
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
+const currentView = computed(() => {
+  return routes[currentPath.value.slice(1) || '/'] || NotFound
+})
+</script>
+<template>
+  <a href="#/">Home</a> |
+  <a href="#/about">About</a> |
+  <a href="#/non-existent-path">Broken Link</a>
+  <component :is="currentView" />
+</template>
+```
+
+**推荐的前后端同步的框架axios**
+
+# [状态管理](https://cn.vuejs.org/guide/scaling-up/state-management.html#state-management)
+
+# [测试](https://cn.vuejs.org/guide/scaling-up/testing.html#testing)
+
+# [服务端渲染 (SSR)](https://cn.vuejs.org/guide/scaling-up/ssr.html#server-side-rendering-ssr)
 
 
 
 1. Vue 是通过什么方式检测 data 变化？
 
-   > 
+   > 在 Vue 中，通过使用getter 和 setter 以及watcher函数的监听来实现当 data 对象中的属性发生变化时，Vue 会自动追踪这些变化，并在需要更新相关的 DOM 元素时进行重新渲染。每个组件实例都对应一个watcher实例，它会在组件渲染的过程中把“接触过” 的数据的property记录为依赖，之后当依赖项的setter触发时，会通知watcher，从而使它相关联的组件重新渲染。
+   >
+   > Vue 会遍历vue对象所有的 property，并使用 Object.defineProperty 把这些 property 全部转为 getter/setter。在访问修改data中的属性时，vue劫持data属性变化触发的getter setter函数，watcher监听到后，激发组件渲染函数渲染虚拟dom，虚拟DOM和实际DOM对比，将差异重新渲染到实际DOM上。
 
 2. 以下过渡类名各是在什么时候添加的？
 
-   1. `v-enter`
-   2. `v-enter-active`
-   3. `v-enter-to`
-   4. `v-leave`
-   5. `v-leave-active`
-   6. `v-leave-to`
+   1. `v-enter`：定义进入过渡的开始状态，在元素被插入时生效，在下一个帧移除
+   2. `v-enter-active`：定义过渡的状态，在元素整个过度过程中作用，在元素被插入时生效，在进入动画完成之后移除
+   3. `v-enter-to`:定义进入过渡的结束状态，在元素被插入一帧后生效在动画完成之后移除
+   4. `v-leave`:定义离开过渡的开始状态，在离开过渡被触发时生效，下一个帧移除
+   5. `v-leave-active`:定义过渡的状态，在元素整个过度过程中作用，在离开过渡被触发后立即生效，在离开动画完成之后移除
+   6. `v-leave-to`:定义离开过渡的结束状态，在离开过渡被触发一帧后生效在动画完成之后移除
 
 3. render 函数有什么用？Vue 是如何编译 template ？
 
+   > Vue中的 `render` 函数用于定义组件应该渲染的虚拟DOM结构和内容。它是使用JavaScript代码直接描述组件UI的一种方式，与使用模板的方式相对应。   
+   >
+   > 关于Vue如何编译模板，主要包括以下几个步骤：   
+   >
+   > 1. 解析：模板代码被解析并转换为抽象语法树（AST）表示形式。   
+   >
+   > 2. 优化：对AST进行优化，识别可以缓存的静态子树，以提升性能。   
+   >
+   > 3. 代码生成：使用优化后的AST生成JavaScript的渲染函数。这些函数负责创建虚拟DOM节点并渲染组件的UI。   
+   >
+   >    在运行时，Vue使用这些生成的渲染函数基于组件的数据和状态来创建和更新实际的DOM。   
+   >
+   >    值得注意的是，Vue还提供了模板编译器，可以在构建时预先编译模板，从而在运行时消除模板编译的需求，从而获得更好的性能。
+   >
+   > render：渲染函数，能够结合js语法来生成虚拟dom。
+   > 编译：Vue 模板被编译为渲染函数：即用来返回虚拟 DOM 树的函数。这一步骤可以通过构建步骤提前完成，也可以通过使用运行时编译器即时完成。
+   > 挂载：运行时渲染器调用渲染函数，遍历返回的虚拟 DOM 树，并基于它创建实际的 DOM 节点。这一步会作为响应式副作用执行，因此它会追踪其中所用到的所有响应式依赖。
+   > 更新：当一个依赖发生变化后，副作用会重新运行，这时候会创建一个更新后的虚拟 DOM 树。运行时渲染器遍历这棵新树，将它与旧树进行比较，然后将必要的更新应用到真实 DOM 上去
+   >
+   > ```
+   > render函数是操作的虚拟DOM。Vue是通过template来创建HTML的，但是有时特诉情况下，这种模式无法满足需求，此时就需要用render函数来创建HTML。render函数的实质就是生成template模板。
    > 
+   > 因为vue中的模板template无法被浏览器解析并渲染，所以需要将template转化为一个js函数，这样浏览器就可以执行这一个函数并渲染出对应的HTML元素。模板编译分为3个阶段：解析，优化，生成，最终生成可执行render函数。
+   > （1）解析阶段：使用大量的正则表达式对template字符串进行解析，将标签、指令、属性等转换为抽象语法树AST；
+   > （2）优化阶段：遍历AST，找到其中的一些静态节点并进行标记，方便在页面重渲染时进行diff，直接跳过这一些静态节点，优化runtime的性能；
+   > （3）生成阶段：将最终的AST转化为render函数字符串。
+   > ```
 
 4. 指令(directive)是如何声明？如何使用？
 
+   > ```js
+   > // 使 v-focus 在所有组件中都可用
+   > Vue.directive('focus', {
+   >   //当绑定元素插入DOM中
+   >     inserted:function(el){
+   >         //聚焦元素
+   >         el.focus()
+   >     }
+   > })
+   > ```
+   >
+   > 在Vue中，指令可以通过在模板中使用特殊的属性来声明和使用。指令通常以 `v-` 开头，后面跟着指令的名称。例如， `v-bind` 用于绑定数据， `v-on` 用于监听事件。   自定义指令的使用方式如下：
+   >
+   > ```html
+   > <input v-focus>
+   > ```
+   >
    > 
+   >
+   > 下面是一个自定义指令的示例，它会将绑定元素的背景色设置为红色：
+   >
+   > ```javascript
+   > Vue.directive('red-background', {
+   >   bind: function(el) {
+   >     el.style.backgroundColor = 'red';
+   >   }
+   > });
+   > ```
+   >
+   > 在模板中使用这个自定义指令时，可以通过在元素上使用 `v-red-background` 来绑定指令：
+   >
+   > ```html
+   > <div v-red-background>Custom Directive Example</div>
+   > ```
+   >
+   > 这样，当这个元素被渲染时，它的背景色就会被设置为红色。   除了 `bind` 钩子函数，你还可以使用其他钩子函数来定义自定义指令的行为，例如 `inserted` 、 `update` 和 `unbind` 等。 
 
 5. 如下代码会打印什么？
 
@@ -683,12 +1151,29 @@ div (block root)
    })
    ```
 
+   > 混合对象的钩子被调用
+   >
+   > 组件钩子被调用
+   >
    > 
 
 ## 代码题
 
 1. 请实现全局混合，当组件创建(created)的时候打印 `created`
 
+   > ```js
+   > Vue.mixin({
+   >   created: function() {
+   >     console.log('created');
+   >   }
+   > });
+   > 
+   > new Vue({
+   >   el: '#app',
+   >   // ...
+   > });
+   > ```
+   >
    > 
 
 2. 请手动将如下 template 转化为与之等价的 `render` 函数
@@ -706,6 +1191,36 @@ div (block root)
    ```
 
    ```html
+   Vue.component('anchored-heading',{
+   	render:funciton(createElement){
+   		createElement('h1','I\'m a template!''),
+           if(this.message){
+               return createElement('p',this.message)
+           }else {
+               return createElement(p,'No message')
+           }
+   	}
+   })
+   ```
+
+   ```js
+   Vue.component('same-template', {
+               data() {
+                   return {
+                       message: ''
+                   }
+               },
+               render: function (createElement) {
+                   var h1 = createElement('h1', "I'm a template!")
+                   var p
+                   if (this.message) {
+                       p = createElement('p', this.message)
+                   } else {
+                       p = createElement('p', "No message")
+                   }
+                   return createElement('div', [h1, p])
+               }
+           })
    ```
 
    
@@ -715,8 +1230,6 @@ div (block root)
 
 ```html
 ```
-
-
 
 
 
