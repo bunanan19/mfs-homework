@@ -23,7 +23,7 @@ module.exports = {
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: true,
+    useEslint: true,//可以检测常见的编码错误，如拼写错误、变量未声明、使用未定义的变量等，还可以检测代码格式问题，如缩进、空格、括号使用等。
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,
