@@ -137,6 +137,8 @@ export default {
    > 2）原理不同
    > hash模式的实现原理是通过监听hashChange事件来实现的。history模式是通过调用 history.pushState方法(或者replaceState) 并且 监听popstate事件来实现的。history.pushState会追加历史记录，并更换地址栏地址信息，但是页面不会刷新，需要手动调用地址变化之后的处理函数，并在处理函数内部决定跳转逻辑；监听popstate事件是为了响应浏览器的前进后退功能。
    >
+   > 
+   >
    > HTML5 history 和 Hash 都可以实现切换 URL 而不刷新页面，但它们有以下几点区别：
    >
    > * **历史记录**：HTML5 history 会在浏览器的历史记录中记录页面的访问记录，而 Hash 不会。这意味着，当你使用 HTML5 history 时，你可以通过浏览器的后退和前进按钮来导航到之前访问过的页面。而当你使用 Hash 时，你只能通过重新输入 URL 来导航到之前访问过的页面。
@@ -197,7 +199,7 @@ export default {
    > </script>
    > ```
    >
-   > 在最后的js文件中，引入其他页面的组件，将各组件的路径和组件写在routes中，当导航链接被点击时，当前页面的url改变但不刷新，并且根组件中的currentRoute改变，computed中的ViewComponent ()随着重新计算返回值，最后通过根组件的render(h)渲染函数重新渲染页面，实现动态切换页面，而不刷新页面
+   > 在最后的入口文件main.js文件中，引入其他页面的组件，将各组件的路径和组件写在routes中，当导航链接被点击时，当前页面的url改变但不刷新，并且根组件中的currentRoute改变，computed中的ViewComponent ()随着重新计算返回值，最后通过根组件的render(h)渲染函数重新渲染页面，实现动态切换页面，而不刷新页面
    >
    > ```js
    > import Vue from 'vue'

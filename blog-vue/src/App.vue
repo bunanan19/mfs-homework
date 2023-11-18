@@ -1,23 +1,32 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <main-nav></main-nav>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import MainNav from './components/MainNav.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {MainNav}
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import './assets/css/base.css';
+
+ol,ul,body {
+  margin: 0;
+  padding: 0;
+}
+ol,ul {
+  list-style: none;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
 }
 </style>
