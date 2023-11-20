@@ -1,21 +1,28 @@
 <template>
-    <button @click="inc">{{counter}}</button>
+    <button @click="click(index)">{{ index == 0 ? clickTimes0 : clickTimes1}}</button>
   </template>
   
   <script>
+  import {store} from '../store'
+  import { mapState } from 'vuex'
+  import { mapMutations } from 'vuex'
+
   export default {
-    name: 'my-btn',
+    props: {
+      index: {
+        type: Number
+      }
+    },
     data () {
-      return {
-        counter: 0
-      }
+      return store.state
     },
+    computed: mapState(['clickTimes0','clickTimes1']),
     methods: {
-      inc () {
-        this.counter++
-        this.$emit('inc')
+      click () {
+        store.commit('click', this.index)
       }
     },
+    // methods: mapMutations(['click'])
   }
   </script>
   
