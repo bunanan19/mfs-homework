@@ -22,7 +22,9 @@
         store.commit('click', this.index)
       }
     },
-    // methods: mapMutations(['click'])
+    methods: {
+      ...mapMutations(['click'])
+    }
   }
   </script>
   

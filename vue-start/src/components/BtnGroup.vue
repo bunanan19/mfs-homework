@@ -24,7 +24,9 @@ export default {
     }
   },
   methods: mapActions(['getNews']),
-  // computed: mapGetters(['clickSum']),
+  computed:{
+    ...mapGetters(['clickSum']),
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router';
-
+import {store} from './store' 
 import {router} from './router/router'
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -20,6 +20,7 @@ new Vue({
   // },
   // render (h) { return h(this.ViewComponent)}
   router,
+  store,
   template: `
   <div>
     <router-link to="/">home</router-link>

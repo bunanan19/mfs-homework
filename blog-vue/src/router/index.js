@@ -35,7 +35,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '*',
+      path: '/*',
       name: 'NotFound',
       component: NotFound
     }
