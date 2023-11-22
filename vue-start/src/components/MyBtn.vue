@@ -13,9 +13,9 @@
         type: Number
       }
     },
-    data () {
-      return store.state
-    },
+    // data () {
+    //   return store.state
+    // },
     computed: mapState(['clickTimes0','clickTimes1']),
     methods: {
       click () {

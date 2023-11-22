@@ -5,7 +5,7 @@
     <div id="app">
         <div class="input">
             <span>&nbsp;<input type="checkbox" v-model="allDone" class="check-td" ></span>
-            <input type="text" v-model="newtodo" @keyup.enter="addNewTodo" class="inputTodo"  placeholder="What needs to be done?">
+            <input type="text" v-model="newTodo" @keyup.enter="addNewTodo" class="inputTodo"  placeholder="What needs to be done?">
         </div>
         <div class="line"></div>
         <ul>
@@ -18,9 +18,9 @@
         <div class="filter">
             <span class="f-left">{{leftTodosNum}} items left</span>
             <span class="f-center">
-                <button @click="visibility = 'all'" class="choose f-button">All</button>
-                <button @click="visibility = 'active'" class="choose f-button" >Active</button>
-                <button @click="visibility = 'completed'" class="choose f-button">Completed</button>
+                <button @click="setVisibility('all')" class="choose f-button">All</button>
+                <button @click="setVisibility('active')" class="choose f-button" >Active</button>
+                <button @click="setVisibility('completed')" class="choose f-button">Completed</button>
             </span>
             <span class="f-right"><button @click="clearTodos()" v-if="completedNum" class="choose f-button">Clear completed</button></span>
         </div>
@@ -30,46 +30,62 @@
 </template>
 
 <script>
-import {store} from '../store'
-import { mapActions, mapGetters } from 'vuex'
-
+import { mapGetters, mapState, mapMutations} from 'vuex'
+// import {store} from '../store' 
 export default {
   name: 'todo-list',
-  data () {
-    return store.state
+//   store,
+  data() {
+    return {
+    //   allDone: this.$store.state.allDone,
+    }
   },
   methods: {
-    addNewTodo () { store.commit('addNewTodo') },
-    delToDo (idx) {store.commit('delToDo', idx)},
-    clearTodos(){store.commit('clearTodos')}
+    ...mapMutations(['addNewTodo', 'delToDo', 'clearTodos', 'setVisibility']),
+    // addNewTodo () {
+    //     this.$store.commit('addNewTodo')
+    //   },
+    //   delToDo (idx) {
+    //     this.$store.commit('delToDo', idx)
+    //   },
+    //   clearTodos () {
+    //     this.$store.commit('clearTodos')
+    //   },
+    //   setVisibility(val) {
+    //     this.$store.commit('setVisibility', val)
+    //   }
   },
   watch:{
       allDone:function(val){
-          store.state.todos = store.state.todos.map(i=>{
+        this.$store.state.todos = this.$store.state.todos.map(i=>{
               i.state=val;
               return i
           })
       }
   },
-  // computed: mapGetters(['filteredTodos','leftTodosNum','completedNum'])
   computed: {
-    filteredTodos:function(){
-            if(this.visibility=="all"){
-                return store.state.todos
-            }
-            else if(this.visibility=="active"){
-                return store.state.todos.filter(i=>!i.state)
-            }
-            else if(this.visibility=="completed"){
-                return store.state.todos.filter(i=>i.state)
-            }
-        },
-        leftTodosNum(){
-            return store.state.todos.filter(i=>!i.state).length
-        },
-        completedNum(){
-            return store.state.todos.filter(i=>i.state).length
-        }
+    ...mapGetters([
+        'filteredTodos',
+        'leftTodosNum',
+        'completedNum'
+    ]),
+    ...mapState(['visibility']),
+    allDone: {
+      get() {
+        return this.$store.state.allDone
+      },
+      set(value) {
+        this.$store.commit('setAllDone', value)
+      }
+    },
+    newTodo: {
+      get() {
+        return this.$store.state.newtodo
+      },
+      set(value) {
+        this.$store.commit('setNewTodo', value)
+      }
+    }
   }
 }
 </script>

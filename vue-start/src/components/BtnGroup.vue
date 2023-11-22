@@ -3,20 +3,17 @@
     <div>{{ clickSum }}</div>
     <my-btn :index="0"></my-btn>
     <my-btn :index="1"></my-btn>
-    <button @click="click">异步加载</button>
+    <!-- <button @click="click">异步加载</button> -->
+    <div>{{ data }}</div>
   </div>
 </template>
 
 <script>
 import MyBtn from './MyBtn.vue'
-import {store} from '../store'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState} from 'vuex'
 
 export default {
   name: 'btn-group',
-  data () {
-    return store.state
-  },
   components: {MyBtn},
   methods: {
     click () {
@@ -26,6 +23,7 @@ export default {
   methods: mapActions(['getNews']),
   computed:{
     ...mapGetters(['clickSum']),
+    ...mapState(['data'])
   }
 }
 </script>
