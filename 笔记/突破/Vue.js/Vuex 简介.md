@@ -1859,6 +1859,16 @@ export default {
 }
 ```
 
+**注意vue和vuex版本兼容问题。**
+
+**组件获取store中的数据可以在data中this.$store.state.data,也可以在computed属性中使用mapState获取；**
+
+**或者get函数获取值(return this.$store.state.data)，set函数修改值(set函数中修改的值若要响应需要在里面写好this.$store.commit('event',args)来触发store里面的事件修改数据)；**
+
+**若要获取store中计算后的属性可以使用mapGetters获取，对应的store文件中的getters计算属性要写好计算数据；**
+
+**若在组件中想要修改从store获取的数据,并实现数据响应，需要使用事件触发，比如click事件=’event‘，然后再组件的methods里面使用mapMutations提交事件，或者将组件的事件处理函数内容写为（this.$store.commit('event',args)）。当然事件处理函数是写在vuex的store文件的mutation属性中的**
+
 
 
 ## 问答题

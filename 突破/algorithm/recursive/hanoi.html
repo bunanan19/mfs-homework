@@ -1,0 +1,38 @@
+//递归函数，用于解决汉诺塔问题。
+/*n: 要移动的盘子的数量。
+from: 要从哪个杆移动盘子。
+to: 要将盘子移动到哪个杆。
+via: 用作临时存储的杆。*/
+// function move(from,to){
+//     console.log(from + "->" + to)
+// }
+// function hanoi(from,via,to,n){
+//     if(n == 1){
+//         return move(from,to)
+//     }
+//     hanoi(from,to,via,n-1)
+//     move(from,to)
+//     hanoi(via,from,to,n-1)
+// }
+// hanoi('a','b','c',3)
+
+
+<script>
+function hanoi(n, from, to, aux) {
+    if (n === 1) {
+      console.log(`Move disk ${n} from ${from} to ${to}`);
+    } else {
+      hanoi(n - 1, from, aux, to);
+      console.log(`Move disk ${n} from ${from} to ${to}`);
+      hanoi(n - 1, aux, to, from);
+    }
+  }
+  hanoi(3, "A", "C", "B");
+  </script>
+  /*Move disk 1 from A to B
+    Move disk 2 from A to C
+    Move disk 1 from B to C
+    Move disk 3 from A to B
+    Move disk 1 from C to A
+    Move disk 2 from C to B
+    Move disk 1 from A to B*/

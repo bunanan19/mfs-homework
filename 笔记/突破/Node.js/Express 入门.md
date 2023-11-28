@@ -1,14 +1,32 @@
 ## 问答题
 
 1. Express的Http请求处理模型是什么？
+
+   > 
+
 2. 如何使用 express-generator 生成 express 项目？请使用它生成项目并对`app.js`和`bin/www`两个文件关键代码进行注释详解
+
+   > 
+
 3. 请查阅资料完成：什么是 Restful API ？如何使用Restful API访问服务器端资源？
+
+   >
+   >
+   >
+
 4. 如果使用Express写Restful API？
+
+   > 
+
 5. 如何使用express Router？
+
+   > 
 
 ## 代码题
 
 1. 请实现 CRUD 用户 的 restful API，用户必须要有 id，用户名，密码，邮箱字段，其他字段可以自行扩展。需要实现 `GET`，`POST`，`PUT`,`DELETE`,`PATCH`五种访问形式，数据存储在内存中即可
+
+   > 
 
 ## 算法题
 
