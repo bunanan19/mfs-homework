@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+  <style>
+    .location {
+      font-size: 17px;
+    }
+    .btn {
+      width: 80px;
+      height: 30px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      outline: none;
+      background-color: #aaa;
+      margin: 0 20px;
+    }
+    .btn:disabled{
+      background-color:#ccc;
+    }
+    select {
+      width: 120px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <form action="">
+    <div class="location">地址：
+     <!--省份选择-->
+     <select id="prov" onclick="showProv()">
+      <option value="">请选择省份</option>
+    </select>
+    <!--城市选择-->
+    <select id="city" onclick="showCity()" >
+        <option value="">请选择城市</option>
+    </select>
+    <!--县区选择-->
+    <select id="coun" onclick="selecCounty()" >
+        <option value="">请选择县区</option>
+    </select>
+    <button type="button" class="btn met1" onClick="showAddr()">确定</button>
+    </div>
+  </form>
+
+  <script>
+    var prov = document.getElementById("prov");
+    var city = document.getElementById("city");
+    var coun = document.getElementById("coun");
+
+    function createNode(id,data){
+      var option = document.createElement("option");
+      option.setAttribute('value',data.code);
+      option.innerText = data.name;
+      if(id == 'prov'){
+        prov.append(option)
+      }
+      if(id == 'city'){
+        const myArray = Array.from(city.options);
+        if(!myArray.some(x=>x.value==data.code)){
+          city.append(option)
+        }//如果下拉框此option不存在才添加，避免重复
+      }
+      if(id == 'coun'){
+        const myArray = Array.from(coun.options);
+        if(!myArray.some(x=>x.value==data.code)){
+          coun.append(option)
+        }
+      }
+    }
+    function province(){
+      var id = 'prov';
+        $.ajax({
+          url:"/city",
+          method:"get",
+          success:function(data){
+            
+            for(i=0;i<data.length;i++){
+              createNode(id,data[i].region)
+            }
+          }       
+        });
+    }
+
+    province()//生成省的下拉框
+
+    function showProv(){
+      city.innerHTML="<option value=\"\">--请选择--</option>"
+      coun.innerHTML="<option value=\"\">--请选择--</option>"
+    }//当发生省份改动时，市县的下拉框清空初始化
+    
+    function showCity(){
+      var id = 'city'
+      var index = prov.selectedIndex
+      var value = prov.options[index].getAttribute('value')//获得所选城市的num，根据num生成对应的city
+      $.ajax({
+          url:"/city",
+          method:"get",
+          success:function(data){
+            coun.innerHTML="<option value=\"\">--请选择--</option>"
+            for(i=0;i<data.length;i++){
+              if(data[i].region.code == value){
+                for(j=0;j<data[i].region.state.length;j++){
+                  var name = data[i].region.state[j].name;
+                  var num = data[i].region.state[j].code;
+                  createNode(id,data[i].region.state[j])
+                }
+              }
+            }
+          }
+        });
+    }
+
+    function selecCounty(){
+      var id = 'coun'
+      var index = prov.selectedIndex
+      var value = prov.options[index].getAttribute('value')
+      var index1 = city.selectedIndex
+      var value1 = city.options[index1].getAttribute('value')//获得所选城市的num
+      $.ajax({
+          url:"/city",
+          method:"get",
+          success:function(data){
+            for(i=0;i<data.length;i++){
+                if(data[i].region.code == value){
+                    for(j=0;j<data[i].region.state.length;j++){
+                      if(data[i].region.state[j].code == value1){
+                        for(k=0;k<data[i].region.state[j].city.length;k++){
+                          var name = data[i].region.state[j].city[k].name;
+                          var num = data[i].region.state[j].city[k].code;
+                          createNode(id,data[i].region.state[j].city[k])
+                        }
+                    }
+                  }
+                }
+              }
+            }
+        });
+    }
+  </script>
+</body>
+</html>

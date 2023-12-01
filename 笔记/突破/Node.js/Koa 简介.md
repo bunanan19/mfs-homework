@@ -1,11 +1,27 @@
+https://www.koajs.net/
+
+koa项目的创建：koa-generator 
+
+安装`npm install -g koa-generator`
+
+创建项目 `koa2 koa2-start -e=ejs  `
+
 ## 问答题
 
 1. Koa和express的中间件调用方式上有什么不同？
 
+   > express使用回调函数，基于流去实现的，函数中有两个参数req,res，单向执行，像流水线按顺序执行，当前中间件执行完便结束执行下一个中间件
+   >
+   > kos使用异步调用，避免了回调地狱，直接对ctx赋值，不需要调用流的write方法，取消了中间件目录筛选的功能，像洋葱一样一层一层执行到里面，在从里面一层一层往回继续执行，当前中间件执行完，执行下一个中间件后，又回到上一层中间件继续执行，这种方式可以实现对某个函数调用过程计时的功能
+   >
+   > koa不能使用http 动词get，post，delete等等，不同的路径去执行不同事件需要使用koa-router
+   >
    > 
 
 2. Koa比express更加轻量，基本只实现了中间件机制，如需实现完整的Web应用需要配合中间件，如何查找koa的中间件？有哪些途径可以查找？
 
+   > koa中文文档中：https://www.koajs.net/api/application
+   >
    > 
 
 3. 【选做题】koa可以兼容express的中间件吗？如果能请实现转换中间件的demo代码，如果不能请说明原因
@@ -27,6 +43,26 @@
 | pwd-rpt  | 重复密码 | 6-18个字符，需要和 password 字段一致                   |
 
 > 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 算法题
 
