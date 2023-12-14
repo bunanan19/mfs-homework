@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>用户注册</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>用户注册</h1>
+    <form action="/users/signup" method="post">
+        <div class="username">
+            用户名：<input type="text" name="username" /><br />
+        </div>
+        <div class="password">
+            密码：<input type="password" name="password" /><br />
+        </div>
+        <div class="email">
+            Email:<input type="text" name="email" /><br />
+        </div>
+        <div class="submit">
+            <input type="submit" value="注册" />
+        </div>
+    </form>
+  </body>
+</html>

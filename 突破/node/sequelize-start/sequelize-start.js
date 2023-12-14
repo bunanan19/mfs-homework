@@ -79,6 +79,22 @@ async function main(){
     // })
     // console.log(res);
 
+    // 使用事务
+    sequelize.transaction(async (transaction) => {
+        try {
+            // 在事务中执行数据库操作
+            await User.create({ name: 'John', age: 25 }, { transaction });
+            await User.update({ age: 30 }, { where: { name: 'John' }, transaction });          
+            // 提交事务
+            await transaction.commit();
+            console.log('Transaction committed successfully.');
+        } catch (error) {
+            // 回滚事务
+            await transaction.rollback();
+            console.error('Transaction rolled back:', error);
+        }
+    });
+
 
     //插入数据
     // for(i=0;i<5;i++){

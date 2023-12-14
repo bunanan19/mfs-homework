@@ -165,9 +165,9 @@
 
    <!-- 用户注册 -->
    <form action="" id="form">
-    username:<input type="text" id="username" oninput="usernameChange()" pattern="^[a-zA-Z]\w{5,17}$" required>
+    username:<input type="text" id="username" name="username" oninput="usernameChange()" pattern="^[a-zA-Z]\w{5,17}$" required>
     <div class="username valid"></div><br>
-    password:<input type="password" id="password" oninput="passwordChange()" pattern="^\w{6,18}$" required>
+    password:<input type="password" id="password" name="password" oninput="passwordChange()" pattern="^\w{6,18}$" required>
     <div class="password valid"></div><br>
     确认密码:<input type="password" id="repeatPassword" oninput="repeatChange()" required>
     <div class="repeatPassword valid"></div><br>

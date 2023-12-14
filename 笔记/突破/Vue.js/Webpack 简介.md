@@ -486,10 +486,10 @@
    
    要导入并使用Axios库进行AJAX请求，你可以按照以下步骤进行操作：   
    
-   1. 使用npm或yarn安装Axios作为依赖项：
+   1. 使用npm或yarn安装Axios作为依赖项,注意安装版本，版本过高会出错：
    
    ```shell
-   npm install axios
+   npm install axios@1.5.0
    ```
    
    2. 在JavaScript文件中导入Axios模块：
